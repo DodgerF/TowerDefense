@@ -1,0 +1,243 @@
+using System.Collections;
+using UnityEngine;
+
+namespace SpaceShooter
+{
+    [RequireComponent(typeof(Rigidbody2D))]
+    public class SpaceShip : Destructible
+    {
+        /// <summary>
+        /// Масса для автоматической установки у ригида.
+        /// </summary>
+        [Header("SpaceShip")]
+        [SerializeField] private float m_Mass;
+
+        /// <summary>
+        /// Толкающая вперед сила.
+        /// </summary>
+        [SerializeField] private float m_Thrust;
+
+        /// <summary>
+        /// Вращающая сила.
+        /// </summary>
+        [SerializeField] private float m_Mobility;
+
+        /// <summary>
+        /// Максимальная линейная скорость.
+        /// </summary>
+        [SerializeField] private float m_MaxLinearVelocity;
+        public float MaxLinearVelocity => m_MaxLinearVelocity;
+
+        /// <summary>
+        /// Максимальная вращательная скорость в градусах/сек.
+        /// </summary>
+        [SerializeField] private float m_MaxAngularVelocity;
+        public float MaxAngularVelocity => m_MaxAngularVelocity;
+
+        /// <summary>
+        /// Массив туррелей
+        /// </summary>
+        [SerializeField] private Turret[] m_Turrets;
+        public Turret FirstTurret => m_Turrets[0];
+
+        /// <summary>
+        /// Сохраненная ссылка на ригид
+        /// </summary>
+        private Rigidbody2D m_Rigid;
+
+        /// <summary>
+        /// Максимальный показатель энергии
+        /// </summary>
+        [SerializeField] private int m_MaxEnergy;
+
+        /// <summary>
+        /// Максимальный показатель патронов
+        /// </summary>
+        [SerializeField] private int m_MaxAmmo;
+
+        /// <summary>
+        /// Количество энергии в секунду
+        /// </summary>
+        [SerializeField] private float m_EnergyRegenPerSecond;
+
+        /// <summary>
+        /// Текущее количество энергии
+        /// </summary>
+        private float m_PrimaryEnergy;
+
+        /// <summary>
+        /// Текущее количество патронов
+        /// </summary>
+        private int m_SecondaryAmmo;
+
+        private bool m_IsInvulnerable;
+        public bool IsInvulnerable => m_IsInvulnerable;
+
+        [SerializeField] private SpriteRenderer m_ShieldSprite;
+        [SerializeField] private SpriteRenderer m_PreviewImage;
+        public SpriteRenderer PreviewImage => m_PreviewImage;
+        #region Public API
+
+        /// <summary>
+        /// Управление линейной тягой. От -1.0 до 1.0.
+        /// </summary>
+        public float ThrustControl { get; set; }
+
+
+        /// <summary>
+        /// Управление вращательной тягой. От -1.0 до 1.0.
+        /// </summary>
+        public float TorqueControl { get; set; }
+
+        #endregion
+
+        #region Unity Event
+
+        protected override void Start()
+        {
+            base.Start();
+
+            m_Rigid = GetComponent<Rigidbody2D>();
+            m_Rigid.mass = m_Mass;
+            m_Rigid.inertia = 1.0f;
+
+            m_PrimaryEnergy = m_MaxEnergy;
+            m_SecondaryAmmo = m_MaxAmmo;
+
+            m_IsInvulnerable = false;
+
+            if (m_ShieldSprite != null)
+            {
+                m_ShieldSprite.enabled = false;
+            }
+        }
+
+        private void Update()
+        {
+
+        }
+
+        private void FixedUpdate()
+        {
+            UpdateRigidBody();
+            //UpdateEnergyRegen();
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Добавляет сил короблю для движения
+        /// </summary>
+        private void UpdateRigidBody()
+        {
+            m_Rigid.AddForce(m_Thrust * ThrustControl * transform.up * Time.fixedDeltaTime, ForceMode2D.Force);
+
+            m_Rigid.AddForce(-m_Rigid.velocity * (m_Thrust / m_MaxLinearVelocity) * Time.fixedDeltaTime, ForceMode2D.Force);
+
+            m_Rigid.AddTorque(TorqueControl * m_Mobility * Time.fixedDeltaTime, ForceMode2D.Force);
+
+            m_Rigid.AddTorque(-m_Rigid.angularVelocity * (m_Mobility / m_MaxAngularVelocity) * Time.fixedDeltaTime, ForceMode2D.Force);
+        }
+
+        /*        public void Fire(TurretMode mode)
+                {
+                    foreach(Turret turret in m_Turrets)
+                    {
+                        if (turret.Mode == mode)
+                        {
+                            turret.Fire();
+                        }
+                    }
+                }
+
+                public void AddEnergy(int energy)
+                {
+                    m_PrimaryEnergy = Mathf.Clamp(m_PrimaryEnergy + energy, 0, m_MaxEnergy);
+                }
+
+                public void AddAmmo(int ammo)
+                {
+                    m_SecondaryAmmo = Mathf.Clamp(m_SecondaryAmmo + ammo, 0, m_MaxAmmo);
+                }
+
+                private void UpdateEnergyRegen()
+                {
+                    m_PrimaryEnergy += m_EnergyRegenPerSecond * Time.fixedDeltaTime;
+                    m_PrimaryEnergy = Mathf.Clamp(m_PrimaryEnergy,0, m_MaxEnergy);
+                }
+        */
+
+        /// <summary>
+        /// TODO Temporary method. Replace.
+        /// Used in turret
+        /// </summary>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public bool DrawAmmo(int count)
+        {
+            return true;
+        }
+        /// <summary>
+        /// TODO Temporary method. Replace.
+        /// Used in turret
+        /// </summary>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public bool DrawEnergy(int count)
+        {
+            return true;
+        }
+
+/*        public void AssignWeapon(TurretProperties properties)
+        {
+            foreach(Turret turret in m_Turrets)
+            {
+                turret.AssignLoadout(properties);
+            }
+        }
+*/
+        protected override void OnDeath()
+        {
+            if (m_IsInvulnerable) return;
+
+            base.OnDeath();
+        }
+
+        public override void ApplyDamage(float damage)
+        {
+            if (m_IsInvulnerable) return;
+ 
+            base.ApplyDamage(damage);
+        }
+
+        public void SetInvulnerable(float time)
+        {
+            StartCoroutine(InvulnerableCorutine(time));
+        }
+
+        private IEnumerator InvulnerableCorutine(float time)
+        {
+            m_IsInvulnerable = true;
+            m_ShieldSprite.enabled = true;
+
+            yield return new WaitForSeconds(time);
+
+            m_IsInvulnerable = false;
+            m_ShieldSprite.enabled = false;
+        }
+
+        public void AddSpeed(float speed, float time)
+        {
+            StartCoroutine(SpeedBonusCorutine(speed, time));
+        }
+
+        private IEnumerator SpeedBonusCorutine(float speed, float time)
+        {
+            m_Thrust += speed;
+
+            yield return new WaitForSeconds(time);
+
+            m_Thrust -= speed;
+        }
+    }
+}
