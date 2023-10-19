@@ -1,186 +1,307 @@
-using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace SpaceShooter
 {
+    /// <summary>
+    /// Скрипт управления AI. Цепляется на префаб корабля.
+    /// Реализует управление используя набор примитивных действий.
+    /// </summary>
     [RequireComponent(typeof(SpaceShip))]
     public class AIController : MonoBehaviour
     {
+        /// <summary>
+        /// Типы поведений.
+        /// </summary>
         public enum AIBehaviour
         {
+            /// <summary>
+            /// Ничего не делаем.
+            /// </summary>
             Null,
-            Patrol,
+
+            /// <summary>
+            /// Патрулируем и атакуем врагов.
+            /// </summary>
+            Patrol
         }
 
-        [SerializeField] public AIBehaviour m_AIBehaviour;
+        [SerializeField] private AIBehaviour m_AIBehaviour;
 
-        [SerializeField] private Area m_PatolZone;
-        [SerializeField] private AIPath m_PatrolPath;
-        private int m_CurrentPointPatrol;
-
-        [Range(0f, 1f)]
+        /// <summary>
+        /// Как быстро будем летать.
+        /// </summary>
+        [Range(0.0f, 1.0f)]
         [SerializeField] private float m_NavigationLinear;
 
-        [Range(0f, 1f)]
+        /// <summary>
+        /// Как быстро будет бот поворачиваться.
+        /// </summary>
+        [Range(0.0f, 1.0f)]
         [SerializeField] private float m_NavigationAngular;
 
+        /// <summary>
+        /// Текущая точка патрулирования. Впринципе может быть размером со всю игровую область.
+        /// </summary>
+        [SerializeField] private Area m_PatrolPoint;
+
+        /// <summary>
+        /// Время рандомизации выбора новой точки движения.
+        /// Задает значение таймера ActionTimerType.RandomizeDirection
+        /// </summary>
         [SerializeField] private float m_RandomSelectMovePointTime;
+
+        /// <summary>
+        /// Время между поисками целей. Минимальное внутри реализации 1сек.
+        /// </summary>
         [SerializeField] private float m_FindNewTargetTime;
+
+        /// <summary>
+        /// Рандомное время между выстрелами.
+        /// </summary>
         [SerializeField] private float m_ShootDelay;
+
+        /// <summary>
+        /// Дальность обзора для рейкаста вперед.
+        /// </summary>
         [SerializeField] private float m_EvadeRayLength;
 
+        /// <summary>
+        /// Кеш ссылка на корабль.
+        /// </summary>
         private SpaceShip m_SpaceShip;
+
+        /// <summary>
+        /// Текущая точка куда бот должен лететь. Может являтся как статичной, так и какой то динамической.
+        /// </summary>
         private Vector3 m_MovePosition;
+
+        /// <summary>
+        /// Выбранная ботом цель.
+        /// </summary>
         private Destructible m_SelectedTarget;
 
-        private Timer m_RandomizeDirectionTimer;
-        private Timer m_FireTimer;
-        private Timer m_FindNewTargetTimer;
+        #region Unity events
 
-        #region Unity Events
         private void Start()
         {
             m_SpaceShip = GetComponent<SpaceShip>();
-            m_CurrentPointPatrol = 0;
-            InitTimers();
+
+            InitActionTimers();
         }
+
         private void Update()
         {
-            UpdateTimers();
-
+            UpdateActionTimers();
             UpdateAI();
         }
+
         #endregion
 
-        #region Logic
+
+        /// <summary>
+        /// Метод обновления логики AI.
+        /// </summary>
         private void UpdateAI()
         {
-            if (m_AIBehaviour == AIBehaviour.Null) return;
-
-            if (m_AIBehaviour == AIBehaviour.Patrol)
+            switch (m_AIBehaviour)
             {
-                UpdateVehaviourPatrol();
-            }
-        }
+                case AIBehaviour.Null:
+                    break;
 
-        private void UpdateVehaviourPatrol()
-        {
-            ControlShip();
-            FindNewPosition();
-            EvadeCollision();
-            FindNewAttackTarget();
-            //Fire();
-        }
-
-        /*private void Fire()
-        {
-            if (m_SelectedTarget != null)
-            {
-                if (m_FireTimer.IsFinnished)
-                {
-                    m_SpaceShip.Fire(TurretMode.Primary);
-                    m_FireTimer.Start(m_ShootDelay);
-                }
-            }
-        }*/
-
-        private void FindNewAttackTarget()
-        {
-            if (m_FindNewTargetTimer.IsFinnished)
-            {
-                m_SelectedTarget = FindNearsDestructibleTarget();
-                m_FindNewTargetTimer.Start(m_ShootDelay);
-            }    
-        }
-
-        private Destructible FindNearsDestructibleTarget()
-        {
-            float minDist = float.MaxValue;
-            Destructible target = null;
-
-            foreach (var v in Destructible.AllDestructibles)
-            {
-                if (v.GetComponent<SpaceShip>() == this) continue;
-                if (v.TeamId == Destructible.TeamIdNeutral) continue;
-                if (v.TeamId == m_SpaceShip.TeamId) continue;
-
-                float dist = Vector2.Distance(m_SpaceShip.transform.position, v.transform.position);          
-                if (dist < minDist)
-                {
-                    minDist = dist;
-                    target = v;
-                }
-            }
-
-            return target;
-        }
-
-        private void EvadeCollision()
-        {
-            if (Physics2D.Raycast(transform.position, transform.up, m_EvadeRayLength))
-            {
-                m_MovePosition = transform.position + transform.right * 100.0f;
-            }
-        }
-        
-        private void ControlShip()
-        {
-            m_SpaceShip.ThrustControl = m_NavigationLinear;
-            m_SpaceShip.TorqueControl = ComputeAliginTorqueNormalized(m_MovePosition, m_SpaceShip.transform) * m_NavigationAngular;
-        }
-
-        private void FindNewPosition()
-        {
-            if (m_AIBehaviour == AIBehaviour.Patrol)
-            {
-                if (m_SelectedTarget != null)
-                {
-                    m_MovePosition = MakeLead(
-                        m_SpaceShip.transform.position, m_SpaceShip.transform.up * (m_SpaceShip.FirstTurret.Property.ProjectilePrefab.Velocity),
-                        m_SelectedTarget.transform.position, m_SelectedTarget.GetComponent<Rigidbody2D>().velocity);
-                }
-                else
-                {
-                    if (m_PatolZone != null)
-                    {
-                        bool isInsidePatrolZone = (m_PatolZone.transform.position - transform.position).sqrMagnitude < m_PatolZone.Radius * m_PatolZone.Radius;
-
-                        if (isInsidePatrolZone)
-                        {
-                            if (m_RandomizeDirectionTimer.IsFinnished)
-                            {
-                                Vector2 newPoint = UnityEngine.Random.onUnitSphere * m_PatolZone.Radius + m_PatolZone.transform.position;
-
-                                m_MovePosition = newPoint;
-
-                                m_RandomizeDirectionTimer.Start(m_RandomSelectMovePointTime);
-                            }
-                        }
-                        else
-                        {
-                            m_MovePosition = m_PatolZone.transform.position;
-                        }
-                    }
-                    if (m_PatrolPath != null)
-                    {
-                        Area point = m_PatrolPath[m_CurrentPointPatrol];
-
-                        bool isInsidePoint = (point.transform.position - transform.position).sqrMagnitude < point.Radius * point.Radius;
-
-                        if (isInsidePoint)
-                        {
-                            m_CurrentPointPatrol = (m_CurrentPointPatrol + 1 + m_PatrolPath.Lenght) % m_PatrolPath.Lenght;
-                        }
-
-                        m_MovePosition = point.transform.position;
-                    }
-                }
+                case AIBehaviour.Patrol:
+                    UpdateBehaviourPatrol();
+                    break;
             }
         }
 
         /// <summary>
-        /// ����� ���������� ����� ����������.
+        /// Метод поведения патрулирования.
         /// </summary>
+        private void UpdateBehaviourPatrol()
+        {
+            ActionFindNewMovePosition();
+            ActionControlShip();
+            ActionFindNewAttackTarget();
+            ActionFire();
+            ActionEvadeCollision();
+        }
+
+        /// <summary>
+        /// Действие управления кораблем.
+        /// </summary>
+        private void ActionControlShip()
+        {
+            m_SpaceShip.ThrustControl = m_NavigationLinear;
+            m_SpaceShip.TorqueControl = ComputeAlignTorqueNormalized(m_MovePosition, transform) * m_NavigationAngular;
+        }
+
+        private const float MaxAngle = 45.0f;
+
+        /// <summary>
+        /// Метод вычисления управляющего нормализованного значения вращательной тяги корабля,
+        /// так чтобы навестись на цель.
+        /// </summary>
+        /// <param name="targetPosition"></param>
+        /// <param name="ship"></param>
+        /// <returns></returns>
+        private static float ComputeAlignTorqueNormalized(Vector3 targetPosition, Transform ship)
+        {
+            // переводим целевую позицию в систему координат корабля
+            Vector2 localTargetPosition = ship.InverseTransformPoint(targetPosition);
+
+            // вычисляем знаковый угол между направлением вперед корабля и вектором до цели
+            float angle = Vector3.SignedAngle(localTargetPosition, Vector3.up, Vector3.forward);
+
+            // тут можно ограничить угол до 45 градусов чтобы нормализованное значение
+            // было более шустрым при повороте, если не клемпить то максимальные скорости поворота будут
+            // почти всегда недостижим. Или проще если угол до цели больше чем 45 то почему бы сразу не крутануть баранку по максимуму до нее.
+            angle = Mathf.Clamp(angle, -MaxAngle, MaxAngle) / MaxAngle;
+            
+            // Возвращаем значение.
+            return -angle;
+        }
+
+        /// <summary>
+        /// Метод поиска новой точки движения.
+        /// </summary>
+        private void ActionFindNewMovePosition()
+        {
+            if (m_AIBehaviour == AIBehaviour.Patrol)
+            {
+                // данное условие появится в юните стрельбы, корабль будет лететь до цели.
+                if (m_SelectedTarget != null)
+                {
+                    m_MovePosition = m_SelectedTarget.transform.position;
+                }
+                else
+                if (m_PatrolPoint != null)
+                {
+                    bool isInsidePatrolZone = (m_PatrolPoint.transform.position - transform.position).sqrMagnitude < m_PatrolPoint.Radius * m_PatrolPoint.Radius;
+
+                    if (isInsidePatrolZone)
+                    {
+                        // если катаемся внутри зоны патрулирования то выбираем случайную точки внутри.
+                        if (IsActionTimerFinished(ActionTimerType.RandomizeDirection))
+                        {
+                            Vector2 newPoint = UnityEngine.Random.onUnitSphere * m_PatrolPoint.Radius + m_PatrolPoint.transform.position;
+                            m_MovePosition = newPoint;
+
+
+                            SetActionTimer(ActionTimerType.RandomizeDirection, m_RandomSelectMovePointTime);
+                        }
+                    }
+                    else
+                    {
+                        // если мы не в зоне патруля то едем до нее.
+                        m_MovePosition = m_PatrolPoint.transform.position;
+                    }
+                }
+
+            }
+
+        }
+
+        #region Action timers
+
+        /// <summary>
+        /// Типы таймеров.
+        /// </summary>
+        private enum ActionTimerType
+        {
+            Null,
+
+            /// <summary>
+            /// Рандомизация движения.
+            /// </summary>
+            RandomizeDirection,
+
+            /// <summary>
+            /// Стрельба.
+            /// </summary>
+            Fire,
+
+            /// <summary>
+            /// Поиск новый цели.
+            /// </summary>
+            FindNewTarget,
+
+            /// <summary>
+            /// Максимальное кол-во типов таймеров. Немного С стайл можно через 
+            /// </summary>
+            MaxValues
+        }
+
+        private float[] m_ActionTimers;
+
+        /// <summary>
+        /// Инициализируем таймеры. Впринципе можно унести в отдельный класс.
+        /// </summary>
+        private void InitActionTimers()
+        {
+            m_ActionTimers = new float[(int)ActionTimerType.MaxValues];
+        }
+
+        private void UpdateActionTimers()
+        {
+            for (int i = 0; i < m_ActionTimers.Length; i++)
+            {
+                if (m_ActionTimers[i] > 0)
+                    m_ActionTimers[i] -= Time.deltaTime;
+            }
+        }
+
+        private void SetActionTimer(ActionTimerType e, float time)
+        {
+            m_ActionTimers[(int)e] = time;
+        }
+
+        private bool IsActionTimerFinished(ActionTimerType e)
+        {
+            return m_ActionTimers[(int)e] <= 0; // ВАЖНО: с нулем сравнивать так потому что юнити может влепить таймер в 0
+        }
+
+        #endregion
+
+        
+        
+        /// <summary>
+        /// Действие определения новой цели
+        /// </summary>
+        private void ActionFindNewAttackTarget()
+        {
+            if (IsActionTimerFinished(ActionTimerType.FindNewTarget))
+            {
+                m_SelectedTarget = FindNearestDestructibleTarget();
+
+                SetActionTimer(ActionTimerType.FindNewTarget, 1 + UnityEngine.Random.Range(0, m_FindNewTargetTime)); // минимальное значение 1 чтобы не дергать каждый кадр.
+            }
+        }
+
+        /// <summary>
+        /// Стреляем если надо.
+        /// </summary>
+        private void ActionFire()
+        {
+            if(m_SelectedTarget != null)
+            {
+                if(IsActionTimerFinished(ActionTimerType.Fire))
+                {
+                    //m_SpaceShip.Fire(TurretMode.Primary);
+
+                    SetActionTimer(ActionTimerType.Fire, UnityEngine.Random.Range(0, m_ShootDelay));
+                }
+            }
+            
+        }
+
+        /// <summary>
+        /// Метод вычисления точки упреждения.
+        /// </summary>
+        /// <param name="launchPoint"></param>
+        /// <param name="launchVelocity"></param>
+        /// <param name="targetPos"></param>
+        /// <param name="targetVelocity"></param>
+        /// <returns></returns>
         public static Vector3 MakeLead(
         Vector3 launchPoint,
         Vector3 launchVelocity,
@@ -203,42 +324,70 @@ namespace SpaceShooter
             return targetPos + V * dt;
         }
 
-
-        #endregion
-
-        private const float MAX_ANGLE = 45f;
-        private static float ComputeAliginTorqueNormalized(Vector3 targetPosition, Transform ship)
+        /// <summary>
+        /// Метод поиска ближайшей цели.
+        /// Реализуем в юните стрельбы.
+        /// </summary>
+        /// <returns></returns>
+        private Destructible FindNearestDestructibleTarget()
         {
-            //������� ��������� � ���������
-            Vector2 localTargetPosition = ship.InverseTransformPoint(targetPosition);
-            //��� �������� � �������
-            float angle = Vector3.SignedAngle(localTargetPosition, Vector3.up, Vector3.forward);
-            //����������� ��� ������������� �������� 
-            angle = Mathf.Clamp(angle, -MAX_ANGLE, MAX_ANGLE) / MAX_ANGLE;
+            float dist2 = -1;
 
-            return -angle;
+            Destructible potentialTarget = null;
+
+            foreach (var v in Destructible.AllDestructibles)
+            {
+                if (v.GetComponent<SpaceShip>() == m_SpaceShip)
+                    continue;
+
+                // исключаем полностью нейтральных (например астероиды)
+                if (Destructible.TeamIdNeutral == v.TeamId)
+                    continue;
+
+                if (m_SpaceShip.TeamId == v.TeamId)
+                    continue;
+
+                float d2 = (m_SpaceShip.transform.position - v.transform.position).sqrMagnitude;
+
+                if (dist2 < 0 || d2 < dist2)
+                {
+                    potentialTarget = v;
+                    dist2 = d2;
+                }
+            }
+
+            return potentialTarget;
         }
 
-        public void SerPatrolBehaviour(Area pointPatrol)
+        /// <summary>
+        /// Метод установки поведения патрулирования. Например после того как спавнер заинстансит бота.
+        /// </summary>
+        /// <param name="point"></param>
+        public void SetPatrolBehaviour(Area point)
         {
             m_AIBehaviour = AIBehaviour.Patrol;
-            m_PatolZone = pointPatrol;
+            m_PatrolPoint = point;
         }
 
-        #region Timers
+        #region AI collision evade
 
-        private void InitTimers()
-        {
-            m_RandomizeDirectionTimer = new Timer(m_RandomSelectMovePointTime);
-            m_FireTimer = new Timer(m_ShootDelay);
-            m_FindNewTargetTimer = new Timer(m_FindNewTargetTime);
-    }
 
-        private void UpdateTimers()
+
+        /// <summary>
+        /// Метод для изменения m_MovePosition так чтобы не вляпаться в коллайдер.
+        /// </summary>
+        private void ActionEvadeCollision()
         {
-            m_RandomizeDirectionTimer.RemoveTime(Time.deltaTime);
-            m_FireTimer.RemoveTime(Time.deltaTime);
-            m_FindNewTargetTimer.RemoveTime(Time.deltaTime);
+            if(Physics2D.Raycast(transform.position, transform.up, m_EvadeRayLength))
+            {
+                // можно рандомно выбрать полететь влево или вправо, только надо будет выставть таймер
+                // иначе каждый кадр будет спамится то влево то вправо и в итоге ничего не выйдет.
+                
+                // выставляем точку вдалеке чтобы бот на нее начал немеделнно поворачиваться.
+                m_MovePosition = transform.position + transform.right * 100.0f;
+
+                // проверить можно в плеймоде на сцене двигая перед кораблями AI коллайдеры, впринципе любые
+            }
         }
 
         #endregion

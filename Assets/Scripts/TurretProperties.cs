@@ -6,7 +6,8 @@ namespace SpaceShooter
     public enum TurretMode
     {
         Primary,
-        Secondary
+        Secondary,
+        Auto
     }
 
     [CreateAssetMenu]
@@ -14,9 +15,6 @@ namespace SpaceShooter
     {
         [SerializeField] private TurretMode m_Mode;
         public TurretMode Mode => m_Mode;
-
-        [SerializeField] private HomingMissile m_MisslePrefab;
-        public HomingMissile HomingMissilePrefab => m_MisslePrefab;
 
         [SerializeField] private Projectile m_ProjectilePrefab;
         public Projectile ProjectilePrefab => m_ProjectilePrefab;

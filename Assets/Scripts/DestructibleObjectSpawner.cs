@@ -40,7 +40,7 @@ namespace SpaceShooter
 
             if(destructible.TryGetComponent<AIController>(out AIController ai))
             {
-                ai.SerPatrolBehaviour(m_MoveTarget);
+                ai.SetPatrolBehaviour(m_MoveTarget);
             }
 
 

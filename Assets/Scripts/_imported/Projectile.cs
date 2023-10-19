@@ -12,16 +12,11 @@ namespace SpaceShooter
         protected float m_Timer;
 
         protected Destructible m_Parent;
-        protected bool isPlayerShot;
         #endregion
 
         #region Unity Events
         protected virtual void Start()
         {
-            if (m_Parent == Player.Instance.Ship)
-            {
-                isPlayerShot = true;
-            }
         }
 
         protected virtual void Update()
@@ -42,7 +37,7 @@ namespace SpaceShooter
             RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, stepLenght);
             if (hit)
             {
-                if (hit.collider.transform.TryGetComponent<Destructible>(out Destructible destructible) && destructible != m_Parent)
+                if (hit.collider.transform.root.TryGetComponent<Destructible>(out Destructible destructible) && destructible != m_Parent)
                 {
                     destructible.ApplyDamage(m_Damage);
 
@@ -54,18 +49,16 @@ namespace SpaceShooter
 
         protected void UpdateScore(Destructible destructible)
         {
-            if (isPlayerShot)
-            {
-                Player.Instance.AddScore(destructible.ScoreValue);
+            return;
+            /*Player.Instance.AddScore(destructible.ScoreValue);
 
-                if (destructible.TryGetComponent<SpaceShip>(out SpaceShip ship))
+            if (destructible.TryGetComponent<SpaceShip>(out SpaceShip ship))
+            {
+                if (ship.HitPoints <= 0)
                 {
-                    if (ship.HitPoints <= 0)
-                    {
-                        Player.Instance.AddKill();
-                    }
+                    Player.Instance.AddKill();
                 }
-            }
+            }*/
         }
         protected void CheckTimer()
         {
@@ -78,6 +71,7 @@ namespace SpaceShooter
 
         protected virtual void OnProjectileLifeEnd()
         {
+            
             Destroy(gameObject);
         }
 
