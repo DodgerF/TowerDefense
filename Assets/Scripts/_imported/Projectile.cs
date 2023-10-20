@@ -1,6 +1,7 @@
+using SpaceShooter;
 using UnityEngine;
 
-namespace SpaceShooter
+namespace TowerDefense
 {
     public class Projectile : Entity
     {
@@ -10,11 +11,16 @@ namespace SpaceShooter
         [SerializeField] protected float m_Lifetime;
         [SerializeField] protected float m_Damage;
         protected float m_Timer;
+        private ProjectilePool m_Pool;
 
         protected Destructible m_Parent;
         #endregion
 
         #region Unity Events
+        private void OnEnable()
+        {
+            m_Timer = 0f;
+        }
         protected virtual void Start()
         {
         }
@@ -71,13 +77,16 @@ namespace SpaceShooter
 
         protected virtual void OnProjectileLifeEnd()
         {
-            
-            Destroy(gameObject);
+            m_Pool.Return(this);
         }
 
         public void SetParentShooter(Destructible parent)
         {
             m_Parent = parent;
+        }
+        public void SetPool(ProjectilePool pool)
+        {
+            m_Pool = pool;
         }
     }
 }

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-namespace SpaceShooter
+namespace TowerDefense
 {
     public enum TurretMode
     {

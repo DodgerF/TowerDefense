@@ -1,11 +1,13 @@
+using SpaceShooter;
 using UnityEngine;
 
 
-namespace SpaceShooter
+namespace TowerDefense
 {
     public class Turret : MonoBehaviour
     {
         [SerializeField] private TurretProperties m_TurretProperties;
+        [SerializeField] private int m_DefaultCapacity;
         public TurretProperties Property => m_TurretProperties;
 
         private float m_RefireTimer;
@@ -14,8 +16,14 @@ namespace SpaceShooter
 
         private SpaceShip m_Ship;
 
+        private ProjectilePool m_Pool;
+
         #region UnityEvents
-       
+        private void Awake()
+        {
+            m_Pool = new ProjectilePool(m_TurretProperties.ProjectilePrefab, m_DefaultCapacity);
+        }
+
         private void Update()
         {
             if (m_RefireTimer > 0)
@@ -45,7 +53,8 @@ namespace SpaceShooter
 
             if (m_TurretProperties.ProjectilePrefab != null)
             {
-                Projectile projectile = Instantiate(m_TurretProperties.ProjectilePrefab).GetComponent<Projectile>();
+                Projectile projectile = m_Pool.Get();
+                projectile.SetPool(m_Pool);
                 projectile.transform.position = transform.position;
                 projectile.transform.up = transform.up;
                 projectile.SetParentShooter(m_Ship);

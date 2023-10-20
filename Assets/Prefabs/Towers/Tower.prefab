@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TurretProperties: {fileID: 11400000, guid: 06e4f50942b41594c9687843664f6e39, type: 2}
+  m_DefaultCapacity: 4
 --- !u!1 &5479997300914277580
 GameObject:
   m_ObjectHideFlags: 0
