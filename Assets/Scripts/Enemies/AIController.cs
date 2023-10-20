@@ -1,7 +1,13 @@
-﻿using UnityEngine;
+﻿using TowerDefense;
+using UnityEngine;
 
 namespace SpaceShooter
 {
+    public enum AIBehaviour
+    {
+        Null,
+        Patrol
+    }
     /// <summary>
     /// Скрипт управления AI. Цепляется на префаб корабля.
     /// Реализует управление используя набор примитивных действий.
@@ -9,21 +15,7 @@ namespace SpaceShooter
     [RequireComponent(typeof(SpaceShip))]
     public class AIController : MonoBehaviour
     {
-        /// <summary>
-        /// Типы поведений.
-        /// </summary>
-        public enum AIBehaviour
-        {
-            /// <summary>
-            /// Ничего не делаем.
-            /// </summary>
-            Null,
 
-            /// <summary>
-            /// Патрулируем и атакуем врагов.
-            /// </summary>
-            Patrol
-        }
 
         [SerializeField] private AIBehaviour m_AIBehaviour;
 
@@ -180,15 +172,7 @@ namespace SpaceShooter
 
                     if (isInsidePatrolZone)
                     {
-                        // если катаемся внутри зоны патрулирования то выбираем случайную точки внутри.
-                        if (IsActionTimerFinished(ActionTimerType.RandomizeDirection))
-                        {
-                            Vector2 newPoint = UnityEngine.Random.onUnitSphere * m_PatrolPoint.Radius + m_PatrolPoint.transform.position;
-                            m_MovePosition = newPoint;
-
-
-                            SetActionTimer(ActionTimerType.RandomizeDirection, m_RandomSelectMovePointTime);
-                        }
+                        GetNewPoint();
                     }
                     else
                     {
@@ -199,6 +183,19 @@ namespace SpaceShooter
 
             }
 
+        }
+
+        protected virtual void GetNewPoint()
+        {
+            // если катаемся внутри зоны патрулирования то выбираем случайную точки внутри.
+            if (IsActionTimerFinished(ActionTimerType.RandomizeDirection))
+            {
+                Vector2 newPoint = UnityEngine.Random.onUnitSphere * m_PatrolPoint.Radius + m_PatrolPoint.transform.position;
+                m_MovePosition = newPoint;
+
+
+                SetActionTimer(ActionTimerType.RandomizeDirection, m_RandomSelectMovePointTime);
+            }
         }
 
         #region Action timers

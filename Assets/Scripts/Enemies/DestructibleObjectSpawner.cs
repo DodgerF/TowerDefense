@@ -1,6 +1,7 @@
+using SpaceShooter;
 using UnityEngine;
 
-namespace SpaceShooter 
+namespace TowerDefense 
 {
     [RequireComponent(typeof(CircleArea))]
     public class DestructibleObjectSpawner : MonoBehaviour
@@ -10,7 +11,7 @@ namespace SpaceShooter
             Start,
             Loop
         }
-        [SerializeField] private Area m_MoveTarget;
+        [SerializeField] private AIPath m_Path;
         [SerializeField] private Destructible[] m_DestructiblePrefabs;
         [SerializeField] private SpawnMode m_SpawnMode; 
         [SerializeField] private int m_NumSpawns;
@@ -38,9 +39,9 @@ namespace SpaceShooter
             GameObject destructible = Instantiate(m_DestructiblePrefabs[index].gameObject);
             destructible.transform.position = m_Area.GetRandomInsideZone();
 
-            if(destructible.TryGetComponent<AIController>(out AIController ai))
+            if(destructible.TryGetComponent<EnemiesController>(out EnemiesController enemy))
             {
-                ai.SetPatrolBehaviour(m_MoveTarget);
+                enemy.SetPath(m_Path);
             }
 
 

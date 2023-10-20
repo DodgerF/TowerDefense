@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1196791155727533462}
   - component: {fileID: 6392665053886599288}
   - component: {fileID: 7420511834810423758}
+  - component: {fileID: 4802509834943019487}
   m_Layer: 0
   m_Name: View
   m_TagString: Untagged
@@ -106,6 +107,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4802509834943019487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3579891397598387365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 729276372a273394ba696230f378c1ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4771288276050378135
 GameObject:
   m_ObjectHideFlags: 0
@@ -116,7 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2926515514035934230}
   - component: {fileID: 2548523440745460994}
-  - component: {fileID: 5260497321523457396}
+  - component: {fileID: 9164260480183711324}
   - component: {fileID: 8842151352492930047}
   m_Layer: 0
   m_Name: Knight
@@ -169,7 +182,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &5260497321523457396
+--- !u!114 &9164260480183711324
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -178,15 +191,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 4771288276050378135}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96dcea3d8e57c9141b0bbae366d660d3, type: 3}
+  m_Script: {fileID: 11500000, guid: 327aa2dffe7d5c84d84f44c2a4e99528, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_AIBehaviour: 1
   m_NavigationLinear: 1
   m_NavigationAngular: 1
   m_PatrolPoint: {fileID: 0}
-  m_RandomSelectMovePointTime: 10
-  m_FindNewTargetTime: 10
+  m_RandomSelectMovePointTime: 0
+  m_FindNewTargetTime: 0
   m_ShootDelay: 0
   m_EvadeRayLength: 0
 --- !u!114 &8842151352492930047
@@ -210,10 +223,10 @@ MonoBehaviour:
   m_TeamId: 0
   m_ScoreValue: 0
   m_Mass: 1
-  m_Thrust: 10
+  m_Thrust: 1000
   m_Mobility: 1000
-  m_MaxLinearVelocity: 10
-  m_MaxAngularVelocity: 1000
+  m_MaxLinearVelocity: 1
+  m_MaxAngularVelocity: 360
 --- !u!1 &8495702919350083524
 GameObject:
   m_ObjectHideFlags: 0

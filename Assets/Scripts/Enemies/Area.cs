@@ -1,7 +1,7 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-namespace SpaceShooter
+namespace TowerDefense
 {
     public class Area : MonoBehaviour
     {

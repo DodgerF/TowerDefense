@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SpaceShooter
+namespace TowerDefense
 {
     public class AIPath : MonoBehaviour
     {
@@ -15,7 +15,8 @@ namespace SpaceShooter
 
             foreach(var p in m_Points)
             {
-                Gizmos.DrawSphere(p.transform.position, p.Radius);
+                if (p != null)
+                    Gizmos.DrawSphere(p.transform.position, p.Radius);
             }
         }
 #endif
