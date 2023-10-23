@@ -23,7 +23,7 @@ namespace SpaceShooter
         /// Как быстро будем летать.
         /// </summary>
         [Range(0.0f, 1.0f)]
-        [SerializeField] private float m_NavigationLinear;
+        [SerializeField] public float NavigationLinear;
 
         /// <summary>
         /// Как быстро будет бот поворачиваться.
@@ -123,7 +123,7 @@ namespace SpaceShooter
         /// </summary>
         private void ActionControlShip()
         {
-            m_SpaceShip.ThrustControl = m_NavigationLinear;
+            m_SpaceShip.ThrustControl = NavigationLinear;
             m_SpaceShip.TorqueControl = ComputeAlignTorqueNormalized(m_MovePosition, transform) * m_NavigationAngular;
         }
 

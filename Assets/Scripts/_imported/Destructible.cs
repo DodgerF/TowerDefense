@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,25 +11,22 @@ namespace SpaceShooter
     [RequireComponent(typeof(Rigidbody2D))]
     public class Destructible : Entity
     {
-        #region Properties
+        #region Fields
 
-        /// <summary>
-        /// Object is ignores damage
-        /// </summary>
         [SerializeField] private bool indestructible;
         public bool IsIndestructible => indestructible;
 
+        #region HP
         /// <summary>
         /// Initial hit points
         /// </summary>
-        [SerializeField] private int hitPoints;
-        public float MaxHP => hitPoints;
+        [Range(0, 100)]
+        [SerializeField] private int _maxHP;
+        public int MaxHP => _maxHP; 
 
-        /// <summary>
-        /// Current hit points
-        /// </summary>
-        private float currentHitPoints;
-        public float HitPoints => currentHitPoints;
+        private float _currentHP;
+        public float GetCurrentHP => _currentHP;
+        #endregion
 
         #endregion
 
@@ -36,7 +34,8 @@ namespace SpaceShooter
 
         protected virtual void Start()
         {
-            currentHitPoints = hitPoints;
+            _currentHP = _maxHP;
+;
         }
 
         [SerializeField] private UnityEvent m_EventOnDeath;
@@ -54,12 +53,21 @@ namespace SpaceShooter
 
             if (indestructible) return;
 
-            currentHitPoints -= damage;
+            _currentHP -= damage;
            
-            if (currentHitPoints <= 0)
+            if (_currentHP <= 0)
             {
                 OnDeath();
             }
+        }
+
+        public void SetMaxHP(int value)
+        {
+
+            if (value <= 0) return;
+
+            _maxHP = value;
+
         }
 
         #endregion

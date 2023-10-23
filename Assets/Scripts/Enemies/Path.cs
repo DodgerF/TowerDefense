@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace TowerDefense
 {
-    public class AIPath : MonoBehaviour
+    public class Path : MonoBehaviour
     {
         [SerializeField] private Area[] m_Points;
         public int Lenght => m_Points.Length;

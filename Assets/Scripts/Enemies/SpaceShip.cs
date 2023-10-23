@@ -19,6 +19,7 @@ namespace SpaceShooter
         /// Толкающая вперед сила.
         /// </summary>
         [SerializeField] private float m_Thrust;
+        
 
         /// <summary>
         /// Вращающая сила.

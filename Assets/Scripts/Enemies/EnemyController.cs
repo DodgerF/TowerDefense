@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace TowerDefense
 {
-    public class EnemiesController : AIController
+    public class EnemyController : AIController
     {
         #region Fields
-        private AIPath m_Path;
+        private Path m_Path;
         private int m_PathIndex;
 
         #endregion
@@ -34,7 +34,7 @@ namespace TowerDefense
         #endregion
 
         #region Public methods
-        public void SetPath(AIPath path)
+        public void SetPath(Path path)
         {
             m_Path = path;
             m_PathIndex = 0;
