@@ -130,9 +130,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2926515514035934230}
   - component: {fileID: 2548523440745460994}
-  - component: {fileID: 5727024309271066660}
-  - component: {fileID: 9164260480183711324}
-  - component: {fileID: 8842151352492930047}
+  - component: {fileID: 5925203994191920928}
+  - component: {fileID: 6317390235209496858}
   m_Layer: 0
   m_Name: Knight
   m_TagString: Untagged
@@ -184,7 +183,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &5727024309271066660
+--- !u!114 &5925203994191920928
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -193,54 +192,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 4771288276050378135}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8be31d42e414f4418b4d62678be0822, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &9164260480183711324
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4771288276050378135}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 327aa2dffe7d5c84d84f44c2a4e99528, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AIBehaviour: 1
-  m_NavigationLinear: 1
-  m_NavigationAngular: 1
-  m_PatrolPoint: {fileID: 0}
-  m_RandomSelectMovePointTime: 0
-  m_FindNewTargetTime: 0
-  m_ShootDelay: 0
-  m_EvadeRayLength: 0
---- !u!114 &8842151352492930047
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4771288276050378135}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aab0d127487f77548920af8d87d6e119, type: 3}
+  m_Script: {fileID: 11500000, guid: 1aa2a47b818d805428ef83853b2fa04c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nickname: 
   indestructible: 0
-  hitPoints: 5
+  _maxHP: 5
   m_EventOnDeath:
     m_PersistentCalls:
       m_Calls: []
   m_TeamId: 0
   m_ScoreValue: 0
-  m_Mass: 1
-  m_Thrust: 1000
-  m_Mobility: 1000
-  m_MaxLinearVelocity: 1
-  m_MaxAngularVelocity: 360
+  _moveSpeed: 1
+--- !u!114 &6317390235209496858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4771288276050378135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5f2c15b57fbe7343b1dbf16761d14ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7493379520006523388
 GameObject:
   m_ObjectHideFlags: 0

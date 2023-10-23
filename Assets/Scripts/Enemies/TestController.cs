@@ -45,7 +45,7 @@ namespace TowerDefense
 
         private void Awake()
         {
-            _character = GetComponent<Test>();   
+            _character = GetComponent<Test>();
         }
         private void Update()
         {
@@ -54,7 +54,7 @@ namespace TowerDefense
 
         #endregion
 
-
+        #region Logic Methods
 
         /// <summary>
         /// Метод поведения.
@@ -121,6 +121,17 @@ namespace TowerDefense
             {
                 Destroy(gameObject);
             }
+
         }
+        #endregion
+
+        #region Public methods
+        public void SetPath(Path path)
+        {
+            _path = path;
+            _pathIndex = 0;
+            _area = _path[_pathIndex];
+        }
+        #endregion
     }
 }

@@ -976,7 +976,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1001406298}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d848e66ed9c527e46aa3b52618b5a13a, type: 3}
   m_Name: 
@@ -1002,9 +1002,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spawnMode: 1
   _numSpawns: 2
-  _respawnTime: 10
+  _respawnTime: 5
   _path: {fileID: 841748168}
-  _enemyPrefab: {fileID: 5727024309271066660, guid: a6893236ab9890649a169de73952b12d, type: 3}
+  _enemyPrefab: {fileID: 5925203994191920928, guid: a6893236ab9890649a169de73952b12d, type: 3}
   _enemyAssets:
   - {fileID: 11400000, guid: f8c3afd548547eb4abdef457dc5cda1a, type: 2}
 --- !u!114 &1001406304
@@ -1014,7 +1014,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1001406298}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d848e66ed9c527e46aa3b52618b5a13a, type: 3}
   m_Name: 
@@ -1042,7 +1042,7 @@ MonoBehaviour:
   _numSpawns: 1
   _respawnTime: 0
   _path: {fileID: 841748168}
-  _enemyPrefab: {fileID: 6045247241850068552, guid: 0e25575c69b63774d9cd10b3e835e93f, type: 3}
+  _enemyPrefab: {fileID: 0}
   _enemyAssets:
   - {fileID: 11400000, guid: 243855c4a9b5f9b44aa5ceae879cf229, type: 2}
 --- !u!1 &1194165256
