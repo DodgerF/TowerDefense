@@ -1,44 +1,143 @@
 using SpaceShooter;
-
+using System;
+using System.IO;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace TowerDefense
 {
-    public class EnemyController : AIController
+    [RequireComponent(typeof(Enemy))]
+    public class EnemyController : MonoBehaviour
     {
         #region Fields
-        private Path m_Path;
-        private int m_PathIndex;
+
+        /// <summary>
+        /// Цель для атаки.
+        /// </summary>
+        private Destructible _destructibleTerget;
+
+        /// <summary>
+        /// Цель пути.
+        /// </summary>
+        private Vector3 _moveTarget;
+
+        /// <summary>
+        /// Путь по которому идет персонаж.
+        /// </summary>
+        private Path _path;
+        /// <summary>
+        /// Индекс текущей зоны(_area), взятой из пути (_path).
+        /// </summary>
+        private int _pathIndex;
+
+        /// <summary>
+        /// Некая зона, в которую надо попасть. Является частью пути.
+        /// </summary>
+        private Area _area;
+
+        /// <summary>
+        /// Текущий персонаж, данный класс управляет.
+        /// </summary>
+        private Enemy _character;
 
         #endregion
 
-        #region Overrided methods
-        protected override void GetNewPoint()
+        #region Unity Events
+
+        private void Awake()
         {
-            if (m_Path.Lenght > ++m_PathIndex)
+            _character = GetComponent<Enemy>();
+        }
+        private void Update()
+        {
+            UpdateCharacter();
+        }
+        private void LateUpdate()
+        {
+            //Поворот спрайта. Если идти влево - true, иначе right.
+            bool isLeft = _moveTarget.x < _character.transform.position.x;
+            _character.TurnCharacter(isLeft);
+        }
+
+        #endregion
+
+        #region Logic Methods
+
+        /// <summary>
+        /// Метод поведения.
+        /// </summary>
+        private void UpdateCharacter()
+        {
+            FindNewMoveTarget();
+            MoveToTarget();
+            FindNewAttackTarget();
+            Attack();
+            EvadeCollision();
+        }
+
+        private void EvadeCollision()
+        {
+            //Заглушка
+        }
+
+        private void Attack()
+        {
+            //Заглушка
+        }
+
+        private void FindNewAttackTarget()
+        {
+            //Заглушка
+        }
+
+        private void MoveToTarget()
+        {
+            _character.Move(_moveTarget);
+        }
+
+        private void FindNewMoveTarget()
+        {
+            if (_destructibleTerget != null)
             {
-                SetPatrolBehaviour(m_Path[m_PathIndex]);
+                _moveTarget = _destructibleTerget.transform.position;
+            }
+            else
+                if (_area != null)
+            {
+                bool isInsideArea = (_area.transform.position - transform.position).sqrMagnitude < _area.Radius * _area.Radius;
+
+                if (isInsideArea)
+                {
+                    SetNextArea();
+                }
+                else
+                {
+                    // если мы не в зоне, то едем до нее.
+                    _moveTarget = _area.transform.position;
+                }
+            }
+        }
+
+        private void SetNextArea()
+        {
+            if (_path.Lenght > ++_pathIndex)
+            {
+                _area = _path[_pathIndex];
             }
             else
             {
                 Destroy(gameObject);
             }
+
         }
-
-        #endregion
-
-
-        #region Private methods
-
-
         #endregion
 
         #region Public methods
         public void SetPath(Path path)
         {
-            m_Path = path;
-            m_PathIndex = 0;
-            SetPatrolBehaviour(path[m_PathIndex]);
+            _path = path;
+            _pathIndex = 0;
+            _area = _path[_pathIndex];
         }
         #endregion
     }

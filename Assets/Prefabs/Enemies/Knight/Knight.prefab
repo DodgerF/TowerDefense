@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1196791155727533462}
   - component: {fileID: 6392665053886599288}
   - component: {fileID: 7420511834810423758}
-  - component: {fileID: 4802509834943019487}
   m_Layer: 0
   m_Name: View
   m_TagString: Untagged
@@ -108,18 +107,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4802509834943019487
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3579891397598387365}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 729276372a273394ba696230f378c1ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4771288276050378135
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,7 +118,7 @@ GameObject:
   - component: {fileID: 2926515514035934230}
   - component: {fileID: 2548523440745460994}
   - component: {fileID: 5925203994191920928}
-  - component: {fileID: 6317390235209496858}
+  - component: {fileID: 8295066678088446839}
   m_Layer: 0
   m_Name: Knight
   m_TagString: Untagged
@@ -204,7 +191,7 @@ MonoBehaviour:
   m_TeamId: 0
   m_ScoreValue: 0
   _moveSpeed: 1
---- !u!114 &6317390235209496858
+--- !u!114 &8295066678088446839
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -213,7 +200,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4771288276050378135}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5f2c15b57fbe7343b1dbf16761d14ae, type: 3}
+  m_Script: {fileID: 11500000, guid: 327aa2dffe7d5c84d84f44c2a4e99528, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7493379520006523388
@@ -364,6 +351,6 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.2}
+  m_Offset: {x: 0, y: -0.15}
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Radius: 0.3

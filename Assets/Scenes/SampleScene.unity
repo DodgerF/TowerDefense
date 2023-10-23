@@ -931,6 +931,7 @@ GameObject:
   - component: {fileID: 1001406302}
   - component: {fileID: 1001406304}
   - component: {fileID: 1001406305}
+  - component: {fileID: 1001406306}
   m_Layer: 0
   m_Name: EnemyCamp
   m_TagString: Untagged
@@ -976,7 +977,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1001406298}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d848e66ed9c527e46aa3b52618b5a13a, type: 3}
   m_Name: 
@@ -985,7 +986,7 @@ MonoBehaviour:
   _numSpawns: 1
   _respawnTime: 10
   _path: {fileID: 841748168}
-  _enemyPrefab: {fileID: 5727024309271066660, guid: a6893236ab9890649a169de73952b12d, type: 3}
+  _enemyPrefab: {fileID: 5925203994191920928, guid: a6893236ab9890649a169de73952b12d, type: 3}
   _enemyAssets:
   - {fileID: 11400000, guid: 0db45ac78c867aa4093ae9c8234dc53a, type: 2}
 --- !u!114 &1001406303
@@ -1014,7 +1015,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1001406298}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d848e66ed9c527e46aa3b52618b5a13a, type: 3}
   m_Name: 
@@ -1022,8 +1023,8 @@ MonoBehaviour:
   _spawnMode: 1
   _numSpawns: 1
   _respawnTime: 10
-  _path: {fileID: 841748168}
-  _enemyPrefab: {fileID: 5727024309271066660, guid: a6893236ab9890649a169de73952b12d, type: 3}
+  _path: {fileID: 1438981335}
+  _enemyPrefab: {fileID: 5925203994191920928, guid: a6893236ab9890649a169de73952b12d, type: 3}
   _enemyAssets:
   - {fileID: 11400000, guid: 242e967afc7323a4fb6ee085c13c9184, type: 2}
 --- !u!114 &1001406305
@@ -1033,7 +1034,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1001406298}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d848e66ed9c527e46aa3b52618b5a13a, type: 3}
   m_Name: 
@@ -1042,9 +1043,28 @@ MonoBehaviour:
   _numSpawns: 1
   _respawnTime: 0
   _path: {fileID: 841748168}
-  _enemyPrefab: {fileID: 0}
+  _enemyPrefab: {fileID: 5403050934595239246, guid: 0e25575c69b63774d9cd10b3e835e93f, type: 3}
   _enemyAssets:
   - {fileID: 11400000, guid: 243855c4a9b5f9b44aa5ceae879cf229, type: 2}
+--- !u!114 &1001406306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1001406298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d848e66ed9c527e46aa3b52618b5a13a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spawnMode: 1
+  _numSpawns: 1
+  _respawnTime: 10
+  _path: {fileID: 1438981335}
+  _enemyPrefab: {fileID: 5925203994191920928, guid: b976efe31440c16438d2cab046c91478, type: 3}
+  _enemyAssets:
+  - {fileID: 11400000, guid: a5ab5fe32ab41e844b0ec8f2834a5a70, type: 2}
 --- !u!1 &1194165256
 GameObject:
   m_ObjectHideFlags: 0
