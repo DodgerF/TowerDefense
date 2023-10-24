@@ -1,3 +1,4 @@
+using TowerDefense;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -69,8 +70,8 @@ namespace SpaceShooter
         
         private void CalculateLevelStatistic()
         {
-            LevelStatistics.Score = Player.Instance.Score;
-            LevelStatistics.NumKills = Player.Instance.NumKills;
+            //LevelStatistics.Score = Player.Instance.Score;
+            //LevelStatistics.NumKills = Player.Instance.NumKills;
             LevelStatistics.Time = (int)LevelController.Instance.LevelTime;
         }
     }

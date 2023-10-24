@@ -1,13 +1,27 @@
+using MyEventBus;
 using SpaceShooter;
 using UnityEditor;
 using UnityEngine;
 
 namespace TowerDefense
 {
-    [RequireComponent(typeof(Rigidbody2D))]
     public class Enemy : Destructible
     {
         #region Fields
+
+        private EventBus _events;
+
+        #region Gold
+
+        private int _gold;
+        public int Gold => _gold;
+
+        #endregion
+
+        #region Damage
+        private float _dmg;
+        public float Damage => _dmg; 
+        #endregion
 
         #region MoveSpeed
         [Range(0f, 1f)]
@@ -23,11 +37,12 @@ namespace TowerDefense
 
         #endregion
 
-
         #region Unity Events
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             _sprite = transform.Find("View").GetComponent<SpriteRenderer>();
             _animator = _sprite.GetComponent<Animator>();
             _circleCollider = GetComponentInChildren<CircleCollider2D>();
@@ -35,6 +50,16 @@ namespace TowerDefense
 
         #endregion
 
+        #region Override methods
+        protected override void OnDeath()
+        {
+            EventBus.Instance.Invoke(new EnemyDiedSignal(_gold));
+
+            base.OnDeath();
+        }
+        #endregion
+
+        #region Public methods
 
         public void Move(Vector3 point)
         {
@@ -45,20 +70,26 @@ namespace TowerDefense
         {
             _sprite.flipX = isLeft;
         }
-        
+
         public void UseAsset(EnemyAsset asset)
         {
             _sprite.color = asset.Color;
             _sprite.transform.localScale = new Vector3(asset.SpriteScale.x, asset.SpriteScale.y, 1);
             _animator.runtimeAnimatorController = asset.Animator;
-            _circleCollider.radius = asset.radius;
+            _circleCollider.radius = asset.Radius;
 
-            _moveSpeed = asset.moveSpeed;
+            _moveSpeed = asset.MoveSpeed;
 
-            SetMaxHP(asset.hp);
-        }
+            _dmg = asset.Damage;
+
+            _gold = asset.Gold;
+
+            SetMaxHP(asset.HP);
+        } 
+        #endregion
     }
 
+    #region Inspector
     [CustomEditor(typeof(Enemy))]
     public class EnemyInspector : Editor
     {
@@ -71,5 +102,6 @@ namespace TowerDefense
                 (target as Enemy).UseAsset(asset);
             }
         }
-    }
+    } 
+    #endregion
 }

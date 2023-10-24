@@ -14,10 +14,12 @@ namespace TowerDefense
         public RuntimeAnimatorController Animator;
 
         [Header("Параметры")]
-        public float moveSpeed = 1;
-        public int hp = 1;
-        public int score = 1;
-        public float radius = 0.4f;
+        public float MoveSpeed = 1;
+        public int HP = 1;
+        public int Score = 1;
+        public int Gold = 1;
+        public float Radius = 0.4f;
+        public float Damage = 1;
 
     }
 }

@@ -15,7 +15,9 @@ MonoBehaviour:
   Color: {r: 1, g: 1, b: 1, a: 1}
   SpriteScale: {x: 2, y: 2}
   Animator: {fileID: 9100000, guid: d9f0d15005078b64080cd1061ab6420b, type: 2}
-  moveSpeed: 1
-  hp: 50
-  score: 100
-  radius: 1
+  MoveSpeed: 1
+  HP: 1
+  Score: 1
+  Gold: 1
+  Radius: 0.4
+  Damage: 20

@@ -21,10 +21,10 @@ namespace SpaceShooter
         /// Initial hit points
         /// </summary>
         [Range(0, 100)]
-        [SerializeField] private int _maxHP;
-        public int MaxHP => _maxHP; 
+        [SerializeField] protected int _maxHP;
+        public int MaxHP => _maxHP;
 
-        private float _currentHP;
+        protected float _currentHP;
         public float GetCurrentHP => _currentHP;
         #endregion
 
@@ -32,7 +32,7 @@ namespace SpaceShooter
 
         #region Unity Events
 
-        protected virtual void Start()
+        protected virtual void Awake()
         {
             _currentHP = _maxHP;
 ;

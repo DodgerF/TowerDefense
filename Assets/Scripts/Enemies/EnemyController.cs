@@ -1,3 +1,4 @@
+using MyEventBus;
 using SpaceShooter;
 using System;
 using System.IO;
@@ -14,7 +15,9 @@ namespace TowerDefense
         /// <summary>
         /// Цель для атаки.
         /// </summary>
-        private Destructible _destructibleTerget;
+        private Destructible _attackTarget;
+
+        #region Path
 
         /// <summary>
         /// Цель пути.
@@ -33,10 +36,11 @@ namespace TowerDefense
         /// <summary>
         /// Некая зона, в которую надо попасть. Является частью пути.
         /// </summary>
-        private Area _area;
+        private Area _area; 
+        #endregion
 
         /// <summary>
-        /// Текущий персонаж, данный класс управляет.
+        /// Текущий персонаж, которым данный класс управляет.
         /// </summary>
         private Enemy _character;
 
@@ -97,9 +101,9 @@ namespace TowerDefense
 
         private void FindNewMoveTarget()
         {
-            if (_destructibleTerget != null)
+            if (_attackTarget != null)
             {
-                _moveTarget = _destructibleTerget.transform.position;
+                _moveTarget = _attackTarget.transform.position;
             }
             else
                 if (_area != null)
@@ -126,9 +130,16 @@ namespace TowerDefense
             }
             else
             {
-                Destroy(gameObject);
+                DealDamageToPlayer();
             }
 
+        }
+
+        private void DealDamageToPlayer()
+        {
+            EventBus.Instance.Invoke(new PlayerIsAttackedSignal(_character.Damage));
+
+            Destroy(gameObject);
         }
         #endregion
 

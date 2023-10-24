@@ -1,74 +1,99 @@
+using MyEventBus;
 using UnityEngine;
 
-namespace SpaceShooter
+namespace TowerDefense
 {
-    /*[RequireComponent(typeof(CameraController))]
-    [RequireComponent (typeof(MovementController))]*/
     public class Player : SingletonBase<Player>
     {
-        #region Properties
-        [SerializeField] private int m_NumLives;
-        [SerializeField] private SpaceShip m_Ship;
-        public SpaceShip Ship => m_Ship;
+        #region Fields
 
-        //private CameraController m_CameraController;
-        //private MovementController m_MovementController;
+        #region HP
+        [SerializeField] private int _maxHP;
+        public int MaxHP => _maxHP;
+
+        private float _currentHP;
+        public float CurrentHP => _currentHP;
+        #endregion
+
+        #region Gold
+        [SerializeField] private int _gold;
+        public int Gold => _gold; 
+        #endregion
 
         #endregion
 
         #region UnityEvents
+
         protected override void Awake()
         {
             base.Awake();
 
-            //m_CameraController = GetComponent<CameraController>();
-            //m_MovementController = GetComponent<MovementController>();
-            
-            if (m_Ship != null && LevelSequenceController.PlayerShip != null)
-            {
-                Destroy(m_Ship.gameObject);
-                Respawn();
-            }
+            _currentHP = _maxHP;
         }
+        #region (Un)Subscribes
 
-        private void MyOnEnable()
+        private void OnEnable()
         {
-            m_Ship.EventOnDeath.AddListener(OnShopDeath);
+            EventBus.Instance.Subscribe<PlayerIsAttackedSignal>(OnDamaged);
+            EventBus.Instance.Subscribe<EnemyDiedSignal>(OnGotGold);
         }
 
         private void OnDisable()
         {
-            m_Ship.EventOnDeath.RemoveListener(OnShopDeath);
+            EventBus.Instance.Unsubscribe<PlayerIsAttackedSignal>(OnDamaged);
+            EventBus.Instance.Unsubscribe<EnemyDiedSignal>(OnGotGold);
+        } 
+        #endregion
+
+        #endregion
+
+        #region Private methods
+
+        #region HP
+        private void OnDamaged(PlayerIsAttackedSignal signal)
+        {
+            if (signal.Damage <= 0)
+            {
+                Debug.LogWarning("Damage must be possitive");
+                return;
+            }
+
+            SetHP(_currentHP - signal.Damage);
+
+            if (_currentHP <= 0)
+            {
+                EventBus.Instance.Invoke(new PlayerDiedSignal());
+            }
+        }
+
+        private void SetHP(float hp)
+        {
+            _currentHP = hp;
+            EventBus.Instance.Invoke(new HPHaveChangedSignal(_currentHP));
         }
         #endregion
-        private void OnShopDeath()
-        {
-            m_NumLives--;
 
-            if (m_NumLives > 0)
+        #region Gold
+        private void OnGotGold(EnemyDiedSignal signal)
+        {
+            if (signal.Gold <= 0)
             {
-                Respawn();
+                Debug.LogWarning("Gold must be possitive");
+                return;
             }
-            else
-            {
-                LevelSequenceController.Instance.FinishCurrentLevel(false);
-            }
+
+            SetGold(_gold + signal.Gold);
         }
 
-        private void Respawn()
+        private void SetGold(int gold)
         {
-            if (LevelSequenceController.PlayerShip == null) return;
+            _gold = gold;
+            EventBus.Instance.Invoke(new GoldHaveChangedSignal(_gold));
+        }  
+        #endregion
 
-            var newPlayerShip = Instantiate(LevelSequenceController.PlayerShip);
+        #endregion
 
-            OnDisable();
-            m_Ship = newPlayerShip.GetComponent<SpaceShip>();
-            MyOnEnable();
-
-            //m_CameraController.SetTarget(m_Ship.transform);
-            //m_MovementController.SetTargetShip(m_Ship);
-
-        }
         #region Score
         public int Score { get; private set; }
         public int NumKills { get; private set; }

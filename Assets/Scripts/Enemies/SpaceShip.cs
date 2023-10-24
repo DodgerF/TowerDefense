@@ -58,10 +58,8 @@ namespace SpaceShooter
 
         #region Unity events
 
-        protected override void Start()
+        private void Start()
         {
-            base.Start();
-
             m_Rigid = GetComponent<Rigidbody2D>();
             m_Rigid.mass = m_Mass;
 

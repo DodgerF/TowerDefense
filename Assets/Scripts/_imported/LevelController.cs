@@ -1,3 +1,4 @@
+using TowerDefense;
 using UnityEngine;
 
 namespace SpaceShooter
@@ -58,7 +59,7 @@ namespace SpaceShooter
 
                 if (m_LevelTime < m_ReferenceTime)
                 {
-                    Player.Instance.AddScore((int)(m_ReferenceTime - m_LevelTime) * BonusScorePerSecond);
+                    //Player.Instance.AddScore((int)(m_ReferenceTime - m_LevelTime) * BonusScorePerSecond);
                 }
 
                 LevelSequenceController.Instance.FinishCurrentLevel(true);
