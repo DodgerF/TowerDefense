@@ -11,9 +11,6 @@ namespace TowerDefense {
         private void Start()
         {
             _uiText = GetComponentInChildren<TextMeshProUGUI>();
-
-            _uiText.text = Player.Instance.MaxHP.ToString();
-
             EventBus.Instance.Subscribe<HPHaveChangedSignal>(OnHPChanged);
         }
 

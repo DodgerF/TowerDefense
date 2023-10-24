@@ -30,8 +30,14 @@ namespace TowerDefense
 
             _currentHP = _maxHP;
         }
-        #region (Un)Subscribes
 
+        private void Start()
+        {
+            EventBus.Instance.Invoke(new GoldHaveChangedSignal(_gold));
+            EventBus.Instance.Invoke(new HPHaveChangedSignal(_currentHP));
+        }
+
+        #region (Un)Subscribes
         private void OnEnable()
         {
             EventBus.Instance.Subscribe<PlayerIsAttackedSignal>(OnDamaged);

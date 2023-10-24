@@ -21,8 +21,9 @@ namespace TowerDefense
         {
             if (m_Target)
             {
-                var collider = m_Target.GetComponentInChildren<CircleCollider2D>();
+                CircleCollider2D collider = m_Target.GetComponentInChildren<CircleCollider2D>();
                 Vector2 targetVector = collider.transform.position - transform.position;
+
                 if (targetVector.magnitude <= m_Radius)
                 {
                     foreach (Turret turret in m_Turrets)

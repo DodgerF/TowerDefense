@@ -12,11 +12,7 @@ namespace TowerDefense
         private void Start()
         {
             _uiText = GetComponentInChildren<TextMeshProUGUI>();
-
-            _uiText.text = Player.Instance.Gold.ToString();
-
             EventBus.Instance.Subscribe<GoldHaveChangedSignal>(OnGoldChange);
-
         }
 
         private void OnDisable()
