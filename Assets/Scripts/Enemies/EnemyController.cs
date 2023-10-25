@@ -137,8 +137,7 @@ namespace TowerDefense
 
         private void DealDamageToPlayer()
         {
-            EventBus.Instance.Invoke(new PlayerIsAttackedSignal(_character.Damage));
-
+            Player.Instance.Attacked(_character.Damage);
             Destroy(gameObject);
         }
         #endregion

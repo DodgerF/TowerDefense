@@ -11,6 +11,7 @@ namespace TowerDefense {
         private void Start()
         {
             _uiText = GetComponentInChildren<TextMeshProUGUI>();
+
             EventBus.Instance.Subscribe<HPHaveChangedSignal>(OnHPChanged);
         }
 

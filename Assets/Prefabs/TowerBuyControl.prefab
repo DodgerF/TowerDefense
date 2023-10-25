@@ -127,9 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3031338ef18137d45a826e0b7e5b0945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _asset:
-    GoldCost: 1
-    TowerGUI: {fileID: 21300000, guid: ef25b92a8e4b2644b8420de820e6c11f, type: 3}
+  _asset: {fileID: 11400000, guid: b0c0c9d3ee4579d419acded1b3e73c9a, type: 2}
 --- !u!1 &3160608420263291611
 GameObject:
   m_ObjectHideFlags: 0

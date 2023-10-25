@@ -40,42 +40,46 @@ namespace TowerDefense
         #region (Un)Subscribes
         private void OnEnable()
         {
-            EventBus.Instance.Subscribe<PlayerIsAttackedSignal>(OnDamaged);
             EventBus.Instance.Subscribe<EnemyDiedSignal>(OnGotGold);
         }
 
         private void OnDisable()
         {
-            EventBus.Instance.Unsubscribe<PlayerIsAttackedSignal>(OnDamaged);
             EventBus.Instance.Unsubscribe<EnemyDiedSignal>(OnGotGold);
         } 
         #endregion
 
         #endregion
 
-        #region Private methods
+        #region Methods
 
         #region HP
-        private void OnDamaged(PlayerIsAttackedSignal signal)
+        public void Attacked(float damage)
         {
-            if (signal.Damage <= 0)
+            if (damage <= 0)
             {
                 Debug.LogWarning("Damage must be possitive");
                 return;
             }
 
-            SetHP(_currentHP - signal.Damage);
+            SetHP(_currentHP - damage);
+        }
+
+        private void SetHP(float hp)
+        {
+            if (hp > _maxHP)
+            {
+                hp = _maxHP;
+            }
+
+            _currentHP = hp;
+            
+            EventBus.Instance.Invoke(new HPHaveChangedSignal(_currentHP));
 
             if (_currentHP <= 0)
             {
                 EventBus.Instance.Invoke(new PlayerDiedSignal());
             }
-        }
-
-        private void SetHP(float hp)
-        {
-            _currentHP = hp;
-            EventBus.Instance.Invoke(new HPHaveChangedSignal(_currentHP));
         }
         #endregion
 
