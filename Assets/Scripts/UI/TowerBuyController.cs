@@ -3,15 +3,18 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 namespace TowerDefense
 {
-    public class UITowerBuyControl : MonoBehaviour
+    public class TowerBuyController : MonoBehaviour
     {
         #region Fields
-
         private TowerAsset _asset;
         private TextMeshProUGUI _uiText;
         private Button _button;
+
+        private BuildPointController _buildPoint;
+        public BuildPointController BuildPoint { set { _buildPoint = value; } }
 
         #endregion
 
@@ -24,9 +27,10 @@ namespace TowerDefense
 
         private void OnDisable()
         {
-            if (EventBus.Instance == null) return;
-
-            EventBus.Instance.Unsubscribe<GoldHaveChangedSignal>(OnGoldChange);
+            if (EventBus.Instance.IsSubscribe<GoldHaveChangedSignal>(OnGoldChange))
+            {
+                EventBus.Instance.Unsubscribe<GoldHaveChangedSignal>(OnGoldChange);
+            }
         }
 
         #endregion
@@ -43,18 +47,20 @@ namespace TowerDefense
         {
             _asset = asset;
         }
-
         public void Init()
         {
             EventBus.Instance.Subscribe<GoldHaveChangedSignal>(OnGoldChange);
 
-            if (_asset == null)
-            {
-                Destroy(gameObject);
-                return;
-            }
+            if (_asset == null) return;
+
             _uiText.text = _asset.GoldCost.ToString();
             _button.image.sprite = _asset.TowerGUI;
         }
+
+        public void Build()
+        {
+            _buildPoint.SetTower(_asset);
+        }
+        
     }
 }

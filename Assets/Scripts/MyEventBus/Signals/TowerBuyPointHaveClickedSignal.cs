@@ -1,14 +1,15 @@
-﻿using UnityEngine;
+﻿using TowerDefense;
+using UnityEngine;
 
 namespace MyEventBus
 {
     public class TowerBuyPointHaveClickedSignal
     {
-        private Transform _transform;
-        public Transform Transform => _transform;
-        public TowerBuyPointHaveClickedSignal(Transform transform)
+        private BuildPointController _point;
+        public BuildPointController Point => _point;
+        public TowerBuyPointHaveClickedSignal(BuildPointController point)
         {
-            _transform = transform;
+            _point = point;
         }
     }
 }

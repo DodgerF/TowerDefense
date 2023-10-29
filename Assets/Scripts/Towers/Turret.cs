@@ -73,6 +73,11 @@ namespace TowerDefense
             m_TurretProperties = properties;
         }
 
+        public void SetProperty(TurretProperties properties)
+        {
+            m_TurretProperties = properties;
+        }
+
         #endregion
     }
 }

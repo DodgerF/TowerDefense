@@ -99,8 +99,19 @@ namespace TowerDefense
         {
             _gold = gold;
             EventBus.Instance.Invoke(new GoldHaveChangedSignal(_gold));
-        }  
+        }
+
+        public bool Buy(int cost)
+        {
+            if (cost > _gold) return false;
+
+            SetGold(_gold - cost);
+
+            return true;
+        }
         #endregion
+
+
 
         #endregion
 

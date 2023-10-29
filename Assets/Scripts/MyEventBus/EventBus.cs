@@ -56,9 +56,11 @@ namespace MyEventBus
                 }
             }
         }
-        public void Init()
+        public bool IsSubscribe<T>(Action<T> callback)
         {
-            Awake();
+            string key = typeof(T).Name;
+
+            return _signalCallbacks.ContainsKey(key);
         }
     }
 }

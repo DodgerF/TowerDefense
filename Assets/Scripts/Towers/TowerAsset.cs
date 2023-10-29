@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using SpaceShooter;
+using UnityEngine;
 
 namespace TowerDefense
 {
@@ -8,6 +9,9 @@ namespace TowerDefense
         public int GoldCost;
         public Sprite TowerGUI;
         public Sprite Sprite;
+
+        public float Radius;
+        public TurretProperties TurretProperties;
     }
 
 }

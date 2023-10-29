@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 2852348628830080407}
   - component: {fileID: 7568843436560748755}
   m_Layer: 5
-  m_Name: TowerBuyControl
+  m_Name: UITowerBuyControl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127,7 +127,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3031338ef18137d45a826e0b7e5b0945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _asset: {fileID: 11400000, guid: b0c0c9d3ee4579d419acded1b3e73c9a, type: 2}
 --- !u!1 &3160608420263291611
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,8 +457,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7568843436560748755}
-        m_TargetAssemblyTypeName: UITowerBuyControl, Assembly-CSharp
-        m_MethodName: Test
+        m_TargetAssemblyTypeName: TowerDefense.UITowerBuyController, Assembly-CSharp
+        m_MethodName: Build
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

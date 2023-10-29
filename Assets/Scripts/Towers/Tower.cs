@@ -5,28 +5,30 @@ namespace TowerDefense
 {
     public class Tower : MonoBehaviour
     {
-        [SerializeField] private float m_Radius;
-        private Turret[] m_Turrets;
-        private Destructible m_Target;
+        [SerializeField] private SpriteRenderer _spriteRenderer;
+        [SerializeField] private float _radius;
+        private Turret[] _turrets;
+        private Destructible _target;
+
 
         #region Unity Events
 
         private void Awake()
         {
-            m_Turrets = GetComponentsInChildren<Turret>();
-            m_Target = null;
+            _turrets = GetComponentsInChildren<Turret>();
+            _target = null;
         }
 
         private void Update()
         {
-            if (m_Target)
+            if (_target)
             {
-                CircleCollider2D collider = m_Target.GetComponentInChildren<CircleCollider2D>();
+                CircleCollider2D collider = _target.GetComponentInChildren<CircleCollider2D>();
                 Vector2 targetVector = collider.transform.position - transform.position;
 
-                if (targetVector.magnitude <= m_Radius)
+                if (targetVector.magnitude <= _radius)
                 {
-                    foreach (Turret turret in m_Turrets)
+                    foreach (Turret turret in _turrets)
                     {
                         turret.transform.up = targetVector;
                         turret.Fire();
@@ -34,26 +36,37 @@ namespace TowerDefense
                 }
                 else
                 {
-                    m_Target = null;
+                    _target = null;
                 }
                 
             }
             else
             {
-                var enter = Physics2D.OverlapCircle(transform.position, m_Radius);
+                var enter = Physics2D.OverlapCircle(transform.position, _radius);
                 if (enter)
                 {
-                    m_Target = enter.transform.root.GetComponent<Destructible>();
+                    _target = enter.transform.root.GetComponent<Destructible>();
                 }
             }
         }
         #endregion
 
+
+        public void UseAsset(TowerAsset asset)
+        {
+            _radius = asset.Radius;
+            foreach (Turret turret in _turrets)
+            {
+                turret.SetProperty(asset.TurretProperties);
+            }
+            _spriteRenderer.sprite = asset.Sprite;
+        }
+
 #if UNITY_EDITOR
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.position, m_Radius);
+            Gizmos.DrawWireSphere(transform.position, _radius);
         }
 #endif
     }
