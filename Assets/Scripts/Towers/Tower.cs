@@ -21,10 +21,9 @@ namespace TowerDefense
 
         private void Update()
         {
-            if (_target)
+            if (_target && _target.isActiveAndEnabled)
             {
-                CircleCollider2D collider = _target.GetComponentInChildren<CircleCollider2D>();
-                Vector2 targetVector = collider.transform.position - transform.position;
+                Vector3 targetVector = GetShootingPoint();
 
                 if (targetVector.magnitude <= _radius)
                 {
@@ -42,15 +41,26 @@ namespace TowerDefense
             }
             else
             {
-                var enter = Physics2D.OverlapCircle(transform.position, _radius);
-                if (enter)
-                {
-                    _target = enter.transform.root.GetComponent<Destructible>();
-                }
+                TryFindTarget();
             }
         }
         #endregion
 
+        private Vector3 GetShootingPoint()
+        {
+            CircleCollider2D collider = _target.GetComponentInChildren<CircleCollider2D>();
+            return collider.bounds.center - transform.position;
+        }
+
+        private void TryFindTarget()
+        {
+            var enter = Physics2D.OverlapCircle(transform.position, _radius);
+
+            if (enter != null && enter.transform.TryGetComponent<Enemy>(out Enemy target))
+            {
+                _target = target;
+            }
+        }
 
         public void UseAsset(TowerAsset asset)
         {

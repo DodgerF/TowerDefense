@@ -38,7 +38,7 @@ namespace TowerDefense
             }
         }
 
-        private void OnEnable()
+        private void Start()
         {
             foreach (TowerBuyController button in _buttons)
             {

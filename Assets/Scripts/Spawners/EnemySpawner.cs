@@ -10,7 +10,7 @@ namespace TowerDefense
 
         protected override GameObject GenerateSpawnedEntity()
         {
-            var e = Instantiate(_enemyPrefab);
+            var e = MyObjectPool.SpawnObject(_enemyPrefab.gameObject, transform.position, Quaternion.identity, MyObjectPool.PoolType.Enemies).GetComponent<Enemy>();
             e.UseAsset(_enemyAssets[Random.Range(0, _enemyAssets.Length)]);
             e.GetComponent<EnemyController>().SetPath(_path);
             return e.gameObject;

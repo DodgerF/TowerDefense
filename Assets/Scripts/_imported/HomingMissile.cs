@@ -6,7 +6,7 @@ namespace SpaceShooter
 
     public class HomingMissile : Projectile
     {
-        [SerializeField] private float m_DistanceToEmptyTarget;
+     /*   [SerializeField] private float m_DistanceToEmptyTarget;
         [SerializeField] private float m_SearchRadius;
 
         private GameObject m_EmptyTarget;
@@ -17,15 +17,15 @@ namespace SpaceShooter
             base.Start();
 
             m_EmptyTarget = new GameObject("EmptyTarget");
-            m_EmptyTarget.transform.position = m_Parent.transform.position + m_Parent.transform.up * m_DistanceToEmptyTarget;
+            m_EmptyTarget.transform.position = _parent.transform.position + _parent.transform.up * m_DistanceToEmptyTarget;
 
             //Поиск ближайшего разрушаемого объекта в радиусе, который не является родителем снаряда 
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(m_Parent.transform.position, m_SearchRadius);
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(_parent.transform.position, m_SearchRadius);
             foreach (Collider2D collider in colliders)
             {
                 if (collider.transform.root.TryGetComponent<Destructible>(out Destructible target))
                 {
-                    if (target == m_Parent) continue;
+                    if (target == _parent) continue;
 
                     if (m_Target == null)
                     {
@@ -33,8 +33,8 @@ namespace SpaceShooter
                         continue;
                     }
 
-                    if (Vector2.Distance(m_Parent.transform.position, m_Target.position) >
-                        Vector2.Distance(m_Parent.transform.position, collider.transform.position))
+                    if (Vector2.Distance(_parent.transform.position, m_Target.position) >
+                        Vector2.Distance(_parent.transform.position, collider.transform.position))
                     {
                         m_Target = collider.transform;
                     }
@@ -50,7 +50,7 @@ namespace SpaceShooter
                 return;
             }
 
-            float stepLenght = Time.deltaTime * m_Velocity;
+            float stepLenght = Time.deltaTime * _velocity;
             MoveObject(m_EmptyTarget.transform, Direction(m_EmptyTarget.transform, m_Target), stepLenght);
             
             Vector2 missilesDirection = Direction(transform, m_EmptyTarget.transform);
@@ -80,9 +80,9 @@ namespace SpaceShooter
             RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, stepLenght);
             if (hit)
             {
-                if (hit.collider.transform.TryGetComponent<Destructible>(out Destructible destructible) && destructible != m_Parent)
+                if (hit.collider.transform.TryGetComponent<Destructible>(out Destructible destructible) && destructible != _parent)
                 {
-                    destructible.ApplyDamage(m_Damage);
+                    destructible.ApplyDamage(_damage);
 
                     UpdateScore(destructible);
                 }
@@ -94,6 +94,6 @@ namespace SpaceShooter
         {
             Destroy(m_EmptyTarget);
             base.OnProjectileLifeEnd();
-        }
+        }*/
     }
 }

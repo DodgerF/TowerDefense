@@ -9,7 +9,7 @@ namespace SpaceShooter
     /// A destroyable object on the stage that can have hit points
     /// </summary>
     [RequireComponent(typeof(Rigidbody2D))]
-    public class Destructible : Entity
+    public class Destructible : MonoBehaviour
     {
         #region Fields
 
@@ -38,8 +38,6 @@ namespace SpaceShooter
 ;
         }
 
-        [SerializeField] private UnityEvent m_EventOnDeath;
-        public UnityEvent EventOnDeath => m_EventOnDeath;
 
         #endregion
 
@@ -77,26 +75,9 @@ namespace SpaceShooter
         /// </summary>
         protected virtual void OnDeath()
         {
-            m_EventOnDeath?.Invoke();
-
             Destroy(gameObject);
         }
-        private static HashSet<Destructible> m_AllDestructibles;
-        public static IReadOnlyCollection<Destructible> AllDestructibles => m_AllDestructibles;
-
-        protected virtual void OnEnable()
-        {
-            if (m_AllDestructibles == null)
-            {
-                m_AllDestructibles = new HashSet<Destructible>();
-            }
-            m_AllDestructibles.Add(this);
-        }
-
-        protected void OnDestroy()
-        {
-            m_AllDestructibles.Remove(this);
-        }
+        
 
         public const int TeamIdNeutral = 0;
         [SerializeField] private int m_TeamId;

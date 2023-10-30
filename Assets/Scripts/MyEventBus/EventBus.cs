@@ -9,6 +9,7 @@ namespace MyEventBus
     {
         private Dictionary<string, List<CallbackWithPriority>> _signalCallbacks = new Dictionary<string, List<CallbackWithPriority>>();
 
+
         public void Subscribe<T>(Action<T> callback, int priority = 0)
         {            
             string key = typeof(T).Name;

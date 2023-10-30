@@ -37,7 +37,7 @@ namespace TowerDefense
         {
             if (_spawnMode == SpawnMode.Start)
             {
-                SpawnEntities();
+                Spawn();
             }
         }
 
@@ -49,13 +49,13 @@ namespace TowerDefense
             }
             if (_spawnMode == SpawnMode.Loop && _timer <= 0)
             {
-                SpawnEntities();
+                Spawn();
                 _timer = _respawnTime;
             }
         } 
         #endregion
 
-        private void SpawnEntities()
+        private void Spawn()
         {
             for (int i = 0; i < _numSpawns; i++)
             {

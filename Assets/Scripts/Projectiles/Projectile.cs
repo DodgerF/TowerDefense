@@ -3,31 +3,29 @@ using UnityEngine;
 
 namespace TowerDefense
 {
-    public class Projectile : Entity
+    public class Projectile : MonoBehaviour
     {
         #region Properties
-        [SerializeField] protected float m_Velocity;
-        public float Velocity => m_Velocity;
-        [SerializeField] protected float m_Lifetime;
-        [SerializeField] protected float m_Damage;
-        protected float m_Timer;
-        private ProjectilePool m_Pool;
+        [SerializeField] private float _velocity;
+        public float Velocity => _velocity;
+        [SerializeField] private float _lifetime;
+        [SerializeField] private float _damage;
+        private float _timer;
 
-        protected Destructible m_Parent;
+        private Destructible _parent;
         #endregion
 
         #region Unity Events
+
+
         private void OnEnable()
         {
-            m_Timer = 0f;
-        }
-        protected virtual void Start()
-        {
+            _timer = 0f;
         }
 
-        protected virtual void Update()
+        private void Update()
         {
-            float stepLenght = Time.deltaTime * m_Velocity;
+            float stepLenght = Time.deltaTime * _velocity;
             Vector2 step = transform.up * stepLenght;
 
             CheckRaycastAhead(stepLenght);
@@ -43,50 +41,31 @@ namespace TowerDefense
             RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, stepLenght);
             if (hit)
             {
-                if (hit.collider.transform.root.TryGetComponent<Destructible>(out Destructible destructible) && destructible != m_Parent)
+                if (hit.collider.TryGetComponent<Destructible>(out Destructible destructible) && destructible != _parent)
                 {
-                    destructible.ApplyDamage(m_Damage);
-
-                    UpdateScore(destructible);
+                    destructible.ApplyDamage(_damage);
                 }
                 OnProjectileLifeEnd();
             }
         }
 
-        protected void UpdateScore(Destructible destructible)
+        private void CheckTimer()
         {
-            return;
-            /*Player.Instance.AddScore(destructible.ScoreValue);
-
-            if (destructible.TryGetComponent<SpaceShip>(out SpaceShip ship))
-            {
-                if (ship.HitPoints <= 0)
-                {
-                    Player.Instance.AddKill();
-                }
-            }*/
-        }
-        protected void CheckTimer()
-        {
-            m_Timer += Time.deltaTime;
-            if (m_Timer > m_Lifetime)
+            _timer += Time.deltaTime;
+            if (_timer > _lifetime)
             {
                 OnProjectileLifeEnd();
             }
         }
 
-        protected virtual void OnProjectileLifeEnd()
+        private void OnProjectileLifeEnd()
         {
-            m_Pool.Return(this);
+            MyObjectPool.ReturnObjectToPool(gameObject);
         }
 
         public void SetParentShooter(Destructible parent)
         {
-            m_Parent = parent;
-        }
-        public void SetPool(ProjectilePool pool)
-        {
-            m_Pool = pool;
+            _parent = parent;
         }
     }
 }

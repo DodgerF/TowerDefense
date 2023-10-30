@@ -1,65 +1,109 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-namespace MyObjectPool 
+namespace TowerDefense
 {
-    public class MyObjectPool<T> where T : MonoBehaviour
+    public class MyObjectPool : MonoBehaviour
     {
-        #region Fields
-        private readonly Func<T> _preloadFunc;
-        private readonly Action<T> _getAction;
-        private readonly Action<T> _returnAction;
+        public static List<PooledObjectInfo> ObjectPools = new List<PooledObjectInfo>();
 
-        private Queue<T> _pool = new Queue<T>();
-        private List<T> _active = new List<T>();
-        #endregion
+        private GameObject _objectPoolHolder;
 
-        #region Constructor
-        public MyObjectPool(Func<T> preloadFunc, Action<T> getAction, Action<T> returnAction, int defaultCapacity)
+        private static GameObject _arrowsHolder;
+        private static GameObject _enemiesHolder;
+
+        public enum PoolType
         {
-            if (preloadFunc == null)
+            Arrows,
+            Enemies,
+            None
+        }
+        public static PoolType PoolingType;
+
+        private void Awake()
+        {
+            SetupHolders();
+        }
+        private void SetupHolders()
+        {
+            _objectPoolHolder = new GameObject("Pooled Objects");
+
+            _arrowsHolder = new GameObject("Arrows");
+            _arrowsHolder.transform.SetParent(_objectPoolHolder.transform);
+
+            _enemiesHolder = new GameObject("Enemies");
+            _enemiesHolder.transform.SetParent(_objectPoolHolder.transform);
+        }
+
+        public static GameObject SpawnObject(GameObject objectToSpawn, Vector3 spawnPoint, Quaternion spawnRotation, PoolType poolType = PoolType.None)
+        {
+            PooledObjectInfo pool = ObjectPools.Find(p => p.LookupString == objectToSpawn.name);
+
+            if (pool == null)
             {
-                Debug.LogError("Preload function is null");
-                return;
+                pool = new PooledObjectInfo() { LookupString = objectToSpawn.name };
+                ObjectPools.Add(pool);
             }
 
-            _preloadFunc = preloadFunc;
-            _getAction = getAction;
-            _returnAction = returnAction;
+            GameObject spawnableObj = pool.InactiveObjects.FirstOrDefault();
 
-            for (int  i = 0; i < defaultCapacity; i++)
+            if (spawnableObj == null)
             {
-                Return(preloadFunc());
+                GameObject parentObject = SetParentObject(poolType);
+                spawnableObj = Instantiate(objectToSpawn, spawnPoint, spawnRotation);
+                if (parentObject != null)
+                {
+                    spawnableObj.transform.SetParent(parentObject.transform);
+                }
+            }
+            else
+            {
+                spawnableObj.transform.position = spawnPoint;
+                spawnableObj.transform.rotation = spawnRotation;
+                pool.InactiveObjects.Remove(spawnableObj);
+                spawnableObj.SetActive(true);
+            }
+
+            return spawnableObj;
+        }
+        public static void ReturnObjectToPool(GameObject obj)
+        {
+            string goName = obj.name.Substring(0, obj.name.Length - 7);
+
+            PooledObjectInfo pool = ObjectPools.Find(p => p.LookupString == goName);
+
+            if (pool == null)
+            {
+                Debug.LogWarning("Trying to realease an object that is not pooled: " + obj.name);
+            }
+
+            else
+            {
+                obj.SetActive(false);
+                pool.InactiveObjects.Add(obj);
             }
         }
-        #endregion
 
-        #region Public methods
-        public T Get()
+        private static GameObject SetParentObject(PoolType poolType)
         {
-            T obj = _pool.Count > 0 ? _pool.Dequeue() : _preloadFunc();
-            _getAction(obj);
-            _active.Add(obj);
-
-            return obj;
-        }
-
-        public void Return(T obj)
-        {
-            _returnAction(obj);
-            _pool.Enqueue(obj);
-
-            _active.Remove(obj);
-        }
-
-        public void ReturnAll()
-        {
-            foreach(T obj in _active)
+            switch(poolType)
             {
-                Return(obj);
+                case PoolType.None:
+                    return null;
+                case PoolType.Arrows:
+                    return _arrowsHolder;
+                case PoolType.Enemies:
+                    return _enemiesHolder;
+                default: 
+                    return null;
             }
         }
-        #endregion
+    }
+
+    public class PooledObjectInfo
+    {
+        public string LookupString;
+        public List<GameObject> InactiveObjects = new List<GameObject>();
     }
 }

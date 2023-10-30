@@ -6,33 +6,21 @@ namespace TowerDefense
 {
     public class Turret : MonoBehaviour
     {
-        [SerializeField] private TurretProperties m_TurretProperties;
-        [SerializeField] private int m_DefaultCapacity;
-        public TurretProperties Property => m_TurretProperties;
+        [SerializeField] private TurretProperties _turretProperties;
+        [SerializeField] private int _defaultCapacity;
+        public TurretProperties Property => _turretProperties;
 
-        private float m_RefireTimer;
+        private float _refireTimer;
+        public bool IsCanFire => _refireTimer <= 0;
 
-        public bool IsCanFire => m_RefireTimer <= 0;
-
-        private SpaceShip m_Ship;
-
-        private ProjectilePool m_Pool;
 
         #region UnityEvents
-        private void Awake()
-        {
-            m_Pool = new ProjectilePool(m_TurretProperties.ProjectilePrefab, m_DefaultCapacity);
-        }
 
         private void Update()
         {
-            if (m_RefireTimer > 0)
+            if (_refireTimer > 0)
             {
-                m_RefireTimer -= Time.deltaTime;
-            }
-            else if (m_TurretProperties.Mode == TurretMode.Auto)
-            {
-                Fire();
+                _refireTimer -= Time.deltaTime;
             }
         }
         #endregion
@@ -40,42 +28,28 @@ namespace TowerDefense
         #region Public API
         public void Fire()
         {
-            if (m_TurretProperties == null) return;
-            if (m_RefireTimer > 0) return;
+            if (_turretProperties == null) return;
+            if (_refireTimer > 0) return;      
 
-            if (m_Ship)
+            if (_turretProperties.ProjectilePrefab != null)
             {
-                if (m_Ship.DrawEnergy(m_TurretProperties.EnergeUsage) == false) return;
-
-                if (m_Ship.DrawAmmo(m_TurretProperties.AmmoUsage) == false) return;
-            }
-            
-
-            if (m_TurretProperties.ProjectilePrefab != null)
-            {
-                Projectile projectile = m_Pool.Get();
-                projectile.SetPool(m_Pool);
-                projectile.transform.position = transform.position;
+                var projectile = MyObjectPool.SpawnObject(_turretProperties.ProjectilePrefab.gameObject, transform.position, Quaternion.identity,
+                                                          MyObjectPool.PoolType.Arrows);
                 projectile.transform.up = transform.up;
-                projectile.SetParentShooter(m_Ship);
             }
-            m_RefireTimer = m_TurretProperties.RateOfFire;
-
-            {
-                //SFX
-            }
+            _refireTimer = _turretProperties.RateOfFire;
         }
         public void AssignLoadout(TurretProperties properties)
         {
-            if (m_TurretProperties.Mode != properties.Mode) return;
+            if (_turretProperties.Mode != properties.Mode) return;
 
-            m_RefireTimer = 0;
-            m_TurretProperties = properties;
+            _refireTimer = 0;
+            _turretProperties = properties;
         }
 
         public void SetProperty(TurretProperties properties)
         {
-            m_TurretProperties = properties;
+            _turretProperties = properties;
         }
 
         #endregion

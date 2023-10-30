@@ -27,7 +27,7 @@ namespace TowerDefense
 
         private void OnDisable()
         {
-            if (EventBus.Instance.IsSubscribe<GoldHaveChangedSignal>(OnGoldChange))
+            if (EventBus.Instance != null && EventBus.Instance.IsSubscribe<GoldHaveChangedSignal>(OnGoldChange))
             {
                 EventBus.Instance.Unsubscribe<GoldHaveChangedSignal>(OnGoldChange);
             }

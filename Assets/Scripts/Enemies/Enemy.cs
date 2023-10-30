@@ -1,5 +1,6 @@
 using MyEventBus;
 using SpaceShooter;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -8,8 +9,6 @@ namespace TowerDefense
     public class Enemy : Destructible
     {
         #region Fields
-
-        private EventBus _events;
 
         #region Gold
 
@@ -35,6 +34,7 @@ namespace TowerDefense
         private CircleCollider2D _circleCollider;
         #endregion
 
+
         #endregion
 
         #region Unity Events
@@ -53,9 +53,8 @@ namespace TowerDefense
         #region Override methods
         protected override void OnDeath()
         {
+            MyObjectPool.ReturnObjectToPool(gameObject);
             EventBus.Instance.Invoke(new EnemyDiedSignal(_gold));
-
-            base.OnDeath();
         }
         #endregion
 
