@@ -7,7 +7,8 @@ namespace TowerDefense
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private float _radius;
-        private Turret[] _turrets;
+        [SerializeField] private Turret[] _turrets;
+
         private Destructible _target;
 
 
@@ -15,7 +16,7 @@ namespace TowerDefense
 
         private void Awake()
         {
-            _turrets = GetComponentsInChildren<Turret>();
+            //_turrets = GetComponentsInChildren<Turret>();
             _target = null;
         }
 
@@ -30,7 +31,7 @@ namespace TowerDefense
                     foreach (Turret turret in _turrets)
                     {
                         turret.transform.up = targetVector;
-                        turret.Fire();
+                        turret.Fire(targetVector);
                     }
                 }
                 else
@@ -65,8 +66,10 @@ namespace TowerDefense
         public void UseAsset(TowerAsset asset)
         {
             _radius = asset.Radius;
+
             foreach (Turret turret in _turrets)
             {
+
                 turret.SetProperty(asset.TurretProperties);
             }
             _spriteRenderer.sprite = asset.Sprite;

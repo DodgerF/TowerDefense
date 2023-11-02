@@ -1900,7 +1900,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_DontDestroyOnLoad: 0
   _maxHP: 100
-  _gold: 30
+  _gold: 10000
 --- !u!4 &1321155587
 Transform:
   m_ObjectHideFlags: 0
@@ -2998,6 +2998,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5081260232701040060, guid: 1fae7ff3bfb59644ea79474169f3b04e, type: 3}
+      propertyPath: _towers.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: b0c0c9d3ee4579d419acded1b3e73c9a, type: 2}
+    - target: {fileID: 5081260232701040060, guid: 1fae7ff3bfb59644ea79474169f3b04e, type: 3}
+      propertyPath: _towers.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9d10d5e544f1fcf4da83fb61d89c2eae, type: 2}
     - target: {fileID: 6911692097901162377, guid: 1fae7ff3bfb59644ea79474169f3b04e, type: 3}
       propertyPath: m_Name
       value: BoxButtons

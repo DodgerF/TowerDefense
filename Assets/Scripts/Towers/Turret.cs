@@ -26,7 +26,7 @@ namespace TowerDefense
         #endregion
 
         #region Public API
-        public void Fire()
+        public void Fire(Vector3 targetVector)
         {
             if (_turretProperties == null) return;
             if (_refireTimer > 0) return;      
@@ -36,6 +36,7 @@ namespace TowerDefense
                 var projectile = MyObjectPool.SpawnObject(_turretProperties.ProjectilePrefab.gameObject, transform.position, Quaternion.identity,
                                                           MyObjectPool.PoolType.Arrows);
                 projectile.transform.up = transform.up;
+                projectile.GetComponent<Projectile>().Target = targetVector;
             }
             _refireTimer = _turretProperties.RateOfFire;
         }

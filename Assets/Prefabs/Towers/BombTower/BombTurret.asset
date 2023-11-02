@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55f76597b7227bf409c7c109375a64ba, type: 3}
-  m_Name: Turret
+  m_Name: BombTurret
   m_EditorClassIdentifier: 
   m_Mode: 0
-  m_ProjectilePrefab: {fileID: 4342201213125009293, guid: 41ee8393b2911e145baefd7008fa8e16, type: 3}
-  m_RateOfFire: 0.5
+  m_ProjectilePrefab: {fileID: 2555826581299092870, guid: 8c9a90f343cc3994980fa6f50c4a5ad3, type: 3}
+  m_RateOfFire: 0.7
   m_EnergeUsage: 0
   m_AmmoUasge: 0
   m_LaunchSFX: {fileID: 0}

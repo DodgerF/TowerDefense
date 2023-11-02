@@ -49,9 +49,9 @@ namespace TowerDefense
         }
         public void Init()
         {
-            EventBus.Instance.Subscribe<GoldHaveChangedSignal>(OnGoldChange);
-
             if (_asset == null) return;
+
+            EventBus.Instance.Subscribe<GoldHaveChangedSignal>(OnGoldChange);
 
             _uiText.text = _asset.GoldCost.ToString();
             _button.image.sprite = _asset.TowerGUI;

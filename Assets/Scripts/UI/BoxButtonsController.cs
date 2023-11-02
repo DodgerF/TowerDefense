@@ -9,7 +9,7 @@ namespace TowerDefense
     public class BoxButtonsController : MonoBehaviour
     {
         [SerializeField] private TowerAsset[] _towers;
-        private List<TowerBuyController> _buttons = new List<TowerBuyController>();
+        [SerializeField] private List<TowerBuyController> _buttons = new List<TowerBuyController>();
 
         private const int MAX_NUMBER_OF_ASSETS = 4;
 
@@ -21,8 +21,8 @@ namespace TowerDefense
             _rectTransform = GetComponent<RectTransform>();
             _startedPos = _rectTransform.anchoredPosition;
 
-            _buttons.AddRange(GetComponentsInChildren<TowerBuyController>());
             int index = 0;
+
             foreach (TowerAsset asset in _towers)
             {
                 _buttons[index].SetAsset(asset);

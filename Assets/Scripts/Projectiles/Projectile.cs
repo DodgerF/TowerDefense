@@ -6,24 +6,25 @@ namespace TowerDefense
     public class Projectile : MonoBehaviour
     {
         #region Properties
-        [SerializeField] private float _velocity;
+        [SerializeField] protected float _velocity;
         public float Velocity => _velocity;
-        [SerializeField] private float _lifetime;
-        [SerializeField] private float _damage;
-        private float _timer;
+        [SerializeField] protected float _lifetime;
+        [SerializeField] protected float _damage;
+        protected float _timer;
 
-        private Destructible _parent;
+        protected Vector3 _targetPoint;
+        public Vector3 Target { set { _targetPoint = value; } }
         #endregion
 
         #region Unity Events
 
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             _timer = 0f;
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             float stepLenght = Time.deltaTime * _velocity;
             Vector2 step = transform.up * stepLenght;
@@ -36,12 +37,12 @@ namespace TowerDefense
 
         #endregion
 
-        private void CheckRaycastAhead(float stepLenght)
+        protected virtual void CheckRaycastAhead(float stepLenght)
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, stepLenght);
             if (hit)
             {
-                if (hit.collider.TryGetComponent<Destructible>(out Destructible destructible) && destructible != _parent)
+                if (hit.collider.TryGetComponent<Destructible>(out Destructible destructible))
                 {
                     destructible.ApplyDamage(_damage);
                 }
@@ -49,7 +50,7 @@ namespace TowerDefense
             }
         }
 
-        private void CheckTimer()
+        protected virtual void CheckTimer()
         {
             _timer += Time.deltaTime;
             if (_timer > _lifetime)
@@ -58,14 +59,10 @@ namespace TowerDefense
             }
         }
 
-        private void OnProjectileLifeEnd()
+        protected virtual void OnProjectileLifeEnd()
         {
             MyObjectPool.ReturnObjectToPool(gameObject);
         }
 
-        public void SetParentShooter(Destructible parent)
-        {
-            _parent = parent;
-        }
     }
 }
