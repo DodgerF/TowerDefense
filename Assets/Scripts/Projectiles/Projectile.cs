@@ -8,7 +8,7 @@ namespace TowerDefense
         #region Properties
         [SerializeField] protected float _velocity;
         public float Velocity => _velocity;
-        [SerializeField] protected float _lifetime;
+        protected float _lifetime;
         [SerializeField] protected float _damage;
         protected float _timer;
 
@@ -21,10 +21,13 @@ namespace TowerDefense
 
         protected virtual void OnEnable()
         {
+            float dist = Vector3.Distance(transform.position, _targetPoint);
+            float vel = _velocity * 1.5f; //костыль, чтобы projeectiles исчезали в нужной точке
+            _lifetime = dist / vel;
             _timer = 0f;
         }
 
-        protected virtual void Update()
+        protected virtual void FixedUpdate()
         {
             float stepLenght = Time.deltaTime * _velocity;
             Vector2 step = transform.up * stepLenght;
@@ -40,17 +43,21 @@ namespace TowerDefense
         protected virtual void CheckRaycastAhead(float stepLenght)
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, stepLenght);
-            if (hit)
-            {
-                if (hit.collider.TryGetComponent<Destructible>(out Destructible destructible))
-                {
-                    destructible.ApplyDamage(_damage);
-                }
-                OnProjectileLifeEnd();
-            }
+            DealDamage(hit);
         }
 
-        protected virtual void CheckTimer()
+        protected virtual void DealDamage(RaycastHit2D hit)
+        {
+            if (!hit) return;
+
+            if (hit.collider.TryGetComponent<Destructible>(out Destructible destructible))
+            {
+                destructible.ApplyDamage(_damage);
+            }
+            OnProjectileLifeEnd();
+        }
+
+        protected void CheckTimer()
         {
             _timer += Time.deltaTime;
             if (_timer > _lifetime)

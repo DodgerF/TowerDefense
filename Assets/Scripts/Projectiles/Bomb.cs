@@ -1,41 +1,46 @@
-using System.Collections;
-using System.Collections.Generic;
+using SpaceShooter;
 using UnityEngine;
 
 namespace TowerDefense
 {
+    [RequireComponent(typeof(Explosion))]
     public class Bomb : Projectile
     {
         [SerializeField] private float _radiusExplosion;
-
-
-        protected override void OnEnable()
+        private Explosion _anim;
+        private void Awake()
         {
-            base.OnEnable();
+            _anim = GetComponent<Explosion>();
         }
-        protected override void Update()
-        {   
-            if (Vector3.Distance(transform.position, _targetPoint) < 0.1f)
-            {
-                OnProjectileLifeEnd();
-            }
-            base.Update();
+        protected override void DealDamage(RaycastHit2D hit)
+        {
+            if (!hit) return;
+            OnProjectileLifeEnd();
         }
+
         protected override void OnProjectileLifeEnd()
         {
             Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _radiusExplosion);
 
-            if (colliders.Length > 0)
+            foreach (Collider2D collider in colliders)
             {
-                foreach (Collider2D collider in colliders)
+                if (collider.TryGetComponent<Enemy>(out Enemy enemy))
                 {
-                    if (collider.TryGetComponent<Enemy>(out Enemy enemy))
-                    {
-                        enemy.ApplyDamage(_damage);
-                    }
+                    enemy.ApplyDamage(_damage);
                 }
             }
+            _anim.BlowUp(transform.position, _radiusExplosion);
             base.OnProjectileLifeEnd();
         }
+
+#if UNITY_EDITOR
+        private static readonly Color GizmoColor = new Color(1, 0, 0, 0.3f);
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = GizmoColor;
+            Gizmos.DrawSphere(transform.position, _radiusExplosion);
+        }
+#endif
     }
 }

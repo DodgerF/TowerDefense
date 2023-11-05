@@ -9,8 +9,8 @@ public class Arrow : Projectile
     {
         base.OnEnable();
     }
-    protected override void Update()
+    protected override void FixedUpdate()
     {
-        base.Update();
+        base.FixedUpdate();
     }
 }

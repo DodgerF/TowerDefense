@@ -10,7 +10,8 @@ namespace TowerDefense
         [SerializeField] private SpriteRenderer _flagSprite;
         [SerializeField] private Image _button;
         private BoxButtonsController _buttonBox;
-        
+
+        private Tower _currentTower;
 
         private void Awake()
         {
@@ -31,8 +32,8 @@ namespace TowerDefense
         {
             if (!Player.Instance.Buy(asset.GoldCost)) return;
 
-            _towerPrefab.UseAsset(asset);
-            Instantiate(_towerPrefab, transform.position, Quaternion.identity);
+            _currentTower = Instantiate(_towerPrefab, transform.position, Quaternion.identity);
+            _currentTower.UseAsset(asset);
 
             _button.gameObject.SetActive(false);
             _flagSprite.gameObject.SetActive(false);

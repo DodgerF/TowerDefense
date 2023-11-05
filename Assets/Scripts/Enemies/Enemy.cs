@@ -39,10 +39,8 @@ namespace TowerDefense
 
         #region Unity Events
 
-        protected override void Awake()
+        private void  Awake()
         {
-            base.Awake();
-
             _sprite = transform.Find("View").GetComponent<SpriteRenderer>();
             _animator = _sprite.GetComponent<Animator>();
             _circleCollider = GetComponentInChildren<CircleCollider2D>();
@@ -83,7 +81,7 @@ namespace TowerDefense
 
             _gold = asset.Gold;
 
-            SetMaxHP(asset.HP);
+            SetHP(asset.HP);
         } 
         #endregion
     }

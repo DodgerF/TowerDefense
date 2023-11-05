@@ -31,13 +31,10 @@ namespace SpaceShooter
         #endregion
 
         #region Unity Events
-
-        protected virtual void Awake()
+        protected virtual void OnEnable()
         {
             _currentHP = _maxHP;
-;
         }
-
 
         #endregion
 
@@ -59,13 +56,15 @@ namespace SpaceShooter
             }
         }
 
-        public void SetMaxHP(int value)
+        public void SetHP(int value)
         {
-
             if (value <= 0) return;
 
-            _maxHP = value;
-
+            if(_maxHP < value)
+            {
+                _maxHP = value;
+            }
+            _currentHP = value;
         }
 
         #endregion
