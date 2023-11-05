@@ -12,6 +12,9 @@ namespace TowerDefense
 
         public float Radius;
         public TurretProperties TurretProperties;
+
+        [Header("Тип войска для атаки")]
+        public Type Type;
     }
 
 }

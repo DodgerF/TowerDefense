@@ -15,7 +15,7 @@ namespace TowerDefense
         /// <summary>
         /// Цель для атаки.
         /// </summary>
-        private Destructible _attackTarget;
+        private SpaceShooter.Destructible _attackTarget;
 
         #region Path
 

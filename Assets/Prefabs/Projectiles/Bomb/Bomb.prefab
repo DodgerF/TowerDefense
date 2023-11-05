@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _velocity: 7
   _damage: 1
+  _type: 1
   _radiusExplosion: 1
 --- !u!114 &958917042925034799
 MonoBehaviour:

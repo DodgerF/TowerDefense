@@ -1,14 +1,22 @@
 using MyEventBus;
 using SpaceShooter;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
 namespace TowerDefense
 {
+    public enum Type
+    {
+        Flying,
+        Ground,
+        All
+    }
+
     public class Enemy : Destructible
     {
         #region Fields
+
+        public Type Type;
 
         #region Gold
 
@@ -82,6 +90,8 @@ namespace TowerDefense
             _gold = asset.Gold;
 
             SetHP(asset.HP);
+
+            Type = asset.Type;
         } 
         #endregion
     }

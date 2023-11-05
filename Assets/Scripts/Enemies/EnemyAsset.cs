@@ -21,5 +21,8 @@ namespace TowerDefense
         public float Radius = 0.4f;
         public float Damage = 1;
 
+        [Header("Тип войска")]
+        public Type Type;
+
     }
 }

@@ -21,3 +21,4 @@ MonoBehaviour:
   Gold: 1
   Radius: 0.4
   Damage: 5
+  Type: 1

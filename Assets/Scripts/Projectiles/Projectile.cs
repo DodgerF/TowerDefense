@@ -14,6 +14,8 @@ namespace TowerDefense
 
         protected Vector3 _targetPoint;
         public Vector3 Target { set { _targetPoint = value; } }
+
+        [SerializeField] protected Type _type;
         #endregion
 
         #region Unity Events
@@ -43,21 +45,26 @@ namespace TowerDefense
         protected virtual void CheckRaycastAhead(float stepLenght)
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, stepLenght);
-            DealDamage(hit);
+            CheckHit(hit);
         }
 
-        protected virtual void DealDamage(RaycastHit2D hit)
+        protected virtual void CheckHit(RaycastHit2D hit)
         {
             if (!hit) return;
 
-            if (hit.collider.TryGetComponent<Destructible>(out Destructible destructible))
+            if (hit.collider.TryGetComponent<Enemy>(out Enemy enemy) && (enemy.Type == _type || _type == Type.All))
             {
-                destructible.ApplyDamage(_damage);
+                DealDamage(enemy);
             }
+        }
+
+        protected virtual void DealDamage(Enemy enemy)
+        {
+            enemy.ApplyDamage(_damage);
             OnProjectileLifeEnd();
         }
 
-        protected void CheckTimer()
+        protected virtual void CheckTimer()
         {
             _timer += Time.deltaTime;
             if (_timer > _lifetime)

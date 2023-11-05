@@ -302,10 +302,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indestructible: 0
-  _maxHP: 50
+  _maxHP: 0
   m_TeamId: 0
   m_ScoreValue: 0
-  _moveSpeed: 35
+  Type: 0
+  _moveSpeed: 0
 --- !u!114 &4762218530822697977
 MonoBehaviour:
   m_ObjectHideFlags: 0

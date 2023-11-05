@@ -1,4 +1,3 @@
-using SpaceShooter;
 using UnityEngine;
 
 namespace TowerDefense
@@ -9,19 +8,19 @@ namespace TowerDefense
         [SerializeField] private float _radius;
         [SerializeField] private Turret[] _turrets;
 
-        private Destructible _target;
+        private Enemy _target;
 
+        private Type _type;
 
         #region Unity Events
 
         private void Awake()
         {
-            //_turrets = GetComponentsInChildren<Turret>();
             _target = null;
         }
 
         private void Update()
-        {
+        {   
             if (_target && _target.isActiveAndEnabled)
             {
                 Vector3 targetVector = GetShootingPoint();
@@ -59,6 +58,7 @@ namespace TowerDefense
 
             if (enter != null && enter.transform.TryGetComponent<Enemy>(out Enemy target))
             {
+                if (target.Type == _type || _type == Type.All)
                 _target = target;
             }
         }
@@ -73,6 +73,8 @@ namespace TowerDefense
                 turret.SetProperty(asset.TurretProperties);
             }
             _spriteRenderer.sprite = asset.Sprite;
+
+            _type = asset.Type;
         }
 
 #if UNITY_EDITOR

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GoldCost: 20
   TowerGUI: {fileID: 21300000, guid: 1ff55c4a74fcf9b429b49b787ead3395, type: 3}
-  Sprite: {fileID: 21300000, guid: 961542bf834d173448be6e9b235a3b66, type: 3}
+  Sprite: {fileID: 21300000, guid: 298636722737c4b41816506cd4bc994f, type: 3}
   Radius: 5
   TurretProperties: {fileID: 11400000, guid: 578d6c3744636d841910fd362d098e24, type: 2}
+  Type: 1
