@@ -5,10 +5,9 @@ using UnityEngine;
 
 namespace MyEventBus
 {
-    public class EventBus : SingletonBase<EventBus>
+    public class EventBus : MonoBehaviour
     {
         private Dictionary<string, List<CallbackWithPriority>> _signalCallbacks = new Dictionary<string, List<CallbackWithPriority>>();
-
 
         public void Subscribe<T>(Action<T> callback, int priority = 0)
         {            

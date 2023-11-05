@@ -5,6 +5,7 @@ using UnityEngine;
 namespace TowerDefense {
     public class UIHP : MonoBehaviour
     {
+        [SerializeField] private EventBus _eventBus;
         private TextMeshProUGUI _uiText;
 
         #region Unity Events
@@ -12,14 +13,14 @@ namespace TowerDefense {
         {
             _uiText = GetComponentInChildren<TextMeshProUGUI>();
         }
-        private void Start()
+        private void OnEnable()
         {
-            EventBus.Instance.Subscribe<HPHaveChangedSignal>(OnHPChanged);
+           _eventBus.Subscribe<HPHaveChangedSignal>(OnHPChanged);
         }
 
         private void OnDisable()
         {
-            EventBus.Instance.Unsubscribe<HPHaveChangedSignal>(OnHPChanged);
+            _eventBus.Unsubscribe<HPHaveChangedSignal>(OnHPChanged);
         }
         #endregion
 

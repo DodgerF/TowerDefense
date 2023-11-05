@@ -16,6 +16,7 @@ namespace TowerDefense
         private BuildPointController _buildPoint;
         public BuildPointController BuildPoint { set { _buildPoint = value; } }
 
+        [SerializeField] private EventBus _eventBus;
         #endregion
 
         #region Unity events
@@ -27,10 +28,7 @@ namespace TowerDefense
 
         private void OnDisable()
         {
-            if (EventBus.Instance != null && EventBus.Instance.IsSubscribe<GoldHaveChangedSignal>(OnGoldChange))
-            {
-                EventBus.Instance.Unsubscribe<GoldHaveChangedSignal>(OnGoldChange);
-            }
+            _eventBus.Unsubscribe<GoldHaveChangedSignal>(OnGoldChange);
         }
 
         #endregion
@@ -51,7 +49,7 @@ namespace TowerDefense
         {
             if (_asset == null) return;
 
-            EventBus.Instance.Subscribe<GoldHaveChangedSignal>(OnGoldChange);
+            _eventBus.Subscribe<GoldHaveChangedSignal>(OnGoldChange);
 
             _uiText.text = _asset.GoldCost.ToString();
             _button.image.sprite = _asset.TowerGUI;

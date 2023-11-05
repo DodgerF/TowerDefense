@@ -18,6 +18,8 @@ namespace TowerDefense
 
         public Type Type;
 
+        private EventBus _eventBus;
+
         #region Gold
 
         private int _gold;
@@ -49,6 +51,7 @@ namespace TowerDefense
 
         private void  Awake()
         {
+            _eventBus = FindAnyObjectByType<EventBus>();
             _sprite = transform.Find("View").GetComponent<SpriteRenderer>();
             _animator = _sprite.GetComponent<Animator>();
             _circleCollider = GetComponentInChildren<CircleCollider2D>();
@@ -60,7 +63,7 @@ namespace TowerDefense
         protected override void OnDeath()
         {
             MyObjectPool.ReturnObjectToPool(gameObject);
-            EventBus.Instance.Invoke(new EnemyDiedSignal(_gold));
+            _eventBus.Invoke(new EnemyDiedSignal(_gold));
         }
         #endregion
 

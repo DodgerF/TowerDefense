@@ -6,7 +6,7 @@ namespace TowerDefense
     public class Player : SingletonBase<Player>
     {
         #region Fields
-
+        [SerializeField] private EventBus _eventBus;
         #region HP
         [SerializeField] private int _maxHP;
         public int MaxHP => _maxHP;
@@ -33,21 +33,19 @@ namespace TowerDefense
 
         private void Start()
         {
-            EventBus.Instance.Subscribe<EnemyDiedSignal>(OnGotGold);
-
-            EventBus.Instance.Invoke(new GoldHaveChangedSignal(_gold));
-            EventBus.Instance.Invoke(new HPHaveChangedSignal(_currentHP));
+            _eventBus.Invoke(new GoldHaveChangedSignal(_gold));
+            _eventBus.Invoke(new HPHaveChangedSignal(_currentHP));
         }
 
         #region (Un)Subscribes
         private void OnEnable()
         {
-            
+            _eventBus.Subscribe<EnemyDiedSignal>(OnGotGold);
         }
 
         private void OnDisable()
         {
-            EventBus.Instance.Unsubscribe<EnemyDiedSignal>(OnGotGold);
+            _eventBus.Unsubscribe<EnemyDiedSignal>(OnGotGold);
         } 
         #endregion
 
@@ -76,11 +74,11 @@ namespace TowerDefense
 
             _currentHP = hp;
             
-            EventBus.Instance.Invoke(new HPHaveChangedSignal(_currentHP));
+            _eventBus.Invoke(new HPHaveChangedSignal(_currentHP));
 
             if (_currentHP <= 0)
             {
-                EventBus.Instance.Invoke(new PlayerDiedSignal());
+                _eventBus.Invoke(new PlayerDiedSignal());
             }
         }
         #endregion
@@ -100,7 +98,7 @@ namespace TowerDefense
         private void SetGold(int gold)
         {
             _gold = gold;
-            EventBus.Instance.Invoke(new GoldHaveChangedSignal(_gold));
+            _eventBus.Invoke(new GoldHaveChangedSignal(_gold));
         }
 
         public bool Buy(int cost)

@@ -24,7 +24,7 @@ namespace TowerDefense
         protected virtual void OnEnable()
         {
             float dist = Vector3.Distance(transform.position, _targetPoint);
-            float vel = _velocity * 1.5f; //костыль, чтобы projeectiles исчезали в нужной точке
+            float vel = _velocity / 2f; //костыль, чтобы projeectiles исчезали в нужной точке
             _lifetime = dist / vel;
             _timer = 0f;
         }
@@ -55,13 +55,13 @@ namespace TowerDefense
             if (hit.collider.TryGetComponent<Enemy>(out Enemy enemy) && (enemy.Type == _type || _type == Type.All))
             {
                 DealDamage(enemy);
+                OnProjectileLifeEnd();
             }
         }
 
         protected virtual void DealDamage(Enemy enemy)
         {
             enemy.ApplyDamage(_damage);
-            OnProjectileLifeEnd();
         }
 
         protected virtual void CheckTimer()

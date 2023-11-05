@@ -6,6 +6,7 @@ namespace TowerDefense
 {
     public class UIGold : MonoBehaviour
     {
+        [SerializeField] private EventBus _eventBus;
         private TextMeshProUGUI _uiText;
 
         #region Unity Events
@@ -13,15 +14,15 @@ namespace TowerDefense
         {
             _uiText = GetComponentInChildren<TextMeshProUGUI>();
         }
-        private void Start()
+        private void OnEnable()
         {
             
-            EventBus.Instance.Subscribe<GoldHaveChangedSignal>(OnGoldChange);
+            _eventBus.Subscribe<GoldHaveChangedSignal>(OnGoldChange);
         }
 
         private void OnDisable()
         {
-            EventBus.Instance.Unsubscribe<GoldHaveChangedSignal>(OnGoldChange);
+            _eventBus.Unsubscribe<GoldHaveChangedSignal>(OnGoldChange);
         }
 
 
