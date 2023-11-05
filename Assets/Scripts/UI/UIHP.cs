@@ -8,10 +8,12 @@ namespace TowerDefense {
         private TextMeshProUGUI _uiText;
 
         #region Unity Events
-        private void Start()
+        private void Awake()
         {
             _uiText = GetComponentInChildren<TextMeshProUGUI>();
-
+        }
+        private void Start()
+        {
             EventBus.Instance.Subscribe<HPHaveChangedSignal>(OnHPChanged);
         }
 

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a25f03b90d67164b9135b7c5b90f029, type: 3}
   m_Name: ArcherTower
   m_EditorClassIdentifier: 
-  GoldCost: 15
+  GoldCost: 10
   TowerGUI: {fileID: 21300000, guid: ef25b92a8e4b2644b8420de820e6c11f, type: 3}
   Sprite: {fileID: 21300000, guid: 0d1dc428e29b59d4da665429794be749, type: 3}
   Radius: 4

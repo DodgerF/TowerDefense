@@ -18,7 +18,7 @@ MonoBehaviour:
   MoveSpeed: 0.75
   HP: 5
   Score: 1
-  Gold: 1
+  Gold: 2
   Radius: 0.4
   Damage: 2
   Type: 1

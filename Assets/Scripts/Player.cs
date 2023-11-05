@@ -33,6 +33,8 @@ namespace TowerDefense
 
         private void Start()
         {
+            EventBus.Instance.Subscribe<EnemyDiedSignal>(OnGotGold);
+
             EventBus.Instance.Invoke(new GoldHaveChangedSignal(_gold));
             EventBus.Instance.Invoke(new HPHaveChangedSignal(_currentHP));
         }
@@ -40,7 +42,7 @@ namespace TowerDefense
         #region (Un)Subscribes
         private void OnEnable()
         {
-            EventBus.Instance.Subscribe<EnemyDiedSignal>(OnGotGold);
+            
         }
 
         private void OnDisable()
