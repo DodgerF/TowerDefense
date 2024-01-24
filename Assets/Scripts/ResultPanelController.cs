@@ -1,47 +1,54 @@
+using MyEventBus;
+using SpaceShooter;
 using System;
 using TMPro;
 using UnityEngine;
 
-namespace SpaceShooter
+namespace TowerDefense
 {
     public class ResultPanelController : SingletonBase<ResultPanelController>
     {
         #region Properties
-        [SerializeField] protected TextMeshProUGUI m_ResultText;
+        [SerializeField] private TextMeshProUGUI m_ResultText;
 
 
-        [SerializeField] protected TextMeshProUGUI m_NumKillsText;
-        [SerializeField] protected TextMeshProUGUI m_ScoreText;
-        [SerializeField] protected TextMeshProUGUI m_TimeText;
+        [SerializeField] private TextMeshProUGUI m_NumKillsText;
+        [SerializeField] private TextMeshProUGUI m_ScoreText;
+        [SerializeField] private TextMeshProUGUI m_TimeText;
 
         [SerializeField] private TextMeshProUGUI m_ButtonText;
 
         private bool m_Success;
+
+
+
+        [SerializeField] private GameObject _winPanel;
+        [SerializeField] private GameObject _losePanel;
+
         #endregion
 
         #region Unity Events
         protected override void Awake()
         {
             base.Awake();
-            gameObject.SetActive(false);
+
+            _losePanel.SetActive(false);
+            _winPanel.SetActive(false);
         }
 
-        
         #endregion
 
         #region API
-        public void ShowResults(PlayerStatistics levelResults, bool success)
+        public void ShowResults(bool success)
         {
-            gameObject.SetActive(true);
-            Time.timeScale = 0;
-
-            m_Success = success;
-            m_ResultText.text = success ? "Win" : "Lose";
-            m_ButtonText.text = success ? "Next" : "Restart";
-
-            m_NumKillsText.text = "Kills: " + levelResults.NumKills;
-            m_ScoreText.text = "Score: " + levelResults.Score;
-            m_TimeText.text = "Time: " + levelResults.Time;
+            if (success)
+            {
+                _winPanel.SetActive(true);
+            }
+            else
+            {
+                _losePanel.SetActive(true);
+            }
         }
 
         public void OnButtonNext()
@@ -60,6 +67,9 @@ namespace SpaceShooter
             }
 
         }
+
         #endregion
+
+
     }
 }

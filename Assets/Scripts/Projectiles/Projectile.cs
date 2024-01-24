@@ -7,7 +7,6 @@ namespace TowerDefense
     {
         #region Properties
         [SerializeField] protected float _velocity;
-        public float Velocity => _velocity;
         protected float _lifetime;
         [SerializeField] protected float _damage;
         protected float _timer;

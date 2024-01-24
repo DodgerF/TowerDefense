@@ -19,17 +19,22 @@ namespace TowerDefense
             _anim = GetComponent<Explosion>();
         }
 
-        private void OnDisable()
-        {
-            Explosion();
-        }
-
         #endregion
 
         #region Override 
         protected override void DealDamage(Enemy enemy)
         {
+            Explosion();
             OnProjectileLifeEnd();
+        }
+        protected override void CheckTimer()
+        {
+            _timer += Time.deltaTime;
+            if (_timer > _lifetime)
+            {
+                Explosion();
+                OnProjectileLifeEnd();
+            }
         }
         #endregion
 

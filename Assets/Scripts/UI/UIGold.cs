@@ -7,6 +7,7 @@ namespace TowerDefense
     public class UIGold : MonoBehaviour
     {
         [SerializeField] private EventBus _eventBus;
+        
         private TextMeshProUGUI _uiText;
 
         #region Unity Events

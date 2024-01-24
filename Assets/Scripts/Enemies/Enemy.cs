@@ -17,7 +17,6 @@ namespace TowerDefense
         #region Fields
 
         public Type Type;
-
         private EventBus _eventBus;
 
         #region Gold
@@ -41,6 +40,7 @@ namespace TowerDefense
         #region View
         private SpriteRenderer _sprite;
         private Animator _animator;
+        public Animator Animator=> _animator;
         private CircleCollider2D _circleCollider;
         #endregion
 

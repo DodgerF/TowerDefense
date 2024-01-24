@@ -29,7 +29,7 @@ namespace SpaceShooter
 
         public void RestartLevel()
         {
-            LevelStatistics.Reset();
+            //LevelStatistics.Reset();
 
 
             SceneManager.LoadScene(CurrentEpisode.Levels[CurrentLevel]);
@@ -37,14 +37,15 @@ namespace SpaceShooter
 
         public void FinishCurrentLevel(bool success)
         {
-            LastLevelResult = success;
+            ResultPanelController.Instance.ShowResults(success);
+            /*LastLevelResult = success;
             CalculateLevelStatistic();
 
             ResultPanelController.Instance.ShowResults(LevelStatistics, success);
 
             GameStatistics.Instance.AddKills(LevelStatistics.NumKills);
             GameStatistics.Instance.AddScore(LevelStatistics.Score);
-            GameStatistics.Instance.AddTime(LevelStatistics.Time);
+            GameStatistics.Instance.AddTime(LevelStatistics.Time);*/
             /*if(AstronautsCounter.Instance != null)
             {
                 GameStatistics.Instance.AddAstronauts(AstronautsCounter.Instance.Saved);

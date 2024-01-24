@@ -1,7 +1,9 @@
-using TowerDefense;
+
+using MyEventBus;
+using SpaceShooter;
 using UnityEngine;
 
-namespace SpaceShooter
+namespace TowerDefense
 {
     public interface ILevelCondition
     {
@@ -10,6 +12,8 @@ namespace SpaceShooter
     public class LevelController : SingletonBase<LevelController>
     {
         #region Properties
+        [SerializeField] private EventBus _eventBus;
+
         [SerializeField] private int m_ReferenceTime;
         public int ReferenceTime => m_ReferenceTime;
         [SerializeField] private int BonusScorePerSecond;
@@ -37,9 +41,47 @@ namespace SpaceShooter
             CheckLevelConditions();
         }
 
+        private void OnEnable()
+        {
+            _eventBus.Subscribe<PlayerDiedSignal>(OnDied);
+        }
+
+        private void OnDisable()
+        {
+            _eventBus.Unsubscribe<PlayerDiedSignal>(OnDied);
+        }
+
         #endregion
 
         #region Logic
+
+        private void OnDied(PlayerDiedSignal signal)
+        {
+            StopLevel(false);
+        }
+
+        private void StopLevel(bool isSucces)
+        {
+            foreach (var animator in FindObjectsOfType<Animator>())
+            {
+                animator.speed = 0;
+            }
+
+            void DisableAll<T>() where T : MonoBehaviour
+            {
+                foreach (var obj in FindObjectsOfType<T>())
+                {
+                    obj.enabled = false;
+                }
+            }
+            DisableAll<Spawner>();
+            DisableAll<Tower>();
+            DisableAll<Projectile>();
+            DisableAll<EnemyController>();
+
+            ResultPanelController.Instance.ShowResults(isSucces);
+        }
+
         private void CheckLevelConditions()
         {
             if (m_Conditions == null || m_Conditions.Length == 0) return;
@@ -62,7 +104,7 @@ namespace SpaceShooter
                     //Player.Instance.AddScore((int)(m_ReferenceTime - m_LevelTime) * BonusScorePerSecond);
                 }
 
-                LevelSequenceController.Instance.FinishCurrentLevel(true);
+                StopLevel(true);
             }
         }
         #endregion
