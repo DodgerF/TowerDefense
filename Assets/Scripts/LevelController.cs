@@ -105,6 +105,7 @@ namespace TowerDefense
                 }
 
                 StopLevel(true);
+                MapCompletion.SaveEpisodeResult(1);
             }
         }
         #endregion
