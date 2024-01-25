@@ -36,6 +36,8 @@ namespace TowerDefense
                 Destroy(_buttons[MAX_NUMBER_OF_ASSETS - i - 1].gameObject);
                 _buttons.Remove(_buttons[MAX_NUMBER_OF_ASSETS - i - 1]);
             }
+
+            
         }
 
         private void Start()

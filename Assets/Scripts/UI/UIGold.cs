@@ -17,12 +17,12 @@ namespace TowerDefense
         }
         private void OnEnable()
         {
-            
             _eventBus.Subscribe<GoldHaveChangedSignal>(OnGoldChange);
         }
 
         private void OnDisable()
         {
+
             _eventBus.Unsubscribe<GoldHaveChangedSignal>(OnGoldChange);
         }
 

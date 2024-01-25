@@ -28,7 +28,7 @@ namespace TowerDefense
 
         private void OnDisable()
         {
-            _eventBus.Unsubscribe<GoldHaveChangedSignal>(OnGoldChange);
+            if (_asset != null) _eventBus.Unsubscribe<GoldHaveChangedSignal>(OnGoldChange);
         }
 
         #endregion

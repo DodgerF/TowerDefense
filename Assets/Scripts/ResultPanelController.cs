@@ -41,6 +41,7 @@ namespace TowerDefense
         #region API
         public void ShowResults(bool success)
         {
+            m_Success = success;
             if (success)
             {
                 _winPanel.SetActive(true);
@@ -54,7 +55,6 @@ namespace TowerDefense
         public void OnButtonNext()
         {
             gameObject.SetActive(false);
-            Time.timeScale = 1;
 
             if (m_Success)
             {
