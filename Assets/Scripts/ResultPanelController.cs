@@ -3,6 +3,7 @@ using SpaceShooter;
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace TowerDefense
 {
@@ -66,6 +67,11 @@ namespace TowerDefense
                 LevelSequenceController.Instance.RestartLevel();
             }
 
+        }
+
+        public void ReturnOnMap()
+        {
+            SceneManager.LoadScene(1);
         }
 
         #endregion

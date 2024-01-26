@@ -1,6 +1,4 @@
 using TowerDefense;
-using UnityEditor.SceneManagement;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace SpaceShooter

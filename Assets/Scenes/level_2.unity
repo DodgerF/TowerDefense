@@ -619,7 +619,7 @@ GameObject:
   - component: {fileID: 8694139285765917436}
   - component: {fileID: 7266089157960079422}
   - component: {fileID: 8694139285765917438}
-  - component: {fileID: 8694139285765917437}
+  - component: {fileID: 8694139285765917439}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1642,7 +1642,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_DontDestroyOnLoad: 0
   _eventBus: {fileID: 8351396618386078225}
-  _maxHP: 100
+  _maxHP: 1
   _gold: 50
 --- !u!1 &7274446158426130266
 GameObject:
@@ -1921,19 +1921,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8694139285765917437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 877799497758984940}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10f7b7e1bb2ada24a886420a999b3bc9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _timeLimit: 4
 --- !u!114 &8694139285765917438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1950,6 +1937,19 @@ MonoBehaviour:
   _eventBus: {fileID: 8351396618386078225}
   m_ReferenceTime: 0
   BonusScorePerSecond: 0
+--- !u!114 &8694139285765917439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 877799497758984940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10f7b7e1bb2ada24a886420a999b3bc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timeLimit: 35
 --- !u!1 &8701790707620235200
 GameObject:
   m_ObjectHideFlags: 0

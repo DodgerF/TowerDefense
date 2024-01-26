@@ -7,7 +7,8 @@ namespace TowerDefense
 {
     public class MapCompletion : SingletonBase<MapCompletion>
     {
-        const string FILENAME = "completion.dat"; 
+        public const string FILENAME = "completion.dat";
+
         [Serializable]
         private class EpisodeScore
         {
@@ -35,9 +36,13 @@ namespace TowerDefense
         }
 
         [SerializeField] private EpisodeScore[] completionData;
-        private new void Awake()
+        
+        public void Load()
         {
-            base.Awake();
+            foreach(var obj in completionData)
+            {
+                obj.score = 0;
+            }
             Saver<EpisodeScore[]>.TryLoad(FILENAME, ref completionData); 
         }
 

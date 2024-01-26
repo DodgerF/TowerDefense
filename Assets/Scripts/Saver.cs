@@ -9,7 +9,7 @@ namespace TowerDefense
     {
         public static void TryLoad(string filename, ref T data)
         {
-            var path = Path(filename);
+            var path = FileHandler.Path(filename);
             if (File.Exists(path))
             {
                 var dataString = File.ReadAllText(path);
@@ -22,15 +22,30 @@ namespace TowerDefense
         {
             var wrapper = new Saver<T> { Data = data };
             var dataString = JsonUtility.ToJson(wrapper);
-            File.WriteAllText(Path(filename), dataString);
+            File.WriteAllText(FileHandler.Path(filename), dataString);
         }
+    }
 
-       
-        private static string Path(string filename)
+    public static class FileHandler
+    {
+        public static string Path(string filename)
         {
             return $"{Application.persistentDataPath}/{filename}";
         }
 
-        
+        public static void Reset(string filename)
+        {
+            var path = Path(filename);
+
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+        }
+
+        public static bool HaveFile()
+        {
+            return File.Exists(Path(MapCompletion.FILENAME));
+        }
     }
 }

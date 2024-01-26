@@ -11,21 +11,25 @@ namespace TowerDefense
             _levels = GetComponentsInChildren<MapLevel>();
         }
 
-        void Start ()
+        private void OnEnable()
         {
+            foreach (MapLevel level in _levels)
+            {
+                level.gameObject.SetActive(false);
+            }
+
+            MapCompletion.Instance.Load();
+
             var drawLevel = 0;
             var score = 1;
             while (score != 0 && drawLevel < _levels.Length &&
                 MapCompletion.Instance.TryIndex(drawLevel, out var episode, out score))
             {
-                _levels[drawLevel++].SetLevelData(episode, score);
+                _levels[drawLevel].gameObject.SetActive(true);
+                _levels[drawLevel].SetLevelData(episode, score);
+                drawLevel++;
             }
-
-
-            for (int i = drawLevel; i < _levels.Length; i++)
-            {
-                _levels[i].gameObject.SetActive(false);
-            }
+            Debug.Log(drawLevel);
         }
     }
 }

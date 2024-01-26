@@ -28,7 +28,7 @@ namespace TowerDefense
 
         #region Damage
         private float _dmg;
-        public float Damage => _dmg; 
+        public float Damage => _dmg;
         #endregion
 
         #region MoveSpeed
@@ -40,7 +40,7 @@ namespace TowerDefense
         #region View
         private SpriteRenderer _sprite;
         private Animator _animator;
-        public Animator Animator=> _animator;
+        public Animator Animator => _animator;
         private CircleCollider2D _circleCollider;
         #endregion
 
@@ -49,7 +49,7 @@ namespace TowerDefense
 
         #region Unity Events
 
-        private void  Awake()
+        private void Awake()
         {
             _eventBus = FindAnyObjectByType<EventBus>();
             _sprite = transform.Find("View").GetComponent<SpriteRenderer>();
@@ -95,11 +95,12 @@ namespace TowerDefense
             SetHP(asset.HP);
 
             Type = asset.Type;
-        } 
+        }
         #endregion
     }
 
-    #region Inspector
+#if UNITY_EDITOR
+
     [CustomEditor(typeof(Enemy))]
     public class EnemyInspector : Editor
     {
@@ -112,6 +113,6 @@ namespace TowerDefense
                 (target as Enemy).UseAsset(asset);
             }
         }
-    } 
-    #endregion
+    }
+#endif
 }
