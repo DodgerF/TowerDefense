@@ -1,6 +1,5 @@
-
 using MyEventBus;
-using SpaceShooter;
+using System;
 using UnityEngine;
 
 namespace TowerDefense
@@ -14,9 +13,11 @@ namespace TowerDefense
         #region Properties
         [SerializeField] private EventBus _eventBus;
 
-        [SerializeField] private int m_ReferenceTime;
-        public int ReferenceTime => m_ReferenceTime;
+        [SerializeField] private float m_ReferenceTime;
+        public float ReferenceTime => m_ReferenceTime;
         [SerializeField] private int BonusScorePerSecond;
+
+        private int _levelScore = 3;
 
         private ILevelCondition[] m_Conditions;
         private bool m_IsComplited;
@@ -44,16 +45,28 @@ namespace TowerDefense
         private void OnEnable()
         {
             _eventBus.Subscribe<PlayerDiedSignal>(OnDied);
+            _eventBus.Subscribe<HPHaveChangedSignal>(OnAttacked);
         }
+
+       
 
         private void OnDisable()
         {
             _eventBus.Unsubscribe<PlayerDiedSignal>(OnDied);
+            _eventBus.Unsubscribe<HPHaveChangedSignal>(OnAttacked);
         }
 
         #endregion
 
         #region Logic
+        private bool _isSubtracted = false;
+        private void OnAttacked(HPHaveChangedSignal signal)
+        {
+            if (_isSubtracted || signal.OldHP <= signal.CurrentHP) return;
+
+            _levelScore--;
+            _isSubtracted = true;
+        }
 
         private void OnDied(PlayerDiedSignal signal)
         {
@@ -99,13 +112,12 @@ namespace TowerDefense
             {
                 m_IsComplited = true;
 
-                if (m_LevelTime < m_ReferenceTime)
+                if (m_LevelTime > m_ReferenceTime)
                 {
-                    //Player.Instance.AddScore((int)(m_ReferenceTime - m_LevelTime) * BonusScorePerSecond);
+                    _levelScore--;
                 }
-
                 StopLevel(true);
-                MapCompletion.SaveEpisodeResult(1);
+                MapCompletion.SaveEpisodeResult(_levelScore);
             }
         }
         #endregion

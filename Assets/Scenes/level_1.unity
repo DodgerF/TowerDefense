@@ -1934,7 +1934,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10f7b7e1bb2ada24a886420a999b3bc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeLimit: 4
+  _timeLimit: 30
 --- !u!114 &6320455846847823985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1949,7 +1949,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_DontDestroyOnLoad: 0
   _eventBus: {fileID: 6839689699530923244}
-  m_ReferenceTime: 0
+  m_ReferenceTime: 40
   BonusScorePerSecond: 0
 --- !u!1 &6424226953797198682
 GameObject:

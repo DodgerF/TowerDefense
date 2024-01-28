@@ -34,7 +34,7 @@ namespace TowerDefense
         private void Start()
         {
             _eventBus.Invoke(new GoldHaveChangedSignal(_gold));
-            _eventBus.Invoke(new HPHaveChangedSignal(_currentHP));
+            _eventBus.Invoke(new HPHaveChangedSignal(_currentHP, _currentHP));
         }
 
         #region (Un)Subscribes
@@ -71,10 +71,10 @@ namespace TowerDefense
             {
                 hp = _maxHP;
             }
-
+            float oldHP = _currentHP;
             _currentHP = hp;
             
-            _eventBus.Invoke(new HPHaveChangedSignal(_currentHP));
+            _eventBus.Invoke(new HPHaveChangedSignal(oldHP, _currentHP));
 
             if (_currentHP <= 0)
             {
