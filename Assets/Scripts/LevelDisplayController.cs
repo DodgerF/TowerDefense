@@ -29,7 +29,6 @@ namespace TowerDefense
                 _levels[drawLevel].SetLevelData(episode, score);
                 drawLevel++;
             }
-            Debug.Log(drawLevel);
         }
     }
 }

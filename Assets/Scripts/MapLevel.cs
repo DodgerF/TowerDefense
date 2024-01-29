@@ -1,6 +1,6 @@
 using UnityEngine;
 using SpaceShooter;
-using TMPro;
+using UnityEngine.UI;
 
 namespace TowerDefense
 {
@@ -8,7 +8,14 @@ namespace TowerDefense
     {
         private Episode _episode;
 
-        [SerializeField] private TextMeshProUGUI _text;
+        [SerializeField] private Image[] _images;
+        private void Awake()
+        {
+            foreach (Image image in _images)
+            {
+                image.color = Color.black;
+            }
+        }
         public void LoadLevel()
         {
             LevelSequenceController.Instance.StartEpisode(_episode);
@@ -17,7 +24,12 @@ namespace TowerDefense
         public void SetLevelData(Episode episode, int score)
         {
             _episode = episode;
-            _text.text = $"{score}/3";
+
+            int i = 0;
+            while (i < _images.Length && score > i)
+            {
+                _images[i++].color = Color.white;
+            }
         }
     }
 }
