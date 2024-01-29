@@ -6,17 +6,24 @@ namespace TowerDefense
     {
         [SerializeField] private Enemy _enemyPrefab;
         [SerializeField] private Path[] _paths;
-        [SerializeField] private EnemyWave _currentWave;
+        
+        private EnemyWave[] _waves;
+        private int _currentWave;
 
+        private void Awake()
+        {
+            _waves = GetComponentsInChildren<EnemyWave>();
+            _currentWave = 0;
+        }
 
         private void Start()
-        { 
-            _currentWave.Prepare(SpawnEnemies);
+        {
+            _waves[_currentWave].Prepare(SpawnEnemies);
         }
 
         private void SpawnEnemies()
         {
-            foreach( (EnemyAsset asset, int count, int pathIndex) in _currentWave.EnumarateSquads())
+            foreach( (EnemyAsset asset, int count, int pathIndex) in _waves[_currentWave].EnumarateSquads())
             {
                 if (pathIndex > _paths.Length)
                 {
@@ -26,13 +33,19 @@ namespace TowerDefense
 
                 for (int i = 0; i < count; i++)
                 {
-                    var e = MyObjectPool.SpawnObject(_enemyPrefab.gameObject, transform.position, Quaternion.identity, MyObjectPool.PoolType.Enemies).GetComponent<Enemy>();
+                    var e = MyObjectPool.SpawnObject(_enemyPrefab.gameObject, _paths[pathIndex].StartArea.GetRandomInsideZone() ,
+                        Quaternion.identity, MyObjectPool.PoolType.Enemies).GetComponent<Enemy>();
                     e.UseAsset(asset);
                     e.GetComponent<EnemyController>().SetPath(_paths[pathIndex]);
                 }
             }
+            _waves[_currentWave].DisableWave(SpawnEnemies);
 
-            _currentWave = _currentWave.PrepareNext(SpawnEnemies);
+            _currentWave++;
+            if (_currentWave < _waves.Length)
+            {
+                _waves[_currentWave].Prepare(SpawnEnemies);
+            }
         }
     }
 }

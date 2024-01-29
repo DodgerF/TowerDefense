@@ -32,26 +32,32 @@ namespace TowerDefense
             if (Time.time >= _prepareTime)
             {
                 enabled = false;
-                onWaveReady?.Invoke();
+                _onWaveReady?.Invoke();
             }
         }
 
-        private event Action onWaveReady;
+        private event Action _onWaveReady;
         public void Prepare(Action spawnEnemies)
         {
             _prepareTime += Time.time;
             enabled = true;
-            onWaveReady += spawnEnemies;
+            _onWaveReady += spawnEnemies;
         }
-
-        public EnemyWave PrepareNext(Action spawnEnemies)
+        public void DisableWave(Action spawnEnemies)
         {
-            return null;
+            _onWaveReady -= spawnEnemies;
+            enabled = false;
         }
 
         public IEnumerable<(EnemyAsset asset, int count, int pathIndex)> EnumarateSquads()
         {
-            yield return (_groups[0].squads[0].Asset, _groups[0].squads[0].Count, 0);
+            for (int i = 0; i < _groups.Length; i++)
+            {
+                foreach (var squad in _groups[i].squads)
+                {
+                    yield return (squad.Asset, squad.Count, i);
+                }
+            }
         }
 
         
