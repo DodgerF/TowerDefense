@@ -8,6 +8,8 @@ namespace TowerDefense
     public class MapCompletion : SingletonBase<MapCompletion>
     {
         public const string FILENAME = "completion.dat";
+        private int _totalScore;
+        public int TotalScore  => _totalScore;
 
         [Serializable]
         private class EpisodeScore
@@ -29,43 +31,45 @@ namespace TowerDefense
         }
         private void SaveResult(Episode currentEpisode, int levelScore)
         {
-            foreach (var obj in completionData)
+            foreach (var obj in _completionData)
             {
                 if (obj.episode == currentEpisode)
                 {
                     if (obj.score < levelScore)
                     {
-                        obj.score =levelScore;
-                        Saver<EpisodeScore[]>.Save(FILENAME, completionData);
+                        obj.score = levelScore;
+                        Saver<EpisodeScore[]>.Save(FILENAME, _completionData);
                     }
                 }
             }
         }
 
-        [SerializeField] private EpisodeScore[] completionData;
+        [SerializeField] private EpisodeScore[] _completionData;
         
         public void Load()
         {
-            foreach(var obj in completionData)
+            _totalScore = 0;
+            foreach (var obj in _completionData)
             {
                 obj.score = 0;
             }
-            Saver<EpisodeScore[]>.TryLoad(FILENAME, ref completionData); 
+            Saver<EpisodeScore[]>.TryLoad(FILENAME, ref _completionData); 
+            foreach (var episodeScore in _completionData)
+            {
+                _totalScore += episodeScore.score;
+            }
         }
 
-        
-        public bool TryIndex(int index, out Episode episode, out int score)
+        public int GetEpisodeScore(Episode episode)
         {
-            if (index >= 0 && index < completionData.Length)
+            foreach (var data in _completionData)
             {
-                episode = completionData[index].episode;
-                score = completionData[index].score;
-                return true;
+                if (data.episode == episode)
+                {
+                    return data.score;
+                }
             }
-            episode = null;
-            score = 0;
-            return false;
+            return 0;
         }
-       
     }
 }

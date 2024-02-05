@@ -19,7 +19,7 @@ namespace TowerDefense
         }
         private class Holder
         {
-            private static GameObject ObjectPoolHolder = new GameObject("Pooled Objects");
+            private static GameObject ObjectPoolHolder;
             private static List<Holder> _holders = new List<Holder>();
             public static IReadOnlyList<Holder> Holders => _holders;
 
@@ -30,6 +30,10 @@ namespace TowerDefense
             public Holder(PoolType type)
             {
                 _holderObj = new GameObject(type.ToString());
+                if (ObjectPoolHolder == null)
+                {
+                    ObjectPoolHolder = new GameObject("Pooled Objects");
+                }
                 _holderObj.transform.SetParent(ObjectPoolHolder.transform);
                 _type = type;
                 _holders.Add(this);

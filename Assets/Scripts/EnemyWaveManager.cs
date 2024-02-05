@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace TowerDefense
@@ -15,7 +14,7 @@ namespace TowerDefense
 
         public event Action OnAllWavesDead;
 
-        [SerializeField] private MyList<GameObject> _objects = new MyList<GameObject>(); 
+        private MyList<GameObject> _objects = new MyList<GameObject>(); 
         private void RecordEnemyDeath() {
             for (int i = 0; i < _objects.Count; i++) 
             {
