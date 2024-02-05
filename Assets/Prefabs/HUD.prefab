@@ -4066,9 +4066,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2317455352371716235}
-        m_TargetAssemblyTypeName: ScenesMover, Assembly-CSharp
-        m_MethodName: ToLevelMap
+      - m_Target: {fileID: 2493944640482496705}
+        m_TargetAssemblyTypeName: TowerDefense.ResultPanelController, Assembly-CSharp
+        m_MethodName: OnButtonNext
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4592,9 +4592,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2493944640482496705}
-        m_TargetAssemblyTypeName: TowerDefense.ResultPanelController, Assembly-CSharp
-        m_MethodName: ReturnOnMap
+      - m_Target: {fileID: 2317455352371716235}
+        m_TargetAssemblyTypeName: ScenesMover, Assembly-CSharp
+        m_MethodName: ToLevelMap
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

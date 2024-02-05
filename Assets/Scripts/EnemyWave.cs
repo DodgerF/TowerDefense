@@ -23,6 +23,7 @@ namespace TowerDefense
         [SerializeField] private float _prepareTime = 10f;
 
         public static event Action<float> OnWavePrepare;
+        public static event Action OnWaveDisable;
         public static event Action OnWaveReady;
         public float GetRemainingTime() { return _prepareTime - Time.time; }
         private void Awake()
@@ -47,6 +48,7 @@ namespace TowerDefense
         }
         public void DisableWave()
         {
+            OnWaveDisable?.Invoke();
             enabled = false;
         }
 

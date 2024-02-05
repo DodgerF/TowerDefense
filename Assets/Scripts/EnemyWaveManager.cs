@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace TowerDefense
 {
@@ -13,21 +15,20 @@ namespace TowerDefense
 
         public event Action OnAllWavesDead;
 
-        [SerializeField] private int _activeEnemyCount = 0;
-        private int count = 0;
+        [SerializeField] private MyList<GameObject> _objects = new MyList<GameObject>(); 
         private void RecordEnemyDeath() {
-            print(++count);
-            if (--_activeEnemyCount == 0)
+            for (int i = 0; i < _objects.Count; i++) 
             {
-                if (_currentWave < _waves.Length  && _waves[_currentWave] )
-                {
-                    ForceNextWave();
-                }
-                else
-                {
-                    print("aboba");
-                    OnAllWavesDead?.Invoke();
-                }
+                if (_objects.Get(i).activeSelf) return; 
+            }
+
+            if (_currentWave >= _waves.Length)
+            {
+                OnAllWavesDead?.Invoke();
+            }
+            else
+            {
+                ForceNextWave();
             }
         }
 
@@ -66,7 +67,10 @@ namespace TowerDefense
                         Quaternion.identity, MyObjectPool.PoolType.Enemies).GetComponent<Enemy>();
                     e.UseAsset(asset);
                     e.GetComponent<EnemyController>().SetPath(_paths[pathIndex]);
-                    _activeEnemyCount++;
+                    if (_objects.Add(e.gameObject))
+                    {
+                        e.OnEnd += RecordEnemyDeath;
+                    }
                 }
             }
             _waves[_currentWave].DisableWave();
@@ -83,6 +87,24 @@ namespace TowerDefense
 
             Player.Instance.SetGold(Player.Instance.Gold + (int)_waves[_currentWave].GetRemainingTime());
             SpawnEnemies();
+        }
+    }
+    public class MyList<T>
+    {
+        private List<T> _list = new List<T>();
+        public int Count { get { return _list.Count; } }
+        public bool Add(T obj)
+        {
+            foreach (T item in _list)
+            {
+                if (item.Equals(obj)) return false;
+            }
+            _list.Add(obj);
+            return true;
+        }
+        public T Get(int index)
+        {
+            return _list[index];
         }
     }
 }

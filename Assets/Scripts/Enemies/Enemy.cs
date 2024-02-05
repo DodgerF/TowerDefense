@@ -46,7 +46,7 @@ namespace TowerDefense
         private CircleCollider2D _circleCollider;
         #endregion
 
-
+        public event Action OnEnd;
         #endregion
 
         #region Unity Events
@@ -66,6 +66,7 @@ namespace TowerDefense
         {
             MyObjectPool.ReturnObjectToPool(gameObject);
             _eventBus.Invoke(new EnemyKilledSignal(_gold));
+            OnEnd?.Invoke();
         }
         #endregion
 

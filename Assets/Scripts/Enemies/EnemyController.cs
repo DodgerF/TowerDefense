@@ -138,7 +138,7 @@ namespace TowerDefense
         private void DealDamageToPlayer()
         {
             Player.Instance.Attacked(_character.Damage);
-            MyObjectPool.ReturnObjectToPool(gameObject);
+            _character.SetHP(0);
         }
         #endregion
 

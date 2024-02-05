@@ -653,7 +653,7 @@ GameObject:
   - component: {fileID: 8694139285765917436}
   - component: {fileID: 7266089157960079422}
   - component: {fileID: 8694139285765917438}
-  - component: {fileID: 8694139285765917439}
+  - component: {fileID: 8694139285765917440}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1882,9 +1882,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_DontDestroyOnLoad: 0
   _eventBus: {fileID: 8351396618386078225}
-  m_ReferenceTime: 0
+  m_ReferenceTime: 3
   BonusScorePerSecond: 0
---- !u!114 &8694139285765917439
+--- !u!114 &8694139285765917440
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1893,10 +1893,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 877799497758984940}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10f7b7e1bb2ada24a886420a999b3bc9, type: 3}
+  m_Script: {fileID: 11500000, guid: 145a58e4f6e2a184bb14a95be03b2498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeLimit: 35
 --- !u!1 &8701790707620235200
 GameObject:
   m_ObjectHideFlags: 0

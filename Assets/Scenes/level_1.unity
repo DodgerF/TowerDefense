@@ -224,7 +224,6 @@ MonoBehaviour:
     - Asset: {fileID: 11400000, guid: 242e967afc7323a4fb6ee085c13c9184, type: 2}
       Count: 4
   _prepareTime: 2
-  _next: {fileID: 0}
 --- !u!1 &120802418
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,7 +415,6 @@ MonoBehaviour:
     - Asset: {fileID: 11400000, guid: f8c3afd548547eb4abdef457dc5cda1a, type: 2}
       Count: 2
   _prepareTime: 2
-  _next: {fileID: 120158746}
 --- !u!1 &560895399
 GameObject:
   m_ObjectHideFlags: 0
@@ -1360,7 +1358,6 @@ MonoBehaviour:
     - Asset: {fileID: 11400000, guid: f8c3afd548547eb4abdef457dc5cda1a, type: 2}
       Count: 1
   _prepareTime: 2
-  _next: {fileID: 387596617}
 --- !u!1001 &2092886473
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2045,7 +2042,7 @@ GameObject:
   - component: {fileID: 2539921857437466751}
   - component: {fileID: 4561585063599280829}
   - component: {fileID: 6320455846847823985}
-  - component: {fileID: 6320455846847823984}
+  - component: {fileID: 6320455846847823986}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2053,19 +2050,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &6320455846847823984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6320455846847823983}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10f7b7e1bb2ada24a886420a999b3bc9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _timeLimit: 30
 --- !u!114 &6320455846847823985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2082,6 +2066,18 @@ MonoBehaviour:
   _eventBus: {fileID: 6839689699530923244}
   m_ReferenceTime: 40
   BonusScorePerSecond: 0
+--- !u!114 &6320455846847823986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6320455846847823983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 145a58e4f6e2a184bb14a95be03b2498, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6424226953797198682
 GameObject:
   m_ObjectHideFlags: 0
@@ -2279,7 +2275,6 @@ MonoBehaviour:
   _paths:
   - {fileID: 2041264972704259748}
   - {fileID: 1819793866}
-  _currentWave: {fileID: 2086866703}
 --- !u!1 &8716210762861827057
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,12 +16,15 @@ namespace TowerDefense
             {
                 _timeToNextWave = time;
             };
+            EnemyWave.OnWaveDisable += () =>
+            {
+                _timeToNextWave = 0f;
+            };
         }
         private void Update()
         {
             var bonus = (int)_timeToNextWave;
             if (bonus < 0) bonus = 0;
-            if (!_bonusAmount) print(name);
             _bonusAmount.text = bonus.ToString();
             _timeToNextWave -= Time.deltaTime;
         }
