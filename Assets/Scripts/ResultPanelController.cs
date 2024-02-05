@@ -69,11 +69,6 @@ namespace TowerDefense
 
         }
 
-        public void ReturnOnMap()
-        {
-            SceneManager.LoadScene(1);
-        }
-
         #endregion
 
 

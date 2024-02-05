@@ -15,7 +15,7 @@ namespace TowerDefense
         /// <summary>
         /// Цель для атаки.
         /// </summary>
-        private SpaceShooter.Destructible _attackTarget;
+        private Destructible _attackTarget;
 
         #region Path
 
@@ -138,7 +138,7 @@ namespace TowerDefense
         private void DealDamageToPlayer()
         {
             Player.Instance.Attacked(_character.Damage);
-            Destroy(gameObject);
+            MyObjectPool.ReturnObjectToPool(gameObject);
         }
         #endregion
 

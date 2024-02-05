@@ -40,12 +40,12 @@ namespace TowerDefense
         #region (Un)Subscribes
         private void OnEnable()
         {
-            _eventBus.Subscribe<EnemyDiedSignal>(OnGotGold);
+            _eventBus.Subscribe<EnemyKilledSignal>(OnEnemyDied);
         }
 
         private void OnDisable()
         {
-            _eventBus.Unsubscribe<EnemyDiedSignal>(OnGotGold);
+            _eventBus.Unsubscribe<EnemyKilledSignal>(OnEnemyDied);
         } 
         #endregion
 
@@ -84,7 +84,7 @@ namespace TowerDefense
         #endregion
 
         #region Gold
-        private void OnGotGold(EnemyDiedSignal signal)
+        private void OnEnemyDied(EnemyKilledSignal signal)
         {
             if (signal.Gold <= 0)
             {
@@ -95,7 +95,7 @@ namespace TowerDefense
             SetGold(_gold + signal.Gold);
         }
 
-        private void SetGold(int gold)
+        public void SetGold(int gold)
         {
             _gold = gold;
             _eventBus.Invoke(new GoldHaveChangedSignal(_gold));

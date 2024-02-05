@@ -1,5 +1,6 @@
 using MyEventBus;
 using SpaceShooter;
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -17,6 +18,7 @@ namespace TowerDefense
         #region Fields
 
         public Type Type;
+        
         private EventBus _eventBus;
 
         #region Gold
@@ -56,14 +58,14 @@ namespace TowerDefense
             _animator = _sprite.GetComponent<Animator>();
             _circleCollider = GetComponentInChildren<CircleCollider2D>();
         }
-
+        
         #endregion
 
         #region Override methods
         protected override void OnDeath()
         {
             MyObjectPool.ReturnObjectToPool(gameObject);
-            _eventBus.Invoke(new EnemyDiedSignal(_gold));
+            _eventBus.Invoke(new EnemyKilledSignal(_gold));
         }
         #endregion
 

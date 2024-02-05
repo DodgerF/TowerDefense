@@ -56,13 +56,15 @@ namespace SpaceShooter
 
         public void SetHP(int value)
         {
-            if (value <= 0) return;
+            if (value < 0) return;
 
             if(_maxHP < value)
             {
                 _maxHP = value;
             }
             _currentHP = value;
+
+            if (_currentHP == 0) OnDeath();
         }
 
         #endregion

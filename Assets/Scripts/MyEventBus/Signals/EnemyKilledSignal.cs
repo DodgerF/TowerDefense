@@ -1,10 +1,10 @@
 ﻿namespace MyEventBus
 {
-    public class EnemyDiedSignal
+    public class EnemyKilledSignal
     {
         private int _gold;
         public int Gold => _gold;
-        public EnemyDiedSignal(int gold)
+        public EnemyKilledSignal(int gold)
         {
             _gold = gold;
         }
