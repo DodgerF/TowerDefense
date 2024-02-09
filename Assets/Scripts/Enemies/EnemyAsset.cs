@@ -3,8 +3,6 @@ using UnityEngine;
 
 namespace TowerDefense
 {
-
-
     [CreateAssetMenu]
     public sealed class EnemyAsset : ScriptableObject
     {
@@ -23,6 +21,5 @@ namespace TowerDefense
 
         [Header("Тип войска")]
         public Type Type;
-
     }
 }
