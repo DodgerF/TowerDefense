@@ -10,13 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2fecf619f3e4b4b43a3b15faa9d16696, type: 3}
-  m_Name: HPBuf
+  m_Name: IceBuf
   m_EditorClassIdentifier: 
-  Icon: {fileID: 21300000, guid: ae93735604fc8d04e8159ac66b724f1f, type: 3}
+  Icon: {fileID: 21300000, guid: f7f287c9a72c33a4da91d7fd0305a58d, type: 3}
   Info:
-  - Cost: 1
-    Value: 5
-  - Cost: 2
-    Value: 8
-  - Cost: 3
-    Value: 10
+  - Cost: 6
+    Value: 0

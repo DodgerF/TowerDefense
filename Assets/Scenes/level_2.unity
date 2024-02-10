@@ -191,6 +191,56 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &485815482
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 485815484}
+  - component: {fileID: 485815483}
+  m_Layer: 0
+  m_Name: UpgradesTEST
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &485815483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485815482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc3e6c027a5110b41a104a322363af59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_DontDestroyOnLoad: 0
+  _saves:
+  - Asset: {fileID: 11400000, guid: f03011ee48e8f08479bb4e185d7ea561, type: 2}
+    Level: 0
+  - Asset: {fileID: 11400000, guid: a4e3296f244966a4282073706ac8577a, type: 2}
+    Level: 0
+--- !u!4 &485815484
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485815482}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 945.9901, y: 678.2638, z: 1.7805276}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &747840268
 GameObject:
   m_ObjectHideFlags: 0
@@ -1589,7 +1639,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_DontDestroyOnLoad: 0
   _eventBus: {fileID: 8351396618386078225}
-  _maxHP: 1
+  _maxHP: 20
+  _healthUpgrade: {fileID: 11400000, guid: a4e3296f244966a4282073706ac8577a, type: 2}
   _gold: 50
 --- !u!1 &7274446158426130266
 GameObject:
@@ -2060,3 +2111,4 @@ SceneRoots:
   - {fileID: 836560757}
   - {fileID: 1262608307}
   - {fileID: 7477253594740355418}
+  - {fileID: 485815484}

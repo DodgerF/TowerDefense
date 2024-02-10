@@ -1,4 +1,5 @@
 using MyEventBus;
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 
 namespace TowerDefense
@@ -13,6 +14,8 @@ namespace TowerDefense
 
         private float _currentHP;
         public float CurrentHP => _currentHP;
+
+        [SerializeField] private UpgradeAsset _healthUpgrade;
         #endregion
 
         #region Gold
@@ -35,6 +38,9 @@ namespace TowerDefense
         {
             _eventBus.Invoke(new GoldHaveChangedSignal(_gold));
             _eventBus.Invoke(new HPHaveChangedSignal(_currentHP, _currentHP));
+
+            SetMaxHP(_maxHP + Upgrades.GetUpgradeLevel(_healthUpgrade) * 5);
+            //TODO: change this ^ on "GetValueByLevel"
         }
 
         #region (Un)Subscribes
@@ -65,6 +71,16 @@ namespace TowerDefense
             SetHP(_currentHP - damage);
         }
 
+        private void SetMaxHP(int hp) 
+        {
+            if (hp <= 0) 
+            {
+                Debug.LogWarning("Max HP must be positive number");
+                return;
+            }
+            _maxHP = hp;
+            SetHP(_maxHP);
+        }
         private void SetHP(float hp)
         {
             if (hp > _maxHP)
@@ -127,7 +143,7 @@ namespace TowerDefense
         {
             if (num  < 0)
             {
-                Debug.Log("не может быть добавленно отрицательное число.");
+                Debug.Log("пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.");
                 return;
             }
             Score += num;

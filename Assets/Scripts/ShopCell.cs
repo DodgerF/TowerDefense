@@ -20,7 +20,7 @@ namespace TowerDefense
         }
         public void CheckCost()
         {
-            if (_asset.CostByLevel[_savedLevel - 1] > _shop.PlayerMoney)
+            if (_asset.Info[_savedLevel - 1].Cost > _shop.PlayerMoney)
             {
                 _button.interactable = false;
             }
@@ -41,14 +41,12 @@ namespace TowerDefense
             _savedLevel = Upgrades.LevelUpUpgrade(_asset) + 1;
             _shop.UpdateMoney();
             UpdateView();
-            CheckCost();
         }
         private void UpdateView()
         {
             _icon.sprite = _asset.Icon;
-            if (_savedLevel > _asset.CostByLevel.Length)
+            if (_savedLevel > _asset.Info.Length)
             {
-                print("true");
                 _button.interactable = false;
                 foreach (RectTransform obj in _button.GetComponentInChildren<RectTransform>())
                 {
@@ -60,7 +58,8 @@ namespace TowerDefense
             else
             {
                 _upgradeLevel.text = $"Level {_savedLevel}";
-                _cost.text = _asset.CostByLevel[_savedLevel - 1].ToString();
+                _cost.text = _asset.Info[_savedLevel - 1].ToString();
+                CheckCost();
             }
            
         }

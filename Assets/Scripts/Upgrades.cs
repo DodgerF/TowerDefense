@@ -31,9 +31,15 @@ namespace TowerDefense
             }
             return 0;
         }
-
+        //TODO: add "GetValueByLevel"
         public static int GetUpgradeLevel(UpgradeAsset asset)
         {
+            if (!Instance)
+            {
+                Debug.LogWarning("Upgrades.Instance doesn't exist!");
+                return 0;
+            }
+
             foreach (var upgrade in Instance._saves)
             {
                 if (upgrade.Asset == asset)
@@ -50,7 +56,7 @@ namespace TowerDefense
             {
                 for (int i = 0; i < upgrade.Level; i++) 
                 {
-                    result += upgrade.Asset.CostByLevel[i];
+                    result += upgrade.Asset.Info[i].Cost;
                 }
             }
             return result;
