@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections.Generic;
 using System;
 
 namespace TowerDefense
@@ -8,13 +7,16 @@ namespace TowerDefense
     public sealed class UpgradeAsset : ScriptableObject
     {
         public Sprite Icon;
-        public CostAndValue[] Info;
-        
+        public Info[] Inf;
+
         [Serializable]
-        public class CostAndValue
+        public class Info
         {
             public int Cost;
-            public float Value;
+            public float Damage;
+            public float Cooldown;
+            public int HP;
+            public float Time;
         }
     }
 }

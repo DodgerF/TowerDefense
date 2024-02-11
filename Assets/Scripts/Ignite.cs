@@ -1,14 +1,12 @@
-using UnityEngine;
-using UnityEngine.UI;
 
 namespace TowerDefense
 {
-    public class Arsonist : Spell
+    public class Ignite : Spell
     {
-        //TODO: add field "_damage"
+        private float _damage;
         private void Awake()
         {
-            
+            _damage = _asset.Inf[Upgrades.GetUpgradeLevel(_asset)].Damage;
         }
         public override void Use()
         {
@@ -16,8 +14,7 @@ namespace TowerDefense
 
             foreach (Enemy enemy in FindObjectsOfType<Enemy>())
             {
-                enemy.ApplyDamage(1);
-                //TODO: change this ^ on _damage
+                enemy.ApplyDamage(_damage);
             }
         }
     }

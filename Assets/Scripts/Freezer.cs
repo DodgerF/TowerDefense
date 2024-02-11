@@ -1,20 +1,27 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace TowerDefense
 {
     public class Freezer : Spell
     {
         private Dictionary<Enemy, float> _enemiesSpeed = new Dictionary<Enemy, float>();
+        private float _timeActive;
+        private void Awake()
+        {
+            _timeActive = _asset.Inf[GetLevel()].Time;
+        }
         protected override void Update()
         {
             base.Update();
 
-            if (!_onCooldown && _enemiesSpeed.Count != 0)
+            if (_timeActive <= Time.time && _enemiesSpeed.Count != 0)
             {
-                foreach (Enemy enemy in FindObjectsOfType<Enemy>())
+                foreach (var enemy in _enemiesSpeed)
                 {
-                    enemy.MoveSpeed = _enemiesSpeed[enemy]; 
+                    enemy.Key.MoveSpeed = enemy.Value;
                 }
+                _timeActive = _asset.Inf[GetLevel()].Time;
                 _enemiesSpeed.Clear();
             }
         }
@@ -27,6 +34,7 @@ namespace TowerDefense
                 _enemiesSpeed.Add(enemy, enemy.MoveSpeed);
                 enemy.MoveSpeed = 0;
             }
+            _timeActive += Time.time;
         }
     }
 }

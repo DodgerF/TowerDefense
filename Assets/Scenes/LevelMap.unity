@@ -692,6 +692,8 @@ MonoBehaviour:
     Level: 0
   - Asset: {fileID: 11400000, guid: f03011ee48e8f08479bb4e185d7ea561, type: 2}
     Level: 0
+  - Asset: {fileID: 11400000, guid: 17973dac63e1b19479ad399cf6adcdbe, type: 2}
+    Level: 0
 --- !u!1 &464409583
 GameObject:
   m_ObjectHideFlags: 0

@@ -3692,6 +3692,7 @@ GameObject:
   - component: {fileID: 5639275057248381445}
   - component: {fileID: 3435700511369299897}
   - component: {fileID: 3243980807514176124}
+  - component: {fileID: 4881240181092689301}
   m_Layer: 5
   m_Name: FireButton
   m_TagString: Untagged
@@ -3799,19 +3800,21 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3435700511369299897}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3243980807514176124}
-        m_TargetAssemblyTypeName: UnityEngine.Component, UnityEngine
-        m_MethodName: SendMessage
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: something happen
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &4881240181092689301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6912187113449868609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7c88ee17fd7c6f468ffaeafd4b2015f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inactive: {fileID: 21300000, guid: eb246d4481f34f94fa5b518b9fb9ec41, type: 3}
+  _spell: {fileID: 0}
 --- !u!1 &7199992805644960737
 GameObject:
   m_ObjectHideFlags: 0
@@ -4693,6 +4696,7 @@ GameObject:
   - component: {fileID: 2413213748303116677}
   - component: {fileID: 44553095433798541}
   - component: {fileID: 2947200553937266113}
+  - component: {fileID: 7468866370182437343}
   m_Layer: 5
   m_Name: IceButton
   m_TagString: Untagged
@@ -4800,19 +4804,21 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 44553095433798541}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2947200553937266113}
-        m_TargetAssemblyTypeName: UnityEngine.Component, UnityEngine
-        m_MethodName: SendMessage
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: something happen
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &7468866370182437343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8261245397809638488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7c88ee17fd7c6f468ffaeafd4b2015f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inactive: {fileID: 21300000, guid: eb246d4481f34f94fa5b518b9fb9ec41, type: 3}
+  _spell: {fileID: 0}
 --- !u!1 &8321347224654293801
 GameObject:
   m_ObjectHideFlags: 0
