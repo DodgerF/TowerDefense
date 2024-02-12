@@ -12,6 +12,12 @@ namespace TowerDefense
         Ground,
         All
     }
+    public enum DamageType
+    {
+        Physical,
+        Magical,
+        Fire
+    }
 
     public class Enemy : Destructible
     {
@@ -31,6 +37,11 @@ namespace TowerDefense
         #region Damage
         private float _dmg;
         public float Damage => _dmg;
+        #endregion
+
+        #region Armor
+        private DamageType _effectiveProtection;
+        private int _armor;
         #endregion
 
         #region MoveSpeed
@@ -72,6 +83,15 @@ namespace TowerDefense
 
         #region Public methods
 
+        public void TakeDamageWithArmor(float damage, DamageType type)
+        {
+            if (type == _effectiveProtection) 
+            {
+                damage = Mathf.Max(damage - _armor, 0);
+            }
+            ApplyDamage(damage);
+        }
+
         public void Move(Vector3 point)
         {
             transform.position = Vector3.MoveTowards(transform.position, point, _moveSpeed * Time.deltaTime);
@@ -96,6 +116,8 @@ namespace TowerDefense
             _gold = asset.Gold;
 
             SetHP(asset.HP);
+            _armor = asset.Armor;
+            _effectiveProtection = asset.ProtectionFrom;
 
             Type = asset.Type;
         }

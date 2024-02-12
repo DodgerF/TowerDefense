@@ -27,6 +27,7 @@ namespace TowerDefense
         }
         public override void Use()
         {
+            if (_onCooldown) return;
             base.Use();
 
             foreach (Enemy enemy in FindObjectsOfType<Enemy>())

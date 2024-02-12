@@ -17,6 +17,8 @@ MonoBehaviour:
   Animator: {fileID: 9100000, guid: 729a405d022c5c044945ec4553800cee, type: 2}
   MoveSpeed: 1
   HP: 2
+  Armor: 10
+  ProtectionFrom: 0
   Score: 1
   Gold: 1
   Radius: 0.4

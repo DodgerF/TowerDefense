@@ -10,6 +10,7 @@ namespace TowerDefense
         protected float _lifetime;
         [SerializeField] protected float _damage;
         protected float _timer;
+        [SerializeField] protected DamageType _damageType;
 
         protected Vector3 _targetPoint;
         public Vector3 Target { set { _targetPoint = value; } }
@@ -23,7 +24,7 @@ namespace TowerDefense
         protected virtual void OnEnable()
         {
             float dist = Vector3.Distance(transform.position, _targetPoint);
-            float vel = _velocity / 2f; //костыль, чтобы projeectiles исчезали в нужной точке
+            float vel = _velocity / 2f; //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ projeectiles пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
             _lifetime = dist / vel;
             _timer = 0f;
         }
@@ -60,7 +61,7 @@ namespace TowerDefense
 
         protected virtual void DealDamage(Enemy enemy)
         {
-            enemy.ApplyDamage(_damage);
+            enemy.TakeDamageWithArmor(_damage, _damageType);
         }
 
         protected virtual void CheckTimer()

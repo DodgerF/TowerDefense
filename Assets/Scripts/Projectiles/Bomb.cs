@@ -1,4 +1,3 @@
-using SpaceShooter;
 using UnityEngine;
 
 namespace TowerDefense
@@ -44,9 +43,9 @@ namespace TowerDefense
 
             foreach (Collider2D collider in colliders)
             {
-                if (collider.TryGetComponent<Enemy>(out Enemy enemy) && enemy.Type == _type)
+                if (collider.TryGetComponent<Enemy>(out var enemy) && enemy.Type == _type)
                 {
-                    enemy.ApplyDamage(_damage);
+                    enemy.TakeDamageWithArmor(_damage, _damageType);
                 }
             }
             _anim.BlowUp(transform.position, _radiusExplosion);

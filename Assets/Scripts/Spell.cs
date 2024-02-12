@@ -26,8 +26,6 @@ namespace TowerDefense
         }
         public virtual void Use()
         {
-            if (_onCooldown) return;
-
             _onCooldown = true;
             _time = Time.time;
             

@@ -27,12 +27,10 @@ namespace TowerDefense
                 _spell.Cooldown += () =>
             {
                 _img.sprite = _inactive;
-                print("cd");
             };
             _spell.CooledDown += () =>
             {
                 _img.sprite = _spell.Asset.Icon;
-                print("!cd");
             };
             }
             

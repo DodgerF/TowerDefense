@@ -1,16 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
-using TowerDefense;
-using UnityEngine;
 
-public class Arrow : Projectile
-{
-    protected override void OnEnable()
+namespace TowerDefense {
+    public class Arrow : Projectile
     {
-        base.OnEnable();
-    }
-    protected override void FixedUpdate()
-    {
-        base.FixedUpdate();
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+        }
+        protected override void FixedUpdate()
+        {
+            base.FixedUpdate();
+        }
     }
 }
