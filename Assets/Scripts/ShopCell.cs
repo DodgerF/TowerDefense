@@ -46,7 +46,6 @@ namespace TowerDefense
         private void UpdateView()
         {
             _icon.sprite = _asset.Icon;
-            print(_asset.name +  " " + _savedLevel + " " + _asset.Inf.Length);
             if (_savedLevel > _asset.Inf.Length)
             {
                 _button.interactable = false;

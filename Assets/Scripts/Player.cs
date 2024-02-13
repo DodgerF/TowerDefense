@@ -39,7 +39,6 @@ namespace TowerDefense
             _eventBus.Invoke(new HPHaveChangedSignal(_currentHP, _currentHP));
 
             SetMaxHP(_maxHP + Upgrades.GetUpgradeLevel(_healthUpgrade) * 5);
-            //TODO: change this ^ on "GetValueByLevel"
         }
 
         #region (Un)Subscribes

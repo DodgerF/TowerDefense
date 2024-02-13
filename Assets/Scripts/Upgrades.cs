@@ -31,7 +31,6 @@ namespace TowerDefense
             }
             return 0;
         }
-        //TODO: add "GetValueByLevel"
         public static int GetUpgradeLevel(UpgradeAsset asset)
         {
             if (!Instance)

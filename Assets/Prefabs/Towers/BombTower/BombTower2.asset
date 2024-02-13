@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a25f03b90d67164b9135b7c5b90f029, type: 3}
-  m_Name: AirDefenceTower
+  m_Name: BombTower2
   m_EditorClassIdentifier: 
-  GoldCost: 50
-  TowerGUI: {fileID: 21300000, guid: bdd6845875df02742979b38cbafb28c1, type: 3}
-  Sprite: {fileID: 21300000, guid: 298636722737c4b41816506cd4bc994f, type: 3}
-  Radius: 6
-  TurretProperties: {fileID: 11400000, guid: 4d49ebb15e9d1214e9c8e1596b91fa7b, type: 2}
-  _requiredUpgrade: {fileID: 11400000, guid: 130346f55b4d8264fbbb6d345592c89e, type: 2}
+  GoldCost: 10
+  TowerGUI: {fileID: 21300000, guid: 1ff55c4a74fcf9b429b49b787ead3395, type: 3}
+  Sprite: {fileID: 21300000, guid: 09143938c6ccdce4a8a2d811556bd038, type: 3}
+  Radius: 3
+  TurretProperties: {fileID: 11400000, guid: 123a5864744141847b8f33f70022cbd0, type: 2}
+  _requiredUpgrade: {fileID: 11400000, guid: 8dff395546cb1704ab504f28f2035093, type: 2}
   _requiredUpgradeLevel: 1
   _nextAssets: []
-  Type: 0
+  Type: 1

@@ -48,7 +48,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _towerPrefab: {fileID: 979511495885969481, guid: 25ae9e12311d9df449600e45dec953ef, type: 3}
   _flagSprite: {fileID: 4498110922952174685}
-  _button: {fileID: 8907845677699683732}
 --- !u!1 &1344237364448796918
 GameObject:
   m_ObjectHideFlags: 0

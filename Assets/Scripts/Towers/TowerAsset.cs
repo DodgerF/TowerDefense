@@ -12,6 +12,11 @@ namespace TowerDefense
 
         public float Radius;
         public TurretProperties TurretProperties;
+        [SerializeField] private UpgradeAsset _requiredUpgrade;
+        [SerializeField] private int _requiredUpgradeLevel;
+        [SerializeField] private TowerAsset[] _nextAssets;
+        public TowerAsset[] NextAssets => _nextAssets;
+        public bool IsAvailable => !_requiredUpgrade || _requiredUpgradeLevel <= Upgrades.GetUpgradeLevel(_requiredUpgrade);
 
         [Header("Тип войска для атаки")]
         public Type Type;

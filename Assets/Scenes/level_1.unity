@@ -627,6 +627,10 @@ PrefabInstance:
       propertyPath: _eventBus
       value: 
       objectReference: {fileID: 6839689699530923244}
+    - target: {fileID: 4642263160948069727, guid: 520aec9a4d662294488f4b30ed805746, type: 3}
+      propertyPath: _prefabTBC
+      value: 
+      objectReference: {fileID: 7568843436560748755, guid: 86ea5668e6c1d454eba69a11ea7a9719, type: 3}
     - target: {fileID: 4881240181092689301, guid: 520aec9a4d662294488f4b30ed805746, type: 3}
       propertyPath: _spell
       value: 
@@ -1425,14 +1429,6 @@ PrefabInstance:
     - target: {fileID: 3672022746994634207, guid: a2ccc8e7600c7094996465851a4be4f2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5445172748041157335, guid: a2ccc8e7600c7094996465851a4be4f2, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5445172748041157335, guid: a2ccc8e7600c7094996465851a4be4f2, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
