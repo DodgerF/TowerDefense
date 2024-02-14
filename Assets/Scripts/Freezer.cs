@@ -7,9 +7,12 @@ namespace TowerDefense
     {
         private Dictionary<Enemy, float> _enemiesSpeed = new Dictionary<Enemy, float>();
         private float _timeActive;
-        private void Awake()
+        private float _percent;
+        private void Start()
         {
-            _timeActive = _asset.Inf[GetLevel()].Time;
+            var level = GetLevel();
+            _timeActive = _asset.Inf[level].Time;
+            _percent = _asset.Inf[level].Percent;
         }
         protected override void Update()
         {
@@ -22,6 +25,7 @@ namespace TowerDefense
                     enemy.Key.MoveSpeed = enemy.Value;
                 }
                 _timeActive = _asset.Inf[GetLevel()].Time;
+                EnemySpawner.OnEnemySpawn -= SlowDownEnemy;
                 _enemiesSpeed.Clear();
             }
         }
@@ -32,10 +36,17 @@ namespace TowerDefense
 
             foreach (Enemy enemy in FindObjectsOfType<Enemy>())
             {
-                _enemiesSpeed.Add(enemy, enemy.MoveSpeed);
-                enemy.MoveSpeed = 0;
+                SlowDownEnemy(enemy);
             }
+
+            EnemySpawner.OnEnemySpawn += SlowDownEnemy;
+
             _timeActive += Time.time;
+        }
+        private void SlowDownEnemy(Enemy enemy)
+        {
+            _enemiesSpeed.Add(enemy, enemy.MoveSpeed);
+            enemy.MoveSpeed = enemy.MoveSpeed * _percent;
         }
     }
 }

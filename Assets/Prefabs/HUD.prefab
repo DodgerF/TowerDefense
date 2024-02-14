@@ -763,7 +763,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3591728514128315778}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ScenesMover, Assembly-CSharp
         m_MethodName: ToLevelMap
         m_Mode: 1
@@ -1820,7 +1820,6 @@ GameObject:
   - component: {fileID: 7599665033007300424}
   - component: {fileID: 3925200226731642179}
   - component: {fileID: 1207683518671884717}
-  - component: {fileID: 3591728514128315778}
   m_Layer: 5
   m_Name: Bar
   m_TagString: Untagged
@@ -1888,18 +1887,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3591728514128315778
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6298892991478035846}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 143b6f5330cd75949b0ab22ba0865408, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6441033011120443896
 GameObject:
   m_ObjectHideFlags: 0

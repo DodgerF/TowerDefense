@@ -19,3 +19,4 @@ MonoBehaviour:
     Cooldown: 20
     HP: 0
     Time: 3
+    Percent: 0.5

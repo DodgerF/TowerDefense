@@ -18,11 +18,20 @@ MonoBehaviour:
     Damage: 1
     Cooldown: 10
     HP: 0
+    Time: 0
+    Percent: 0
+    Radius: 1
   - Cost: 6
     Damage: 2
     Cooldown: 8
     HP: 0
+    Time: 0
+    Percent: 0
+    Radius: 2
   - Cost: 9
     Damage: 4
     Cooldown: 8
     HP: 0
+    Time: 0
+    Percent: 0
+    Radius: 3

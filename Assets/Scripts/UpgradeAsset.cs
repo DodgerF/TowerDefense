@@ -17,6 +17,8 @@ namespace TowerDefense
             public float Cooldown;
             public int HP;
             public float Time;
+            public float Percent;
+            public float Radius;
         }
     }
 }

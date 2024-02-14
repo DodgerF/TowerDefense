@@ -607,30 +607,14 @@ PrefabInstance:
       propertyPath: _eventBus
       value: 
       objectReference: {fileID: 6839689699530923244}
+    - target: {fileID: 264151268881117531, guid: 520aec9a4d662294488f4b30ed805746, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 689314429362746785, guid: 520aec9a4d662294488f4b30ed805746, type: 3}
       propertyPath: _eventBus
       value: 
       objectReference: {fileID: 6839689699530923244}
-    - target: {fileID: 1216986942620488362, guid: 520aec9a4d662294488f4b30ed805746, type: 3}
-      propertyPath: _eventBus
-      value: 
-      objectReference: {fileID: 6839689699530923244}
-    - target: {fileID: 1818701708363319546, guid: 520aec9a4d662294488f4b30ed805746, type: 3}
-      propertyPath: _eventBus
-      value: 
-      objectReference: {fileID: 6839689699530923244}
-    - target: {fileID: 4217080989112466344, guid: 520aec9a4d662294488f4b30ed805746, type: 3}
-      propertyPath: _eventBus
-      value: 
-      objectReference: {fileID: 6839689699530923244}
-    - target: {fileID: 4627461414354166763, guid: 520aec9a4d662294488f4b30ed805746, type: 3}
-      propertyPath: _eventBus
-      value: 
-      objectReference: {fileID: 6839689699530923244}
-    - target: {fileID: 4642263160948069727, guid: 520aec9a4d662294488f4b30ed805746, type: 3}
-      propertyPath: _prefabTBC
-      value: 
-      objectReference: {fileID: 7568843436560748755, guid: 86ea5668e6c1d454eba69a11ea7a9719, type: 3}
     - target: {fileID: 4881240181092689301, guid: 520aec9a4d662294488f4b30ed805746, type: 3}
       propertyPath: _spell
       value: 
@@ -1150,6 +1134,10 @@ MonoBehaviour:
   - Asset: {fileID: 11400000, guid: a4e3296f244966a4282073706ac8577a, type: 2}
     Level: 0
   - Asset: {fileID: 11400000, guid: 17973dac63e1b19479ad399cf6adcdbe, type: 2}
+    Level: 0
+  - Asset: {fileID: 11400000, guid: 130346f55b4d8264fbbb6d345592c89e, type: 2}
+    Level: 0
+  - Asset: {fileID: 11400000, guid: 8dff395546cb1704ab504f28f2035093, type: 2}
     Level: 0
 --- !u!4 &1599388692
 Transform:

@@ -10,7 +10,7 @@ namespace TowerDefense
         [SerializeField] private Spell _spell;
         private Button _button;
         private Image _img;
-        private void Awake()
+        private void Start()
         {
             _button = GetComponent<Button>();
             _img = GetComponent<Image>();
