@@ -15,6 +15,8 @@ namespace TowerDefense
             _button = GetComponent<Button>();
             _img = GetComponent<Image>();
 
+            print(_spell == null);
+
             if (_spell == null || Upgrades.GetUpgradeLevel(_spell.Asset) == 0)
             {
                 _img.sprite = _inactive;
