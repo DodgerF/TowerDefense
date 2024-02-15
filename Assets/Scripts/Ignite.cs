@@ -3,25 +3,15 @@ using UnityEngine.UI;
 
 namespace TowerDefense
 {
-    public enum GameStatus
-    {
-        Common,
-        Aim
-    }
+
     [RequireComponent(typeof(Explosion))]
     public class Ignite : Spell
     {
         private GameObject _circle;
+        private Vector3 _startPos;
         private Explosion _anim;
-        //TODO: убрать в другой класс
-        private GameStatus _status;
         private float _damage;
         private float _radius;
-
-        private void Awake()
-        {
-            
-        }
 
         private void Start()
         {
@@ -30,44 +20,44 @@ namespace TowerDefense
             _anim = GetComponent<Explosion>();
             _damage = _asset.Inf[level].Damage;
             _radius = _asset.Inf[level].Radius;
-            _status = GameStatus.Common;
+
+            _circle = GetComponentInChildren<SpriteRenderer>().gameObject;
+            _startPos = _circle.transform.position;
         }
 
         protected override void Update()
         {
-            if (_status == GameStatus.Aim)
+            if (StatusMachine.currentStatus == GameStatus.Aim)
             {
-                SetCirclePos();
+                var mousePos = Input.mousePosition;
+                mousePos.z = 10;
+                _circle.transform.position = Camera.main.ScreenToWorldPoint(mousePos);
 
                 if (Input.GetMouseButtonDown(0))
                 {
-                    BlowUp();
+                    BlowUp(); 
                     base.Use();
-                    _status = GameStatus.Common;
-                    print(GameStatus.Common);
+
+                    Off();                    
+                }
+                if (Input.GetKey(KeyCode.Escape))
+                {
+                    Off();
                 }
             }
             base.Update();
         }
 
-        public void SetCirclePos()
-        {
-            var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.z = 0;
-            _circle.transform.position = mousePos;
-        }
-
         public override void Use()
         {
             if (_onCooldown) return;
-            
-            _status = GameStatus.Aim;
+            StatusMachine.currentStatus = GameStatus.Aim;
         }
         
         private void BlowUp()
         {
             Collider2D[] colliders = Physics2D.OverlapCircleAll(_circle.transform.position, _radius);
-
+            
             foreach (Collider2D collider in colliders)
             {
                 if (collider.TryGetComponent<Enemy>(out var enemy))
@@ -75,7 +65,13 @@ namespace TowerDefense
                     enemy.TakeDamageWithArmor(_damage, DamageType.Fire);
                 }
             }
-            _anim.BlowUp(transform.position, _radius);
+            _anim.BlowUp(_circle.transform.position, _radius);
+        }
+
+        private void Off()
+        {
+            _circle.transform.position = _startPos;
+            StatusMachine.currentStatus = GameStatus.Base;
         }
     }
 }
