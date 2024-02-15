@@ -12,7 +12,8 @@ namespace TowerDefense
         [Serializable]
         public class Info
         {
-            public int Cost;
+            public int GoldCost;
+            public int SoulsCost;
             public float Damage;
             public float Cooldown;
             public int HP;

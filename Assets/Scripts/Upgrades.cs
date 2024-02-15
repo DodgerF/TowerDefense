@@ -55,7 +55,7 @@ namespace TowerDefense
             {
                 for (int i = 0; i < upgrade.Level; i++) 
                 {
-                    result += upgrade.Asset.Inf[i].Cost;
+                    result += upgrade.Asset.Inf[i].GoldCost;
                 }
             }
             return result;

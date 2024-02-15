@@ -611,14 +611,14 @@ PrefabInstance:
       propertyPath: _eventBus
       value: 
       objectReference: {fileID: 6839689699530923244}
-    - target: {fileID: 1474960527435084009, guid: 520aec9a4d662294488f4b30ed805746, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3075605768925327896, guid: 520aec9a4d662294488f4b30ed805746, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
+    - target: {fileID: 1241737572612801251, guid: 520aec9a4d662294488f4b30ed805746, type: 3}
+      propertyPath: _eventBus
+      value: 
+      objectReference: {fileID: 6839689699530923244}
+    - target: {fileID: 4258835349196523983, guid: 520aec9a4d662294488f4b30ed805746, type: 3}
+      propertyPath: _spell
+      value: 
+      objectReference: {fileID: 1032930366130331662}
     - target: {fileID: 4881240181092689301, guid: 520aec9a4d662294488f4b30ed805746, type: 3}
       propertyPath: _spell
       value: 
@@ -703,10 +703,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7468866370182437343, guid: 520aec9a4d662294488f4b30ed805746, type: 3}
-      propertyPath: _spell
-      value: 
-      objectReference: {fileID: 1032930366130331662}
     - target: {fileID: 7988610260116340888, guid: 520aec9a4d662294488f4b30ed805746, type: 3}
       propertyPath: m_Name
       value: HUD
@@ -1138,7 +1134,7 @@ MonoBehaviour:
   - Asset: {fileID: 11400000, guid: a4e3296f244966a4282073706ac8577a, type: 2}
     Level: 0
   - Asset: {fileID: 11400000, guid: 17973dac63e1b19479ad399cf6adcdbe, type: 2}
-    Level: 1
+    Level: 2
   - Asset: {fileID: 11400000, guid: 130346f55b4d8264fbbb6d345592c89e, type: 2}
     Level: 0
   - Asset: {fileID: 11400000, guid: 8dff395546cb1704ab504f28f2035093, type: 2}

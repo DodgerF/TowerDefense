@@ -47,6 +47,7 @@ namespace TowerDefense
         {
             _enemiesSpeed.Add(enemy, enemy.MoveSpeed);
             enemy.MoveSpeed = enemy.MoveSpeed * _percent;
+            
         }
     }
 }

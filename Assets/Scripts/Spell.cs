@@ -7,6 +7,7 @@ namespace TowerDefense
     {
         [SerializeField] protected UpgradeAsset _asset;
         public UpgradeAsset Asset => _asset;
+        public int GetSoulsCost => _asset.Inf[GetLevel()].SoulsCost;
         protected float _cooldown;
         protected float _time;
         protected bool _onCooldown;

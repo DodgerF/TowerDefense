@@ -22,6 +22,7 @@ namespace TowerDefense
             _radius = _asset.Inf[level].Radius;
 
             _circle = GetComponentInChildren<SpriteRenderer>().gameObject;
+            _circle.GetComponent<RectTransform>().localScale = new Vector2(_radius, _radius);
             _startPos = _circle.transform.position;
         }
 

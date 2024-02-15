@@ -22,6 +22,11 @@ namespace TowerDefense
         public int Gold => _gold; 
         #endregion
 
+         #region Soul
+        private int _souls;
+        public int Souls => _souls; 
+        #endregion
+
         #endregion
 
         #region UnityEvents
@@ -31,11 +36,13 @@ namespace TowerDefense
             base.Awake();
 
             _currentHP = _maxHP;
+            _souls = 0;
         }
 
         private void Start()
         {
             _eventBus.Invoke(new GoldHaveChangedSignal(_gold));
+            _eventBus.Invoke(new SoulsHaveChangedSignal(_souls));
             _eventBus.Invoke(new HPHaveChangedSignal(_currentHP, _currentHP));
 
             SetMaxHP(_maxHP + Upgrades.GetUpgradeLevel(_healthUpgrade) * 5);
@@ -100,6 +107,8 @@ namespace TowerDefense
         #region Gold
         private void OnEnemyDied(EnemyKilledSignal signal)
         {
+            _souls++;
+            _eventBus.Invoke(new SoulsHaveChangedSignal(_souls));
             if (signal.Gold <= 0)
             {
                 Debug.LogWarning("Gold must be possitive");
@@ -120,6 +129,18 @@ namespace TowerDefense
             if (cost > _gold) return false;
 
             SetGold(_gold - cost);
+
+            return true;
+        }
+        #endregion
+
+        #region Souls
+        public bool BuyForSouls(int cost)
+        {
+            if (cost > _souls) return false;
+
+            _souls -= cost;
+            _eventBus.Invoke(new SoulsHaveChangedSignal(_souls));
 
             return true;
         }

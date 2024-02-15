@@ -444,22 +444,14 @@ PrefabInstance:
       propertyPath: _eventBus
       value: 
       objectReference: {fileID: 8351396618386078225}
-    - target: {fileID: 1216986942620488362, guid: 520aec9a4d662294488f4b30ed805746, type: 3}
+    - target: {fileID: 1241737572612801251, guid: 520aec9a4d662294488f4b30ed805746, type: 3}
       propertyPath: _eventBus
       value: 
       objectReference: {fileID: 8351396618386078225}
-    - target: {fileID: 1818701708363319546, guid: 520aec9a4d662294488f4b30ed805746, type: 3}
-      propertyPath: _eventBus
+    - target: {fileID: 4258835349196523983, guid: 520aec9a4d662294488f4b30ed805746, type: 3}
+      propertyPath: _spell
       value: 
-      objectReference: {fileID: 8351396618386078225}
-    - target: {fileID: 4217080989112466344, guid: 520aec9a4d662294488f4b30ed805746, type: 3}
-      propertyPath: _eventBus
-      value: 
-      objectReference: {fileID: 8351396618386078225}
-    - target: {fileID: 4627461414354166763, guid: 520aec9a4d662294488f4b30ed805746, type: 3}
-      propertyPath: _eventBus
-      value: 
-      objectReference: {fileID: 8351396618386078225}
+      objectReference: {fileID: 1000610926}
     - target: {fileID: 4881240181092689301, guid: 520aec9a4d662294488f4b30ed805746, type: 3}
       propertyPath: _spell
       value: 

@@ -19,7 +19,7 @@ namespace TowerDefense
         }
         public void CheckCost()
         {
-            if (_savedLevel <= _asset.Inf.Length && _asset.Inf[_savedLevel - 1].Cost > _shop.PlayerMoney)
+            if (_savedLevel <= _asset.Inf.Length && _asset.Inf[_savedLevel - 1].GoldCost > _shop.PlayerMoney)
             {
                 _button.interactable = false;
             }
@@ -59,7 +59,7 @@ namespace TowerDefense
             else
             {
                 _upgradeLevel.text = $"Level {_savedLevel}";
-                _cost.text = _asset.Inf[_savedLevel - 1].Cost.ToString();
+                _cost.text = _asset.Inf[_savedLevel - 1].GoldCost.ToString();
                 
             }
            
