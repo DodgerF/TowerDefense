@@ -130,5 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _velocity: 10
+  _lifetime: 4
   _damage: 5
+  _damageType: 0
   _type: 2

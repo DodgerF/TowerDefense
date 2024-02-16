@@ -7,7 +7,7 @@ namespace TowerDefense
     {
         #region Properties
         [SerializeField] protected float _velocity;
-        protected float _lifetime;
+        [SerializeField] protected float _lifetime = 4f;
         [SerializeField] protected float _damage;
         protected float _timer;
         [SerializeField] protected DamageType _damageType;
@@ -23,9 +23,6 @@ namespace TowerDefense
 
         protected virtual void OnEnable()
         {
-            float dist = Vector3.Distance(transform.position, _targetPoint);
-            float vel = _velocity / 2f; //�������, ����� projeectiles �������� � ������ �����
-            _lifetime = dist / vel;
             _timer = 0f;
         }
 

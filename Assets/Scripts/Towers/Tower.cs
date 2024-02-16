@@ -23,12 +23,11 @@ namespace TowerDefense
         {   
             if (_target && _target.isActiveAndEnabled)
             {
-                Vector3 targetVector = GetShootingPoint();
-
-                if (targetVector.magnitude <= _radius)
+                if (Vector3.Distance(_target.transform.position, transform.position)<= _radius)
                 {
                     foreach (Turret turret in _turrets)
                     {
+                        var targetVector = (Vector3)_target.GetComponent<CircleCollider2D>().offset + _target.transform.position - turret.transform.position;
                         turret.transform.up = targetVector;
                         turret.Fire(targetVector);
                     }
@@ -45,12 +44,6 @@ namespace TowerDefense
             }
         }
         #endregion
-
-        private Vector3 GetShootingPoint()
-        {
-            CircleCollider2D collider = _target.GetComponentInChildren<CircleCollider2D>();
-            return collider.bounds.center - transform.position;
-        }
 
         private void TryFindTarget()
         {
