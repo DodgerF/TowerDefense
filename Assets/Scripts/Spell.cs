@@ -37,9 +37,10 @@ namespace TowerDefense
         protected int GetLevel()
         {
             var level = Upgrades.GetUpgradeLevel(_asset);
-            if (level >= _asset.Inf.Length)
+            print($"{_asset.name} {Upgrades.GetUpgradeLevel(_asset)}");
+            if (level != 0)
             {
-                level = _asset.Inf.Length - 1;
+                level--;
             }
             return level;
         }

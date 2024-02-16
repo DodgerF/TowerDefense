@@ -52,17 +52,20 @@ namespace TowerDefense
             if (_icon.sprite == _inactive)
             {
                 _panel.SetActive(false);
-                _button.interactable = true;
-            }
-            else if (_cost > Player.Instance.Souls)
-            {
-                _panel.SetActive(true);
                 _button.interactable = false;
             }
             else
             {
-                _panel.SetActive(false);
-                _button.interactable = true;
+                if (_cost > Player.Instance.Souls)
+                {
+                    _panel.SetActive(true);
+                    _button.interactable = false;
+                }
+                else
+                {
+                    _panel.SetActive(false);
+                    _button.interactable = true;
+                }
             }
         }
        

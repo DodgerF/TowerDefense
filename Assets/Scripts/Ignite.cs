@@ -15,7 +15,7 @@ namespace TowerDefense
 
         private void Start()
         {
-            var level = Upgrades.GetUpgradeLevel(_asset);
+            var level = GetLevel();
 
             _anim = GetComponent<Explosion>();
             _damage = _asset.Inf[level].Damage;
