@@ -3,10 +3,12 @@ using UnityEngine;
 
 namespace TowerDefense
 {
+    [RequireComponent(typeof(SoundHook))]
     public class Player : SingletonBase<Player>
     {
         #region Fields
         [SerializeField] private EventBus _eventBus;
+        private SoundHook _attackedSound;
         #region HP
         [SerializeField] private int _maxHP;
         public int MaxHP => _maxHP;
@@ -35,6 +37,7 @@ namespace TowerDefense
         {
             base.Awake();
 
+            _attackedSound = GetComponent<SoundHook>();
             _currentHP = _maxHP;
             _souls = 0;
         }
@@ -72,7 +75,7 @@ namespace TowerDefense
                 Debug.LogWarning("Damage must be possitive");
                 return;
             }
-
+            _attackedSound.Play();
             SetHP(_currentHP - damage);
         }
 

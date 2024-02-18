@@ -132,5 +132,7 @@ MonoBehaviour:
   _velocity: 10
   _lifetime: 4
   _damage: 50
+  _shootSound: 10
+  _hitSound: 11
   _damageType: 0
   _type: 0

@@ -9,16 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fecf619f3e4b4b43a3b15faa9d16696, type: 3}
-  m_Name: BombTower
+  m_Script: {fileID: 11500000, guid: bb32a063297e8fc4483ea7aa70cee733, type: 3}
+  m_Name: Sounds
   m_EditorClassIdentifier: 
-  Icon: {fileID: 21300000, guid: 1ff55c4a74fcf9b429b49b787ead3395, type: 3}
-  Inf:
-  - GoldCost: 0
-    SoulsCost: 0
-    Damage: 0
-    Cooldown: 0
-    HP: 0
-    Time: 0
-    Percent: 0
-    Radius: 0
+  _sounds: []

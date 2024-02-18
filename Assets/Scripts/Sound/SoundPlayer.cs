@@ -13,11 +13,8 @@ namespace TowerDefense
             _audio = GetComponent<AudioSource>(); 
             base.Awake();
 
-            if (_backgroundMusic != _audio.clip)
-            {
-                Instance._audio.clip = _backgroundMusic;
-                Instance._audio.Play();
-            }
+            Instance._audio.clip = _backgroundMusic;
+            Instance._audio.Play();
         }
         public void Play(Sound sound)
         {

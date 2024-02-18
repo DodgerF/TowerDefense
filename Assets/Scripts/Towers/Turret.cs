@@ -7,7 +7,6 @@ namespace TowerDefense
     public class Turret : MonoBehaviour
     {
         [SerializeField] private TurretProperties _turretProperties;
-        [SerializeField] private int _defaultCapacity;
         public TurretProperties Property => _turretProperties;
 
         private float _refireTimer;

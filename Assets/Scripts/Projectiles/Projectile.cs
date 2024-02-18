@@ -9,6 +9,9 @@ namespace TowerDefense
         [SerializeField] protected float _velocity;
         [SerializeField] protected float _lifetime = 4f;
         [SerializeField] protected float _damage;
+        [SerializeField] protected Sound _shootSound;
+        [SerializeField] protected Sound _hitSound;
+
         protected float _timer;
         [SerializeField] protected DamageType _damageType;
 
@@ -24,6 +27,7 @@ namespace TowerDefense
         protected virtual void OnEnable()
         {
             _timer = 0f;
+            _shootSound.Play();
         }
 
         protected virtual void FixedUpdate()
@@ -52,6 +56,7 @@ namespace TowerDefense
             if (hit.collider.TryGetComponent<Enemy>(out Enemy enemy) && (enemy.Type == _type || _type == Type.All))
             {
                 DealDamage(enemy);
+                _hitSound.Play();
                 OnProjectileLifeEnd();
             }
         }

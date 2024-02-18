@@ -19,10 +19,12 @@ namespace TowerDefense
         Fire
     }
 
+    [RequireComponent(typeof(SoundHook))]
     public class Enemy : Destructible
     {
         #region Fields
 
+        private SoundHook _deathSound;
         public Type Type;
         
         private EventBus _eventBus;
@@ -68,6 +70,7 @@ namespace TowerDefense
             _sprite = transform.Find("View").GetComponent<SpriteRenderer>();
             _animator = _sprite.GetComponent<Animator>();
             _circleCollider = GetComponentInChildren<CircleCollider2D>();
+            _deathSound = GetComponent<SoundHook>();
         }
         
         #endregion
@@ -77,9 +80,12 @@ namespace TowerDefense
         {
             MyObjectPool.ReturnObjectToPool(gameObject);
             _eventBus.Invoke(new EnemyKilledSignal(_gold));
+            _deathSound.Play();
             OnEnd?.Invoke();
         }
         #endregion
+
+        
 
         #region Public methods
 
@@ -90,6 +96,13 @@ namespace TowerDefense
                 damage = Mathf.Max(damage - _armor, 0);
             }
             ApplyDamage(damage);
+        }
+
+        public void Attack()
+        {
+            Player.Instance.Attacked(_dmg);
+            MyObjectPool.ReturnObjectToPool(gameObject);
+            OnEnd?.Invoke();
         }
 
         public void Move(Vector3 point)

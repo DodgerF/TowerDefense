@@ -10,6 +10,7 @@ namespace TowerDefense
         private GameObject _circle;
         private Vector3 _startPos;
         private Explosion _anim;
+        private Sound _boomSound = Sound.BombHit;
         private float _damage;
         private float _radius;
 
@@ -66,6 +67,7 @@ namespace TowerDefense
                     enemy.TakeDamageWithArmor(_damage, DamageType.Fire);
                 }
             }
+            _boomSound.Play();
             _anim.BlowUp(_circle.transform.position, _radius);
         }
 

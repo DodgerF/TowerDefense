@@ -49,6 +49,8 @@ MonoBehaviour:
   _velocity: 7
   _lifetime: 4
   _damage: 3
+  _shootSound: 8
+  _hitSound: 9
   _damageType: 1
   _type: 1
   _radiusExplosion: 1

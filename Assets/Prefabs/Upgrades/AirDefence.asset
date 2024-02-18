@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: bdd6845875df02742979b38cbafb28c1, type: 3}
   Inf:
-  - GoldCost: 3
+  - GoldCost: 0
     SoulsCost: 0
     Damage: 0
     Cooldown: 0

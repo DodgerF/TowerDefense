@@ -13,34 +13,34 @@ namespace TowerDefense
         #region Fields
 
         /// <summary>
-        /// Цель для атаки.
+        /// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
         /// </summary>
         private Destructible _attackTarget;
 
         #region Path
 
         /// <summary>
-        /// Цель пути.
+        /// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ.
         /// </summary>
         private Vector3 _moveTarget;
 
         /// <summary>
-        /// Путь по которому идет персонаж.
+        /// пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
         /// </summary>
         private Path _path;
         /// <summary>
-        /// Индекс текущей зоны(_area), взятой из пути (_path).
+        /// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ(_area), пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ (_path).
         /// </summary>
         private int _pathIndex;
 
         /// <summary>
-        /// Некая зона, в которую надо попасть. Является частью пути.
+        /// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ.
         /// </summary>
         private Area _area; 
         #endregion
 
         /// <summary>
-        /// Текущий персонаж, которым данный класс управляет.
+        /// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
         /// </summary>
         private Enemy _character;
 
@@ -58,7 +58,7 @@ namespace TowerDefense
         }
         private void LateUpdate()
         {
-            //Поворот спрайта. Если идти влево - true, иначе right.
+            //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ - true, пїЅпїЅпїЅпїЅпїЅ right.
             bool isLeft = _moveTarget.x < _character.transform.position.x;
             _character.TurnCharacter(isLeft);
         }
@@ -68,7 +68,7 @@ namespace TowerDefense
         #region Logic Methods
 
         /// <summary>
-        /// Метод поведения.
+        /// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
         /// </summary>
         private void UpdateCharacter()
         {
@@ -81,17 +81,17 @@ namespace TowerDefense
 
         private void EvadeCollision()
         {
-            //Заглушка
+            //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         }
 
         private void Attack()
         {
-            //Заглушка
+            //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         }
 
         private void FindNewAttackTarget()
         {
-            //Заглушка
+            //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         }
 
         private void MoveToTarget()
@@ -116,7 +116,7 @@ namespace TowerDefense
                 }
                 else
                 {
-                    // если мы не в зоне, то едем до нее.
+                    // пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ.
                     _moveTarget = _area.transform.position;
                 }
             }
@@ -137,8 +137,7 @@ namespace TowerDefense
 
         private void DealDamageToPlayer()
         {
-            Player.Instance.Attacked(_character.Damage);
-            _character.SetHP(0);
+            _character.Attack();
         }
         #endregion
 
