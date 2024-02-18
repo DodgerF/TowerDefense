@@ -109,6 +109,7 @@ namespace TowerDefense
             }
             if (numCompleted == m_Conditions.Length)
             {
+                print(m_LevelTime);
                 m_IsComplited = true;
 
                 if (m_LevelTime > m_ReferenceTime)

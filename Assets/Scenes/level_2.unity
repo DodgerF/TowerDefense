@@ -1795,7 +1795,7 @@ MonoBehaviour:
   _eventBus: {fileID: 8351396618386078225}
   _maxHP: 20
   _healthUpgrade: {fileID: 11400000, guid: a4e3296f244966a4282073706ac8577a, type: 2}
-  _gold: 50
+  _gold: 30
 --- !u!1 &7274446158426130266
 GameObject:
   m_ObjectHideFlags: 0
@@ -2089,7 +2089,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_DontDestroyOnLoad: 0
   _eventBus: {fileID: 8351396618386078225}
-  m_ReferenceTime: 20
+  m_ReferenceTime: 30
   BonusScorePerSecond: 0
 --- !u!114 &8694139285765917440
 MonoBehaviour:

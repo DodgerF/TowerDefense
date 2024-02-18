@@ -16,11 +16,11 @@ MonoBehaviour:
   SpriteScale: {x: 3, y: 3}
   Animator: {fileID: 9100000, guid: c2aa9871b3764c44b854042e8c161092, type: 2}
   MoveSpeed: 1
-  HP: 2
-  Armor: 2
-  ProtectionFrom: 1
+  HP: 9
+  Armor: 5
+  ProtectionFrom: 0
   Score: 1
   Gold: 2
   Radius: 0.4
-  Damage: 2
+  Damage: 10
   Type: 1

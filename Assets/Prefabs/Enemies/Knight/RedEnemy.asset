@@ -22,5 +22,5 @@ MonoBehaviour:
   Score: 1
   Gold: 5
   Radius: 0.4
-  Damage: 5
+  Damage: 20
   Type: 1

@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EpisodeName: level_1 2
   m_Levels:
-  - level_1
+  - level_1 1
   m_PreviewImage: {fileID: 0}

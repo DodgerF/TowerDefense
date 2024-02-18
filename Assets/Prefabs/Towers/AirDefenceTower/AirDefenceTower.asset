@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a25f03b90d67164b9135b7c5b90f029, type: 3}
   m_Name: AirDefenceTower
   m_EditorClassIdentifier: 
-  GoldCost: 50
+  GoldCost: 30
   TowerGUI: {fileID: 21300000, guid: bdd6845875df02742979b38cbafb28c1, type: 3}
   Sprite: {fileID: 21300000, guid: 298636722737c4b41816506cd4bc994f, type: 3}
   Radius: 6

@@ -51,7 +51,7 @@ MonoBehaviour:
   _damage: 1
   _shootSound: 8
   _hitSound: 9
-  _damageType: 1
+  _damageType: 2
   _type: 1
   _radiusExplosion: 1
 --- !u!114 &958917042925034799

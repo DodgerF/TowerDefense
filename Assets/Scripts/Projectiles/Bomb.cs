@@ -31,6 +31,7 @@ namespace TowerDefense
             _timer += Time.deltaTime;
             if (_timer > _lifetime)
             {
+                print(_timer);
                 Explosion();
                 OnProjectileLifeEnd();
             }

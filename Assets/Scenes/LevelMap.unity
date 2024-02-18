@@ -674,6 +674,8 @@ MonoBehaviour:
     score: 0
   - episode: {fileID: 11400000, guid: 0334ee93fd16e24438263cb41b93ebb0, type: 2}
     score: 0
+  - episode: {fileID: 11400000, guid: 008df6e2f5039344d9fd76df8405492a, type: 2}
+    score: 0
 --- !u!114 &216255431
 MonoBehaviour:
   m_ObjectHideFlags: 0

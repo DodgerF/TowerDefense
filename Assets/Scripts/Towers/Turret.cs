@@ -32,8 +32,9 @@ namespace TowerDefense
 
             if (_turretProperties.ProjectilePrefab != null)
             {
-                var projectile = MyObjectPool.SpawnObject(_turretProperties.ProjectilePrefab.gameObject, transform.position, Quaternion.identity,
-                                                          MyObjectPool.PoolType.Projectiles);
+                //var projectile = MyObjectPool.SpawnObject(_turretProperties.ProjectilePrefab.gameObject, transform.position, Quaternion.identity,
+                //                                          MyObjectPool.PoolType.Projectiles);
+                var projectile = Instantiate(_turretProperties.ProjectilePrefab.gameObject, transform.position, Quaternion.identity);
                 projectile.transform.up = transform.up;
                 projectile.GetComponent<Projectile>().Target = targetVector;
             }

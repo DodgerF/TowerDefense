@@ -77,7 +77,8 @@ namespace TowerDefense
 
         protected virtual void OnProjectileLifeEnd()
         {
-            MyObjectPool.ReturnObjectToPool(gameObject);
+            Destroy(gameObject);
+            //MyObjectPool.ReturnObjectToPool(gameObject);
         }
 
     }
